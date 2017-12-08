@@ -1,6 +1,6 @@
 <?php
 session_start();
-print("<p>Inloggen... Deel uw wachtwoord nooit met iemand!</p>");
+print("<p>Inloggen, even geduld aub... Deel uw wachtwoord nooit met iemand!</p>");
 
 if ($_SESSION['role'] === "admin")
 {
