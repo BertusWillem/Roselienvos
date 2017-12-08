@@ -11,3 +11,4 @@ include ('header.php');
       </section>
     </section>
   <?php include ('footer.php');
+  //je moeder pusht teveel
