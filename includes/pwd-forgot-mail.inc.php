@@ -24,7 +24,7 @@ $rows = $stmt ->fetch();
     //Als het email adres niet gevonden is wordt er een error message gegenereerd
   }
   else {
-    //TODO: een email versturen met de onderstaande inhoud
+
 
 
 
@@ -39,6 +39,9 @@ $rows = $stmt ->fetch();
   <br><br><br>
   Met vriendelijke groet.
   </p>");
+
+include'mail.php';
+
 header("Location: ../login.php?message=forgotmail");
 exit();
 }
