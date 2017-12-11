@@ -7,10 +7,6 @@ $tabel = $_GET['tabel'];
 include '../includes/paginalader.inc.php';
 include '../includes/dbh.php';
 
-//Kon geen _id achter een var plaatsen in een query. Maar dit werkt ook, vies he?
-$id = $tabel.'_id';
-
-
 if(isset($_GET["verwijderen"])) {
 	if($tabel == 'nieuws'){
 		$sth = $dbh->prepare("DELETE FROM nieuws WHERE nieuws_id=:pagina");
@@ -24,17 +20,27 @@ if(isset($_GET["verwijderen"])) {
 	}
 }
 
-
-$stmt = $dbh->prepare("SELECT * FROM $tabel JOIN afbeeldingen ON $tabel.afbeelding = afbeeldingen.afbeeldingid WHERE $id = :pagina");
-
-$stmt->execute(array(':pagina' => $pagina));
-$rows = $stmt -> fetch();
+if ($tabel == 'behandel'){
+	$stmt = $dbh->prepare("SELECT * FROM behandel JOIN afbeeldingen ON behandel.afbeelding = afbeeldingen.afbeeldingid WHERE behandel_id = :pagina");
+	$stmt->execute(array(':pagina' => $pagina));
+	$rows = $stmt -> fetch();
+}
+elseif ($tabel == 'nieuws'){
+	$stmt = $dbh->prepare("SELECT * FROM nieuws JOIN afbeeldingen ON nieuws.afbeelding = afbeeldingen.afbeeldingid WHERE nieuws_id = :pagina");
+	$stmt->execute(array(':pagina' => $pagina));
+	$rows = $stmt -> fetch();
+}
+elseif ($tabel == 'pagina'){
+	$stmt = $dbh->prepare("SELECT * FROM pagina JOIN afbeeldingen ON pagina.afbeelding = afbeeldingen.afbeeldingid WHERE pagina_id = :pagina");
+	$stmt->execute(array(':pagina' => $pagina));
+	$rows = $stmt -> fetch();
+}
 ?>
 
 <section class="body-container">
   <section class="container">
 	  <div class="profile">
-		  
+
     <!--Text-->
     <div class="left">
       <h1 style="margin-bottom: 25px;">Text</h1>
@@ -43,22 +49,22 @@ $rows = $stmt -> fetch();
         <textarea rows="20" cols="50" name="inhoud"><?php print($rows['inhoud']);?></textarea>
         <div class="input-window" id="box"><input type="submit" value="Wijzigen"></div>
 		</form>
-		
-		
-		<form> 
+
+
+		<form>
 			<div class="input-window" id="box" style="width: 100%!important; margin-bottom: 0; margin-top: 0;">
 				<input type="submit" style="background-color: red!important; margin-top: 50px;" name="verwijderen" value="verwijderen">
 				<input type="hidden" name="tabel" value="<?php print($tabel); ?>">
 				<input type="hidden" name="pagina" value="<?php print($pagina); ?>">
 			</div>
 		</form>
-		
-		  
+
+
 		  </div>
-		
-   
-	  
-	  
+
+
+
+
 	  <!--Gallery-->
     <div class="right">
       <h1 style="margin-bottom: 25px;">Afbeelding</h1>
