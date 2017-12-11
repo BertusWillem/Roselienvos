@@ -117,10 +117,27 @@ function requestProfile($userid, $optie)
   $postcode = $adrow['postcode'];
   $woonplaats = $adrow['woonplaats'];
   $page = ($firstname ." " . $lastname);
-
-
 }
 
+###############################################################################
+#                                                                             #
+#           VERANDER DE INFO VAN EEN GEBRUIKER IN DE DATABASE                 #
+#                                                                             #
+###############################################################################
+
+function changeProfile($userid, $firstname,$lastname,$adres,$postcode,$woonplaats){
+  include 'dbh.php';
+  $stmt = $dbh->prepare("UPDATE gebruikers SET firstname = :firstname, lastname = :lastname
+                         WHERE userid = :userid;");
+  $stmt->execute(array(':firstname' => $firstname, ':lastname' => $lastname, ':userid' => $userid));
+
+
+  $stmt = $dbh->prepare("UPDATE gegevens SET adres = :adres, postcode = :postcode,
+                        woonplaats = :woonplaats WHERE added_by = :userid;");
+  $stmt->execute(array(':adres' => $adres, ':postcode' => $postcode, ':woonplaats' => $woonplaats, ':userid' => $userid));
+
+  header("Location: ../profile.php?message=infoupdated");
+}
 
 
 
