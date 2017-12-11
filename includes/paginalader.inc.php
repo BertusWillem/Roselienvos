@@ -62,16 +62,24 @@ include ("dbh.php");
 
             }
             elseif ($page == "Prijzen") {
-                 $sth = $dbh ->prepare("SELECT titel FROM behandel where behandel_id = 1");
-                 $sth -> execute(array());
-                 $result = $sth ->fetch(PDO::FETCH_ASSOC);
-                 echo ("<div class='left' id='box'><h1>" . $result["titel"] . "</h1><table>");
+
+                $sth2 = $dbh ->prepare("SELECT behandel_id FROM behandel");
+                $sth2 -> execute(array());
+                while($result2 = $sth2 ->fetch(PDO::FETCH_ASSOC)){
 
 
-                 $sth = $dbh ->prepare("SELECT prijsnaam, prijs, omschrijving FROM prijs where behandel_id = 1");
-                    $sth -> execute(array());
+
+
+                $sth = $dbh ->prepare("SELECT titel FROM behandel where behandel_id = ?");
+                $sth -> execute(array($result2["behandel_id"]));
+                $result = $sth ->fetch(PDO::FETCH_ASSOC);
+                echo ("<div class='left' id='box'><h1>" . $result["titel"] . "</h1><table>");
+
+
+                $sth = $dbh ->prepare("SELECT prijsnaam, prijs, omschrijving FROM prijs where behandel_id = ?");
+                    $sth -> execute(array($result2["behandel_id"]));
                     while ($result = $sth ->fetch(PDO::FETCH_ASSOC)){
-                        echo ("<div class='left' id='box'><h1>hi</h1><table>");
+
 
                         echo ("<tr><td>" . $result['prijsnaam'] . "</br>" .$result['omschrijving'] .  "</td><td> " . $result["prijs"] . "</td></tr>");
                     }
@@ -80,7 +88,7 @@ include ("dbh.php");
                     <td id='button'><a href='afspraak.php'>Afspraak maken</a></td>
                     </tr></table></div>");
             }
-
+            }
 
 
 
