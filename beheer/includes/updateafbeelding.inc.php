@@ -1,11 +1,10 @@
 <?php
 $tabel = $_GET['tabel'];
 $pagina = $_GET['pagina'];
-//Kon geen _id achter een var plaatsen in een query. Maar dit werkt ook, vies he?
-$id = $tabel.'_id';
 
 include '../../includes/dbh.php';
 
+// update een afbeelding op basis van de tabel naam
 if ($tabel == 'behandel'){
   $stmt = $dbh->prepare("UPDATE behandel SET afbeelding = :afbeelding WHERE behandel_id = :pagina;");
   $stmt->execute(array(':afbeelding' => $_GET['afbeelding'], ':pagina' => $_GET['pagina']));
@@ -17,5 +16,6 @@ if ($tabel == 'behandel'){
   $stmt->execute(array(':afbeelding' => $_GET['afbeelding'], ':pagina' => $_GET['pagina']));
 }
 
+// verwijst je weer terug naar de oorspronkelijke pagina
 header ("Location: ../paginabewerk.beheer.php?tabel=$tabel&&pagina=$pagina");
 ?>
