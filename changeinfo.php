@@ -11,23 +11,6 @@ include 'header.php';
 include 'includes/loginsystem.func.php';
 requestProfile($_SESSION['userid'],"changeInfo");
 }
-/*  include 'includes/dbh.php';
-  $stmt = $dbh->prepare("SELECT email, firstname, lastname FROM gebruikers WHERE userid = :userid");
-  $stmt->execute(array(':userid' => $userid));
-  $rows = $stmt ->fetch();
-  // Hier haalt php de accountgegevens uit de database
-
-  $stmt = $dbh->prepare("SELECT * FROM gegevens WHERE added_by IN (SELECT userid FROM gebruikers WHERE userid = :userid)");
-  $stmt->execute(array(':userid' => $userid));
-  $adrow = $stmt ->fetch();
-  // Hier haalt php de persoonsgegevens uit de database
-  $email = $rows['email'];
-  $firstname = ucfirst($rows['firstname']);
-  $lastname= ucfirst($rows['lastname']);
-  $adres = $adrow['adres'];
-  $postcode = $adrow['postcode'];
-  $woonplaats = $adrow['woonplaats'];
-*/
   ?>
 
   <section class="body-container">
