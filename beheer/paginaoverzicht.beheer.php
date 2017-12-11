@@ -5,7 +5,15 @@ include 'header.beheer.php';
 $tabel = $_GET['tabel'];
 
 include '../includes/dbh.php';
-$stmt = $dbh->prepare("SELECT * FROM $tabel");
+
+// Bekijkt in welk tabel je zit.
+if ($tabel == 'behandel'){
+  $stmt = $dbh->prepare("SELECT * FROM behandel");
+}elseif ($tabel == 'nieuws'){
+  $stmt = $dbh->prepare("SELECT * FROM nieuws");
+}elseif ($tabel == 'pagina'){
+  $stmt = $dbh->prepare("SELECT * FROM pagina");
+}
 $stmt->execute();
 ?>
 
