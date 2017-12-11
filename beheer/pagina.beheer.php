@@ -4,11 +4,16 @@ $page = $_GET['benaming'];
 include 'header.beheer.php';
 $tabel = $_GET['tabel'];
 
-//Kon geen _id achter een var plaatsen in een query. Maar dit werkt ook, vies he?
-$id = $tabel.'_id';
-
 include '../includes/dbh.php';
-$stmt = $dbh->prepare("SELECT * FROM $tabel ORDER BY $id DESC");
+
+// Bekijkt in welk tabel je zit.
+if ($tabel == 'behandel'){
+  $stmt = $dbh->prepare("SELECT * FROM behandel ORDER BY behandel_id DESC");
+}elseif ($tabel == 'nieuws'){
+  $stmt = $dbh->prepare("SELECT * FROM nieuws ORDER BY nieuws_id DESC");
+}elseif ($tabel == 'pagina'){
+  $stmt = $dbh->prepare("SELECT * FROM pagina ORDER BY pagina_id DESC");
+}
 $stmt->execute();
 ?>
 
@@ -18,7 +23,7 @@ $stmt->execute();
 	  <?php print('<a href="includes/berichtplaatsen.inc.php?tabel='.$tabel.'&&page='.$page.'">'); ?> <div class="input-window" id="box" style="width: 100%!important; margin-bottom: 0; margin-top: 0;">
 	  <input type="submit" value="Nieuw bericht plaatsen">
       </div></a>
-		
+
       <?php
       while ($rows = $stmt->fetch()){
       print('
