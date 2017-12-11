@@ -6,9 +6,16 @@ $id = $tabel.'_id';
 
 include '../../includes/dbh.php';
 
-include '../../dbh.php';
-$stmt = $dbh->prepare("UPDATE $tabel SET afbeelding = :afbeelding WHERE $id = :pagina;");
-$stmt->execute(array(':afbeelding' => $_GET['afbeelding'], ':pagina' => $_GET['pagina']));
+if ($tabel == 'behandel'){
+  $stmt = $dbh->prepare("UPDATE behandel SET afbeelding = :afbeelding WHERE behandel_id = :pagina;");
+  $stmt->execute(array(':afbeelding' => $_GET['afbeelding'], ':pagina' => $_GET['pagina']));
+} elseif ($tabel == 'nieuws'){
+  $stmt = $dbh->prepare("UPDATE nieuws SET afbeelding = :afbeelding WHERE nieuws_id = :pagina;");
+  $stmt->execute(array(':afbeelding' => $_GET['afbeelding'], ':pagina' => $_GET['pagina']));
+} elseif ($tabel == 'pagina'){
+  $stmt = $dbh->prepare("UPDATE pagina SET afbeelding = :afbeelding WHERE pagina_id = :pagina;");
+  $stmt->execute(array(':afbeelding' => $_GET['afbeelding'], ':pagina' => $_GET['pagina']));
+}
 
 header ("Location: ../paginabewerk.beheer.php?tabel=$tabel&&pagina=$pagina");
 ?>
