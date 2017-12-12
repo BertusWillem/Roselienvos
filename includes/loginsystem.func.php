@@ -20,8 +20,22 @@ function loginRequest($email, $password)
   //Het wachtwoord wordt geconteroleerd met de hash in de database
     if (!$validPassword)
     {
-    header("Location: ../login.php?error=incorrect");
-    exit();
+      $ip = $_SERVER["REMOTE_ADDR"];
+      $stm = $dbh->prepare("INSERT INTO attemts (ip ,time) VALUES ('$ip',CURRENT_TIMESTAMP)");
+      $stm->execute();
+
+      $stm2 = $dbh->prepare("SELECT COUNT(*) as atm FROM attemts WHERE ip LIKE '$ip' AND time > NOW() - INTERVAL 10 MINUTE");
+      $stm2->execute();
+      $count = $stm2->fetch();
+
+      if($count['atm'] > 3){
+      header("Location: ../login.php?error=attemts");
+      exit();
+      }
+      else{
+      header("Location: ../login.php?error=incorrect");
+      exit();
+      }
     //Als dit niet overeen komt, wordt er een error message gegenereerd
     }
     else

@@ -8,25 +8,20 @@ $mail = new PHPMailer;
 
 
 //Maakt verbinden met de smtp server
-$mail->isSMTP();                                     
-$mail->Host = 'smtp.ziggo.nl';  
-$mail->SMTPAuth = true;                               
-$mail->Username = 'jvsloten@ziggo.nl';                 
-$mail->Password = 'Kbs2017!';                         
-$mail->SMTPSecure = 'TLS';                            
+$mail->isSMTP();
+$mail->Host = 'smtp.ziggo.nl';
+$mail->SMTPAuth = true;
+$mail->Username = 'jvsloten@ziggo.nl';
+$mail->Password = 'Kbs2017!';
+$mail->SMTPSecure = 'TLS';
 $mail->Port = 587;      
-    
-
-
-
-
 
 
 $mail->setFrom('from@example.com', 'Mailer'); //stelt de naam van de verstuurder in
 $mail->addAddress($mailreceiver);     // voegt een ontvanger toe
 
 
-$mail->isHTML(true);                                  
+$mail->isHTML(true);
 
 $mail->Subject = $mailsubject;
 $mail->Body    = $mailcontent;
@@ -40,11 +35,3 @@ if(!$mail->send()) { //is de mail NIET verzonden?
 } else {
     print ("<script type='text/javascript'>alert('Bericht succesvol verstuurd!')</script>");
 }
-
-           
-       
-       
-      
-       
- 
-     
