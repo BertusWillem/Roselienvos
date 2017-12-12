@@ -9,6 +9,9 @@ include 'includes/dbh.php';
 $stmt = $dbh->prepare("DELETE FROM attemts WHERE time < NOW() - INTERVAL 10 MINUTE");
 $stmt->execute();
 
+$stmt = $dbh->prepare("DELETE FROM attemts WHERE ip = :ip");
+$stmt->execute(array(':ip' => $_SERVER["REMOTE_ADDR"]));
+
 $datu = date("Y/m/d");
 $stmt = $dbh->prepare("UPDATE gebruikers SET last_seen = :datu WHERE userid = :userid");
 $stmt->execute(array(':datu' => $datu, ':userid' => $_SESSION['userid']));
