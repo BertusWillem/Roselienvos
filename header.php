@@ -97,3 +97,10 @@
         }
       }
     </script>
+
+    <?php
+    if (isset($_GET['message'])){
+      if ($_GET['message'] === "logout"){
+        print("<p style='color:green; text-align: center;'>- U bent uitgelogd.</p>");
+      }}
+     ?>
