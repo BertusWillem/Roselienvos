@@ -35,22 +35,34 @@ if (isset($_SESSION['userid'])){
     }
 }
 ?>
-      <form action="includes/register.inc.php" method="POST">
-        <input type="text" name="reg_fn" placeholder="Voornaam">
-        <input type="text" name="reg_ln" placeholder="Achternaam">
-        <input type="text" name="reg_addr" placeholder="Adres">
-        <input type="text" name="reg_pcode" placeholder="Postcode">
-        <input type="text" name="reg_woonpl" placeholder="Woonplaats">
-        <input type="email" name="reg_un" placeholder="Email adres">
+<form action="includes/register.inc.php" method="POST">
+        <input type="text" name="reg_fn" <?php if (!isset($_SESSION['fn'])){print ("placeholder='Voornaam'");}
+                                                else{print("value='".$_SESSION['fn']."'");}?>>
+        <input type="text" name="reg_ln" <?php if (!isset($_SESSION['ln'])){print ("placeholder='Achternaam'");}
+                                               else{print("value='".$_SESSION['ln']."'");}?>>
+        <input type="text" name="reg_addr" <?php if (!isset($_SESSION['addr'])){print ("placeholder='Adres'");}
+                                            else{print("value='".$_SESSION['addr']."'");}?>>
+        <input type="text" name="reg_pcode" <?php if (!isset($_SESSION['pcode'])){print ("placeholder='Postcode'");}
+                                                  else{print("value='".$_SESSION['pcode']."'");}?>>
+        <input type="text" name="reg_woonpl" <?php if (!isset($_SESSION['woonpl'])){print ("placeholder='Woonplaats'");}
+                                                   else{print("value='".$_SESSION['woonpl']."'");}?>>
+        <input type="email" name="reg_un" <?php if (!isset($_SESSION['email'])){print ("placeholder='Email adres'");}
+                                                else{print("value='".$_SESSION['email']."'");}?>>
         <input type="password" name="reg_pw" placeholder="Wachtwoord">
         <input type="password" name="reg_confpw" placeholder="Bevestig wachtwoord">
         <input type="submit" value="Aanmelden">
         <a href="login.php">Al wel een account? Inloggen!</a>
       </form>
+
+
+
     </div>
   </section>
-</section>
+</section>');
+}
 
-<?php
+
+
+
 include 'footer.php';
  ?>

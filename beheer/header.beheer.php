@@ -1,3 +1,9 @@
+<?php
+if ($_SESSION['role'] !== "admin"){
+  header ("Location: ../login.php?error=permission");
+  exit();
+}
+?>
 <!DOCTYPE html>
 <html>
   <head>
