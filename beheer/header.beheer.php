@@ -1,5 +1,5 @@
 <?php
-if ($_SESSION['role'] !== "admin"){
+if ($_SESSION['role'] !== "1"){
   header ("Location: ../login.php?error=permission");
   exit();
 }
@@ -28,7 +28,7 @@ if ($_SESSION['role'] !== "admin"){
               else{
                 print('<li><a href="../includes/logout.inc.php">Uitloggen</a></li>');
                 print('<li><a href="../profile.php">Profiel</a></li>');
-                if ($_SESSION['role'] === "admin"){
+                if ($_SESSION['role'] === "1"){
                   print('<li><a href="index.php">Beheer pagina</a></li>');
                 }
               }?>
@@ -57,7 +57,7 @@ if ($_SESSION['role'] !== "admin"){
           }
           else{
             print('<a href="../includes/logout.inc.php">Uitloggen</a>');
-            if ($_SESSION['role'] === "admin"){
+            if ($_SESSION['role'] === "1"){
               print('<a>|</a>');
               print('<a href="../profile.php">Terug naar de website</a>');
             }

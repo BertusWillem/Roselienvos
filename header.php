@@ -22,7 +22,7 @@
               else{
                 print('<li><a href="includes/logout.inc.php">Uitloggen</a></li>');
                 print('<li><a href="profile.php">Profiel</a></li>');
-                if ($_SESSION['role'] === "admin"){
+                if ($_SESSION['role'] === "1"){
                   print('<li><a href="beheer/index.php">Beheer pagina</a></li>');
                 }
               }?>
@@ -51,7 +51,7 @@
           }
           else{
             print('<a href="includes/logout.inc.php">Uitloggen</a>');
-            if ($_SESSION['role'] === "admin"){
+            if ($_SESSION['role'] === "1"){
               print('<a>|</a>');
               print('<a href="beheer">Beheer paneel</a>');
             }

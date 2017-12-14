@@ -4,7 +4,7 @@ $page = "Gebruikers";
 include 'header.beheer.php';
 
 include '../includes/dbh.php';
-$stmt = $dbh->prepare("SELECT userid, email, firstname, lastname, last_seen FROM gebruikers");
+$stmt = $dbh->prepare("SELECT userid, email, firstname, lastname, last_seen FROM gebruikers WHERE rol = 'klant'");
 $stmt->execute();
 print('
   <section class="body-container">

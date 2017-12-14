@@ -3,11 +3,6 @@ session_start();
 $page = "Recensies";
 include 'header.beheer.php';
 include '../includes/dbh.php';
-
-if ($_SESSION['role'] !== "admin"){
-  header ("Location: profile.php?error=permission");
-  exit();
-}
 ?>
 
 <section class='body-container'>
