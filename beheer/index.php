@@ -4,10 +4,7 @@ session_start();
 $page = "Overzicht";
 include 'header.beheer.php';
 
-if ($_SESSION['role'] !== "admin"){
-  header ("Location: profile.php?error=permission");
-  exit();
-}?>
+?>
 
 
 <section class="body-container">

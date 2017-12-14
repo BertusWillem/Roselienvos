@@ -21,7 +21,10 @@ if (isset($_GET['error'])){
   if($_GET['error'] === "incorrect"){
     print("<p style='color:red;'>- De ingevulde gebruikersnaam of wachtwoord is niet correct");
     }
-
+    if($_GET['error'] === "attemts"){
+      print("<p style='color:red;'>- U heeft al te vaak proberen in te loggen. U kunt het over 10 minuten nog een keer proberen.
+      Bent u uw wachtwoord vergeten? Klik dan op wachtwoord vergeten.");
+      }
 }
 elseif(isset($_GET['message'])){
   if($_GET['message'] === "forgotmail"){

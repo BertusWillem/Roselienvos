@@ -1,4 +1,5 @@
   <?php
+  session_start();
   $firstname = $_POST['reg_fn'];
   $lastname = $_POST['reg_ln'];
   $email = $_POST['reg_un'];
@@ -9,36 +10,79 @@
   $woonplaats = $_POST['reg_woonpl'];
   //De variabelen zijn gedefinieerd, deze zijn doorgestuurd met POST vanuit de login.php?aanm=register
 
-  if (empty($firstname) || empty($lastname)){
+  if (empty($firstname) || empty($lastname) || empty($adres) || empty($postcode) || empty($woonplaats)){
+    $_SESSION['fn'] = $_POST['reg_fn'];
+    $_SESSION['ln'] = $_POST['reg_ln'];
+    $_SESSION['email'] = $_POST['reg_un'];
+    $_SESSION['addr'] = $_POST['reg_addr'];
+    $_SESSION['pcode'] = $_POST['reg_pcode'];
+    $_SESSION['woonpl'] = $_POST['woonpl'];
     header("Location:../register.php?error=empty");
     exit();
   }
   if (empty($email) || empty($password) || empty($confirm)){
-    header("Location:../register.php?error=empty");
-    exit(); //Als er velden niet zijn ingevuld wordt de bezoeker teruggestuurd met een melding
+    $_SESSION['fn'] = $_POST['reg_fn'];
+    $_SESSION['ln'] = $_POST['reg_ln'];
+    $_SESSION['email'] = $_POST['reg_un'];
+    $_SESSION['addr'] = $_POST['reg_addr'];
+    $_SESSION['pcode'] = $_POST['reg_pcode'];
+    $_SESSION['woonpl'] = $_POST['reg_woonpl'];
+      header("Location:../register.php?error=empty");
+      exit();
+  //Als er velden niet zijn ingevuld wordt de bezoeker teruggestuurd met een melding
   }
 
   if ($password !== $confirm){
+    $_SESSION['fn'] = $_POST['reg_fn'];
+    $_SESSION['ln'] = $_POST['reg_ln'];
+    $_SESSION['email'] = $_POST['reg_un'];
+    $_SESSION['addr'] = $_POST['reg_addr'];
+    $_SESSION['pcode'] = $_POST['reg_pcode'];
+    $_SESSION['woonpl'] = $_POST['woonpl'];
       header("Location:../register.php?error=notmatch");
-      exit; //Als de twee wachtwoorden niet overeen komen wordt er een melding teruggestuurd
+      exit();//Als de twee wachtwoorden niet overeen komen wordt er een melding teruggestuurd
   }
 
   if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $_SESSION['fn'] = $_POST['reg_fn'];
+    $_SESSION['ln'] = $_POST['reg_ln'];
+    $_SESSION['email'] = $_POST['reg_un'];
+    $_SESSION['addr'] = $_POST['reg_addr'];
+    $_SESSION['pcode'] = $_POST['reg_pcode'];
+    $_SESSION['woonpl'] = $_POST['woonpl'];
   header("Location:../register.php?error=email");
   exit();
-      }
+    }
 
   if (strlen($password) < 8) {
+    $_SESSION['fn'] = $_POST['reg_fn'];
+    $_SESSION['ln'] = $_POST['reg_ln'];
+    $_SESSION['email'] = $_POST['reg_un'];
+    $_SESSION['addr'] = $_POST['reg_addr'];
+    $_SESSION['pcode'] = $_POST['reg_pcode'];
+    $_SESSION['woonpl'] = $_POST['woonpl'];
     header("Location:../register.php?error=passwordstr");
-         exit();
+    exit();
      }
 
   if (!preg_match("#[0-9]+#", $password)) {
+    $_SESSION['fn'] = $_POST['reg_fn'];
+    $_SESSION['ln'] = $_POST['reg_ln'];
+    $_SESSION['email'] = $_POST['reg_un'];
+    $_SESSION['addr'] = $_POST['reg_addr'];
+    $_SESSION['pcode'] = $_POST['reg_pcode'];
+    $_SESSION['woonpl'] = $_POST['woonpl'];
   header("Location:../register=error=passwordstr");
   exit();
   }
 
   if (!preg_match("#[a-zA-Z]+#", $password)) {
+    $_SESSION['fn'] = $_POST['reg_fn'];
+    $_SESSION['ln'] = $_POST['reg_ln'];
+    $_SESSION['email'] = $_POST['reg_un'];
+    $_SESSION['addr'] = $_POST['reg_addr'];
+    $_SESSION['pcode'] = $_POST['reg_pcode'];
+    $_SESSION['woonpl'] = $_POST['woonpl'];
   header("Location:../login.php?error=passwordstr");
   exit();
   }
