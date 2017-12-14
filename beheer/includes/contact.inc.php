@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
      $newtelnummer = $_POST["telefoonnummer"];
      $newadres = $_POST["adres"];
 
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL))  //controleerd of het emailadres geldig opgebouwd is
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL))  //controleert of het emailadres geldig opgebouwd is
             {
                 print ("<script type='text/javascript'>alert('Het Emailadres is niet geldig!')</script>"); //Error popup met foutmelding geen geldig emailadres
 

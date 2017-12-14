@@ -20,6 +20,11 @@ else{
  $year = date('Y', $date);
 
 $month = $month + $maandofset;
+if ($month >= 13){ //wordt het volgende jaar geladen?
+  $year = $year + floor(($month / 12)) ;
+  $month = ($month % 12);
+
+}
  //kijkt naar de eerste dag van de maan
  $first_day = mktime(0,0,0,$month, 1, $year) ;
 
@@ -79,7 +84,7 @@ $month = $month + $maandofset;
 
  while ( $day_num <= $days_in_month )
  {
-     echo "<td> $day_num </td>";
+     echo "<td><button onclick='selectday($day_num, $month, $year)'> $day_num</button> </td>";
      $day_num++;
      $day_count++;
 
@@ -102,4 +107,23 @@ $month = $month + $maandofset;
 
  echo "</tr></table>";
 
+
+
+?>
+<div id="open" style="display: none;">
+
+
+
+<script>
+function selectday(dag, maand, jaar){
+  var x = document.getElementById("open");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  }
+  x.innerHTML = [dag, maand, jaar];
+
+}
+</script>
+</div>
+<?php
 include 'footer.php';
