@@ -106,7 +106,7 @@ if ($_SESSION['role'] !== "admin"){
         </div>
       </div></a>
 
-      <a href="media.beheer.php"><div class="block">
+      <a href="media.beheer.php?uitvoering=beheer"><div class="block">
         <div class="image-view-container">
         <h2>Media</h2>
           <div class="image-view">
