@@ -21,7 +21,7 @@ include ("dbh.php");
                 $sth2 = $dbh->prepare("SELECT a.afbeelding FROM afbeelding a JOIN pagina p ON a.afbeeldingid = p.afbeelding WHERE titel = ?");
                 $sth2 -> execute(array($page));
                 while ($result2 = $sth2 ->fetch(PDO::FETCH_ASSOC)){
-                    echo ('<div class="right"><h1>Foto\'s</h1><section class="gallery"><div><img src="data:image/jpg;base64, ' . base64_encode($result2['afbeelding']) . '" alt="' . $result2['naam'] . '"></div></section></div>');
+                    echo ('<div class="right"><h1>Foto\'s</h1><section class="gallery"><div><img src="'.$result2['afbeelding'].'"> alt="afbeelding"></div></section></div>');
                 }
             }elseif ($page == "Behandeling"){
                 if(!isset($_GET["behandeling"])){ //is er een Behandel_ID meegegeven
@@ -117,11 +117,11 @@ include ("dbh.php");
                     echo ("<h1>" . $result["titel"] . "</h1> <p>" . $result["inhoud"] . "</p>");
                 }
 
-                $sth = $dbh->prepare("SELECT titel, inhoud, behandeling_id, a.afbeelding FROM behandeling b JOIN afbeelding a ON a.afbeeldingid = b.afbeelding");
+                $sth = $dbh->prepare("SELECT titel, inhoud, behandel_id, a.afbeelding, a.naam FROM behandel b JOIN afbeeldingen a ON a.afbeeldingid = b.afbeelding");
 
                 $sth -> execute(array($page));
                 while($result = $sth->fetch(PDO::FETCH_ASSOC)){
-                    echo ("<div class='behandeling'><div class='behandeling-text'><h1>" . $result['titel'] ."</h1><img src='data:image/jpg;base64, " . base64_encode($result['afbeelding']) . "'alt='" . $result["naam"] . "'><p>".$result['inhoud']."</p><a href='behandeling-overzicht.php?behandeling=" .$result['behandeling_id'] ."'>Lees meer</a></div></div>");
+                    echo ("<div class='behandeling'><div class='behandeling-text'><h1>" . $result['titel'] ."</h1><img src='data:image/jpg;base64, " . base64_encode($result['afbeelding']) . "'alt='" . $result["naam"] . "'><p>".$result['inhoud']."</p><a href='behandeling-overzicht.php?behandeling=" .$result['behandel_id'] ."'>Lees meer</a></div></div>");
                 }
             }
 
@@ -129,11 +129,11 @@ include ("dbh.php");
 
 
             elseif ($page == "Behandelingen-beheer"){
-                $sth = $dbh->prepare("SELECT titel, behandeling_id, korte_omschrijving, a.afbeelding, a.naam FROM behandeling b JOIN afbeelding a ON a.afbeeldingid = b.afbeelding");
+                $sth = $dbh->prepare("SELECT titel, behandel_id, korte_omschrijving, a.afbeelding, a.naam FROM behandel b JOIN afbeeldingen a ON a.afbeeldingid = b.afbeelding");
 
                 $sth -> execute(array($page));
                 while($result = $sth->fetch(PDO::FETCH_ASSOC)){
-                    echo ("<div class='behandeling'><div style='background-color: White!important;' class='behandeling-text'><h1>" . $result['titel'] ."</h1><img src='data:image/jpg;base64, " . base64_encode($result['afbeelding']) . "'alt='" . $result["naam"] . "'><p>".$result['korte_omschrijving']."</p><a href='behandeling-aanpassen.php?behandeling=" .$result['behandeling_id'] ."'>Aanpassen --></a></div></div>");
+                    echo ("<div class='behandeling'><div style='background-color: White!important;' class='behandeling-text'><h1>" . $result['titel'] ."</h1><img src='data:image/jpg;base64, " . base64_encode($result['afbeelding']) . "'alt='" . $result["naam"] . "'><p>".$result['korte_omschrijving']."</p><a href='behandeling-aanpassen.php?behandeling=" .$result['behandel_id'] ."'>Aanpassen --></a></div></div>");
 
                 }
 
@@ -146,10 +146,10 @@ include ("dbh.php");
 
 
                 elseif ($page == "Nieuws-item"){
-                $stmt = $dbh->prepare("SELECT * FROM nieuws n JOIN afbeelding a ON n.afbeelding=a.afbeeldingid WHERE nieuws_id = :nieuwsitem");
+                $stmt = $dbh->prepare("SELECT * FROM nieuws n JOIN afbeeldingen a ON n.afbeelding=a.afbeeldingid WHERE nieuws_id = :nieuwsitem");
                 $stmt->execute(array(':nieuwsitem' => $_GET['nieuwsitem']));
                 while ($rows = $stmt->fetch()){
-                print('<div class="left"><h1>'.$rows['titel'].'</h1><p>'.$rows['inhoud'].'</p></div><div class="right"><h1>Afbeelding</h1><section class="gallery"><div><img src="data:image/png;base64,'); echo base64_encode($rows['afbeelding']); print('" alt="Nieuws bericht" /></div></section>');
+                print('<div class="left"><h1>'.$rows['titel'].'</h1><p>'.$rows['inhoud'].'</p></div><div class="right"><h1>Afbeelding</h1><section class="gallery"><div><img src="'); echo $rows['afbeelding']; print('" alt="Nieuws bericht" /></div></section>');
                 }
             }
 
@@ -161,10 +161,10 @@ include ("dbh.php");
                 }
 
 
-                $stmt = $dbh->prepare("SELECT * FROM nieuws n JOIN afbeelding a ON n.afbeelding=a.afbeeldingid WHERE n.done = 1");
+                $stmt = $dbh->prepare("SELECT * FROM nieuws n JOIN afbeeldingen a ON n.afbeelding=a.afbeeldingid WHERE n.done = 1");
                 $stmt->execute();
                 while ($rows = $stmt->fetch()){
-                print('<div class="behandeling"><div class="behandeling-text"><h1>'.$rows['titel']. '</h1><img src="data:image/png;base64,'); echo base64_encode($rows['afbeelding']); print('" alt="Nieuws bericht" /><p>'.$rows['inhoud'].'</p><p class="datum">'.$rows['datum'].'</p><a href="nieuws-overzicht.php?nieuwsitem='.$rows['nieuws_id'].'">Lees meer ></a></div></div>');
+                print('<div class="behandeling"><div class="behandeling-text"><h1>'.$rows['titel']. '</h1><img src="'); echo $rows['afbeelding']; print('". alt="Nieuws bericht" /><p>'.$rows['inhoud'].'</p><p class="datum">'.$rows['datum'].'</p><a href="nieuws-overzicht.php?nieuwsitem='.$rows['nieuws_id'].'">Lees meer ></a></div></div>');
                 }
             }
 
