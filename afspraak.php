@@ -120,7 +120,7 @@ function selectday(dag, maand, jaar){
   if (x.style.display === "none") {
     x.style.display = "block";
   }
-  x.innerHTML = dag;
+  x.innerHTML = [dag, maand, jaar];
 
 }
 </script>

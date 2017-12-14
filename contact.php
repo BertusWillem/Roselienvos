@@ -52,9 +52,13 @@ include ('includes/paginalader.inc.php');
        if ($_SERVER["REQUEST_METHOD"] == "POST") { //Is het formulier verzonden?
        $header = 'From: TeamAqua <teamaqua@noreply.com>' . "MIME-Version: 1.0" . "Content-Type: text/html;charset=utf-8"; //Maakt een header voor het email bericht waarin bepaalde dingen worden bepaald
 
+
        $naam = validate($_POST["naam"]);
        $email = validate($_POST["email"]);
        $inhoud = validate($_POST["inhoud"]);
+
+
+
        if (empty($_POST["naam"]) || empty($_POST["email"]) || empty($_POST["inhoud"])) { //controleerd of er velding leeg zijn
             print ("<script type='text/javascript'>alert('Niet alle velden zijn ingevuld!')</script>"); //Error popup met foutmelding velden leeg
        }
@@ -76,8 +80,11 @@ include ('includes/paginalader.inc.php');
                 $mailsubject = "ingevuld contactformulier"; /*.$_GET["onderwerp"];*/
                 include 'includes/mail.php';
 
-                //mail("kevintim30@gmail.com","Ingevuld contact formulier",$inhoud,$header); //Mail de informatie uit het formulier naar een van te voren opgegeven emailadres
-                //mail($email,"Testing mail van contact.php",$inhoud,$header); //mail een kopie naar het ingevulde emailadres
+                //begin script
+
+
+
+                //eind script
 
 
 
