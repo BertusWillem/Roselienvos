@@ -51,7 +51,7 @@ include 'header.beheer.php';
         </div>
       </div></a>
 
-      <a href=pagina.beheer.php?benaming=Behandeling&&tabel=behandel><div class="block">
+      <a href=pagina.beheer.php?benaming=Behandeling&&tabel=behandeling><div class="block">
         <div class="image-view-container">
         <h2>Behandelingen</h2>
           <div class="image-view">

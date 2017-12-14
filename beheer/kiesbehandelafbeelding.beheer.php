@@ -3,7 +3,7 @@ session_start();
 $page = "Kies nieuwe afbeelding";
 include 'header.beheer.php';
 include '../includes/dbh.php';
-$stmt = $dbh->prepare("SELECT * FROM afbeeldingen;");
+$stmt = $dbh->prepare("SELECT * FROM afbeelding;");
 $stmt->execute();
 while ($rows = $stmt->fetch()){
 print('

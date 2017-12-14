@@ -7,8 +7,8 @@ $tabel = $_GET['tabel'];
 include '../includes/dbh.php';
 
 // Bekijkt in welk tabel je zit.
-if ($tabel == 'behandel'){
-  $stmt = $dbh->prepare("SELECT * FROM behandel");
+if ($tabel == 'behandeling'){
+  $stmt = $dbh->prepare("SELECT * FROM behandeling");
 }elseif ($tabel == 'nieuws'){
   $stmt = $dbh->prepare("SELECT * FROM nieuws");
 }elseif ($tabel == 'pagina'){

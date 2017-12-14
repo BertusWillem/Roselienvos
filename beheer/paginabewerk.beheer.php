@@ -13,28 +13,28 @@ if(isset($_GET["verwijderen"])) {
 		$sth->execute(array(':pagina' => $pagina));
 		header ('Location: pagina.beheer.php?benaming=nieuws&&tabel=nieuws');
 	}
-	elseif($tabel == 'behandel'){
-		$sth = $dbh->prepare("DELETE FROM behandel WHERE behandel_id=:pagina");
+	elseif($tabel == 'behandeling'){
+		$sth = $dbh->prepare("DELETE FROM behandeling WHERE behandeling_id=:pagina");
 		$sth->execute(array(':pagina' => $pagina));
-		header ('Location: pagina.beheer.php?benaming=Behandeling&&tabel=behandel');
+		header ('Location: pagina.beheer.php?benaming=Behandeling&&tabel=behandeling');
 	}
 }
-
-if ($tabel == 'behandel'){
-	$stmt = $dbh->prepare("SELECT * FROM behandel JOIN afbeeldingen ON behandel.afbeelding = afbeeldingen.afbeeldingid WHERE behandel_id = :pagina");
+if ($tabel == 'behandeling'){
+	$stmt = $dbh->prepare("SELECT * FROM behandeling JOIN afbeelding ON behandeling.afbeelding = afbeelding.afbeeldingid WHERE behandeling_id = :pagina");
 	$stmt->execute(array(':pagina' => $pagina));
 	$rows = $stmt -> fetch();
 }
 elseif ($tabel == 'nieuws'){
-	$stmt = $dbh->prepare("SELECT * FROM nieuws JOIN afbeeldingen ON nieuws.afbeelding = afbeeldingen.afbeeldingid WHERE nieuws_id = :pagina");
+	$stmt = $dbh->prepare("SELECT * FROM nieuws JOIN afbeelding ON nieuws.afbeelding = afbeelding.afbeeldingid WHERE nieuws_id = :pagina");
 	$stmt->execute(array(':pagina' => $pagina));
 	$rows = $stmt -> fetch();
 }
 elseif ($tabel == 'pagina'){
-	$stmt = $dbh->prepare("SELECT * FROM pagina JOIN afbeeldingen ON pagina.afbeelding = afbeeldingen.afbeeldingid WHERE pagina_id = :pagina");
+	$stmt = $dbh->prepare("SELECT * FROM pagina JOIN afbeelding ON pagina.afbeelding = afbeelding.afbeeldingid WHERE pagina_id = :pagina");
 	$stmt->execute(array(':pagina' => $pagina));
 	$rows = $stmt -> fetch();
 }
+
 ?>
 
 <section class="body-container">

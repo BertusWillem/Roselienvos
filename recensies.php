@@ -11,12 +11,12 @@ include 'header.php';
     <h1 onclick="recensieOpen()">Zelf een recensie schrijven</h1>
     <div class="input-window" id="open" style="display: none;">
       <form action="includes/recensie.inc.php" method="POST">
-        <input type="text" name="title" placeholder="Titel">
+        <input type="text" name="titel" placeholder="Titel">
 		 	<?php
 			print('
-				<input type="text" name="author"
+				<input type="text" name="autheur"
 				');
-				if(!isset($_SESSION['userid'])){ 
+				if(!isset($_SESSION['userid'])){
 					print('placeholder="Naam">');
 				}
 				else {
@@ -24,7 +24,7 @@ include 'header.php';
 				}
 			?>
         <input type="number" name="rate" min="1" max="5" placeholder="Cijfer">
-        <textarea rows="4" name="note" placeholder="Uw bericht."></textarea>
+        <textarea rows="4" name="toelichting" placeholder="Uw bericht."></textarea>
         <div class="submit"><input type="submit" value="Recensie versturen"></div>
       </form>
     </div>
@@ -32,20 +32,20 @@ include 'header.php';
 
   <?php
   include 'includes/dbh.php';
-  $stmt = $dbh->prepare("SELECT * FROM recensie WHERE accepted = 1 ORDER BY recensieid DESC");
+  $stmt = $dbh->prepare("SELECT * FROM recensie WHERE status = 1 ORDER BY recensieid DESC");
   $stmt->execute();
   while ($rows = $stmt->fetch()){
     print ("
     <div class='recensies' id='box'>
-      <h1>".ucfirst(strtolower($rows['title']))."</h1>
+      <h1>".ucfirst(strtolower($rows['titel']))."</h1>
       <table>
         <tr>
           <td id='left'>Datum:</td>
-          <td>".$rows['date']."</td>
+          <td>".$rows['datum']."</td>
         </tr>
         <tr>
           <td>Door:</td>
-          <td>".ucfirst(strtolower($rows['author']))."</td>
+          <td>".ucfirst(strtolower($rows['autheur']))."</td>
         </tr>
         <tr>
           <td>Beoordeling:</td>
@@ -60,7 +60,7 @@ include 'header.php';
         </tr>
         <tr>
           <td>Toelichting:</td>
-          <td>".ucfirst(strtolower($rows['note']))."</td>
+          <td>".ucfirst(strtolower($rows['toelichting']))."</td>
         </tr>
       </table>
     </div>

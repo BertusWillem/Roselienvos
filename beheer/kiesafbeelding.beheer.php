@@ -4,7 +4,7 @@ $page = "Afbeelding";
 include 'header.beheer.php';
 include '../includes/dbh.php';
 
-$stmt = $dbh->prepare("SELECT * FROM afbeeldingen;");
+$stmt = $dbh->prepare("SELECT * FROM afbeelding;");
 $stmt->execute();
 ?>
 
