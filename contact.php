@@ -3,7 +3,7 @@
 session_start();
 $page = "Contact";
 include ('header.php');
-include ('includes/contactloader.php');
+include ('includes/paginalader.inc.php');
 ?>
 
 <body>
@@ -51,7 +51,7 @@ include ('includes/contactloader.php');
  <?php
        if ($_SERVER["REQUEST_METHOD"] == "POST") { //Is het formulier verzonden?
        $header = 'From: TeamAqua <teamaqua@noreply.com>' . "MIME-Version: 1.0" . "Content-Type: text/html;charset=utf-8"; //Maakt een header voor het email bericht waarin bepaalde dingen worden bepaald
-       
+
        $naam = validate($_POST["naam"]);
        $email = validate($_POST["email"]);
        $inhoud = validate($_POST["inhoud"]);
@@ -59,8 +59,8 @@ include ('includes/contactloader.php');
             print ("<script type='text/javascript'>alert('Niet alle velden zijn ingevuld!')</script>"); //Error popup met foutmelding velden leeg
        }
        else {
-       
-       
+
+
             if (!filter_var($email, FILTER_VALIDATE_EMAIL))  //controleerd of het emailadres geldig opgebouwd is
             {
                 print ("<script type='text/javascript'>alert('Het Emailadres is niet geldig!')</script>"); //Error popup met foutmelding geen geldig emailadres
@@ -70,36 +70,36 @@ include ('includes/contactloader.php');
                 print ("<script type='text/javascript'>alert('De naam mag alleen uit letters en spaties bestaan!')</script>"); //Error popup met foutmelding geen geldige naam
             }
             else {
-                
+
                 $mailcontent = ("Het contactformulier is op " . date("d/m/Y") . " Ingevuld door: " . $naam . " met de volgende vraag/opmerking: <br><br>" . $inhoud . "<br><br>U kunt " . $naam . " Bereiken op: " . $email); //maak opmaak voor email
                 $mailreceiver = $emailontvanger;
                 $mailsubject = "ingevuld contactformulier"; /*.$_GET["onderwerp"];*/
                 include 'includes/mail.php';
-                
+
                 //mail("kevintim30@gmail.com","Ingevuld contact formulier",$inhoud,$header); //Mail de informatie uit het formulier naar een van te voren opgegeven emailadres
                 //mail($email,"Testing mail van contact.php",$inhoud,$header); //mail een kopie naar het ingevulde emailadres
-                
-                
-                
-            }  
-            
+
+
+
+            }
+
        }
-       
+
        }
-        
-       
-       
-       
-       
+
+
+
+
+
        function validate($data) { //Filtert de input
          $data = trim($data); //Haalt Spaties voor en achter weg uit de input
          $data = stripslashes($data); //haalt backslash weg uit de input
          $data = htmlspecialchars($data); //Convert speciale leesttekens naar HTML code
          return $data; //stuurt gefilterde input terug
-       } 
+       }
 
-       
-      
+
+
         ?>
             </section>
          </section>
