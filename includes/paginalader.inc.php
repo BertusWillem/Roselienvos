@@ -73,7 +73,7 @@ include ("dbh.php");
                 $sth = $dbh ->prepare("SELECT titel FROM behandeling where behandeling_id = ?");
                 $sth -> execute(array($result2["behandeling_id"]));
                 $result = $sth ->fetch(PDO::FETCH_ASSOC);
-                echo ("<div class='left' id='box'><h1>" . $result["titel"] . "</h1><table>");
+                echo ("<div id='box'><h1>" . $result["titel"] . "</h1><table>");
 
 
                 $sth = $dbh ->prepare("SELECT prijsnaam, prijs, omschrijving FROM prijs where behandeling_id = ?");
