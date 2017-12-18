@@ -33,7 +33,7 @@ include ('includes/paginalader.inc.php');
         </div>
         <?php
             $result = contactgegeven($dbh);
-            $emailontvanger=($result["email"]);                     
+            $emailontvanger=($result["email"]);
             $telnummer=($result["telnummer"]);
             $adres=($result["adres"]);
         ?>
@@ -109,7 +109,7 @@ include ('includes/paginalader.inc.php');
                 // voeg de reactie toe in de tabel reacties. Gebruik de id van de zojuist toegevoegde persoon
                 $query = "INSERT INTO reacties(persoon_id, reactie, datum) VALUES (?, ?, ?)";
                 $stmt = $db->prepare($query);
-                $stmt->execute(array( $persoon_id, $reactie, date('Y-m-d H:i:s')));
+                $stmt->execute(array( $persoon_id, $inhoud, date('Y-m-d H:i:s')));
                 //eind bericht opslaan in de databse
 
 
