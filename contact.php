@@ -27,7 +27,7 @@ include ('includes/paginalader.inc.php');
               <option value="overige">Overige</option>
             </select> -->
             <textarea rows="4" name="inhoud" placeholder="Uw vraag..."></textarea>
-            
+
             <input id="Verstuur" type="submit" name="Verstuur" value="Verstuur">
           </form>
           </section>
@@ -88,7 +88,7 @@ include ('includes/paginalader.inc.php');
                 include 'includes/mail.php';
 
                 //begin bericht opslaan in de databse
-                $db = new PDO('mysql:host=localhost;dbname=reacties', 'root', '');
+                $db = new PDO('mysql:host=localhost;dbname=mydb', 'root', 'root');
 
                 //kijk of een persoon al bestaat
                 $query = "SELECT id FROM personen WHERE naam = ? AND email = ? AND inhoud = ?";
