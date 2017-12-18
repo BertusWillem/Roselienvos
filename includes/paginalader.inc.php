@@ -103,7 +103,7 @@ include ("dbh.php");
 
                 $sth -> execute(array($page));
                 while($result = $sth->fetch(PDO::FETCH_ASSOC)){
-                    echo ("<div class='behandeling'><div class='behandeling-text'><h1>" . $result['titel'] ."</h1><img src='" . substr($result['afbeelding'], 3) . "'alt='afbeelding'><p>".$result['inhoud']."</p><a href='behandeling-overzicht.php?behandeling=" .$result['behandeling_id'] ."'>Lees meer</a></div></div>");
+                    echo ("<div class='behandeling'><div class='behandeling-text'><h1>" . $result['titel'] ."</h1>"); if($result['afbeelding'] != NULL){ print('<img src="'.substr($result['afbeelding'], 3).'" alt="Nieuws item">');} echo("<p>".$result['inhoud']."</p><a href='behandeling-overzicht.php?behandeling=" .$result['behandeling_id'] ."'>Lees meer</a></div></div>");
                 }
             }
 
@@ -146,11 +146,9 @@ include ("dbh.php");
                 $stmt = $dbh->prepare("SELECT * FROM nieuws n LEFT JOIN afbeelding a ON n.afbeelding=a.afbeeldingid WHERE n.done = 1");
                 $stmt->execute();
                 while ($rows = $stmt->fetch()){
-                print('<div class="behandeling"><div class="behandeling-text"><h1>'.$rows['titel']. '</h1><img src="' . substr($rows['afbeelding'], 3) . '" alt="Nieuws item"><p>'.$rows['inhoud'].'</p><p class="datum">'.$rows['datum'].'</p><a href="nieuws-overzicht.php?nieuwsitem='.$rows['nieuws_id'].'">Lees meer ></a></div></div>');
+                print('<div class="behandeling"><div class="behandeling-text"><h1>'.$rows['titel']. '</h1> '); if($rows['afbeelding'] != NULL){ print('<img src="'.substr($rows['afbeelding'], 3).'" alt="Nieuws item">'); } print(' <p>'.$rows['inhoud'].'</p><p class="datum">'.$rows['datum'].'</p><a href="nieuws-overzicht.php?nieuwsitem='.$rows['nieuws_id'].'">Lees meer ></a></div></div>');
                 }
             }
-
-
 
             elseif ($page == "Recensies"){
                 $stmt = $dbh->prepare("SELECT * FROM recensie WHERE accepted = 1 ORDER BY recensieid DESC");
