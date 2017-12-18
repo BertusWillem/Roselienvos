@@ -128,7 +128,7 @@ function requestProfile($userid, $optie)
 
   $email = $rows['email'];
   $firstname = ucfirst($rows['firstname']);
-  $lastname= ucfirst($rows['lastname']);
+  $lastname= $rows['lastname'];
   $adres = $adrow['adres'];
   $postcode = $adrow['postcode'];
   $woonplaats = $adrow['woonplaats'];
