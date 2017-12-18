@@ -9,15 +9,15 @@ $mail = new PHPMailer;
 
 //Maakt verbinden met de smtp server
 $mail->isSMTP();
-$mail->Host = 'smtp.ziggo.nl';
+$mail->Host = 'mail.kevinthegamer.nl';
 $mail->SMTPAuth = true;
-$mail->Username = 'jvsloten@ziggo.nl';
+$mail->Username = 'kbs@kevinthegamer.nl';
 $mail->Password = 'Kbs2017!';
 $mail->SMTPSecure = 'TLS';
 $mail->Port = 587;      
 
 
-$mail->setFrom('from@example.com', 'Mailer'); //stelt de naam van de verstuurder in
+$mail->setFrom('noReply@pedicureroselien.nl', 'Roselien Vos'); //stelt de naam van de verstuurder in
 $mail->addAddress($mailreceiver);     // voegt een ontvanger toe
 
 
