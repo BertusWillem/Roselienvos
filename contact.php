@@ -88,10 +88,10 @@ include ('includes/paginalader.inc.php');
                 include 'includes/mail.php';
 
                 //begin bericht opslaan in de databse
-                $db = new PDO('mysql:host=localhost;dbname=mydb', 'root', 'root');
+                $db = new PDO('mysql:host=localhost;dbname=roselienvos', 'root', '');
 
                 //kijk of een persoon al bestaat
-                $query = "SELECT id FROM personen WHERE naam = ? AND email = ? AND inhoud = ?";
+                $query = "SELECT id FROM contactformulier WHERE naam = ? AND email = ? AND inhoud = ?";
                 $stmt = $db->prepare($query);
                 $stmt->execute(array( $naam, $email, $inhoud));
 
@@ -99,18 +99,25 @@ include ('includes/paginalader.inc.php');
                   $row = $stmt->fetch(PDO::FETCH_ASSOC);
                   $persoon_id	= $row['id'];
                 } else { //voeg de naam en e-mail toe in de tabel personen
-                  $query = "INSERT INTO personen(naam, email, inhoud) VALUES (?, ?, ?)";
+                  $query = "INSERT INTO contactformulier(naam, email, inhoud, datum) VALUES (?, ?, ?, ?)";
                   $stmt = $db->prepare($query);
-                  $stmt->execute(array( $naam, $email, $inhoud));
+                  $stmt->execute(array( $naam, $email, $inhoud, date('Y-m-d H:i:s')));
 
                   //vraag de id van de nieuwe persoon op
                   $persoon_id = $db->lastInsertId();
                 }
+/* SQL NIEUWE TABEL AANMAKEN LOL, gewoon ff laten staan please
 
-                // voeg de reactie toe in de tabel reacties. Gebruik de id van de zojuist toegevoegde persoon
-                $query = "INSERT INTO reacties(persoon_id, reactie, datum) VALUES (?, ?, ?)";
-                $stmt = $db->prepare($query);
-                $stmt->execute(array( $persoon_id, $inhoud, date('Y-m-d H:i:s')));
+  CREATE TABLE `contactformulier` (
+  `id` int(11) NOT NULL auto_increment,
+  `naam` varchar(50) collate latin1_general_ci NOT NULL,
+  `email` varchar(100) collate latin1_general_ci default NULL,
+  `inhoud` longtext collate latin1_general_ci default NULL,
+  `datum` datetime collate latin1_general_ci default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+*/
                 //eind bericht opslaan in de databse
 
 
