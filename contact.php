@@ -27,6 +27,7 @@ include ('includes/paginalader.inc.php');
               <option value="overige">Overige</option>
             </select> -->
             <textarea rows="4" name="inhoud" placeholder="Uw vraag..."></textarea>
+            
             <input id="Verstuur" type="submit" name="Verstuur" value="Verstuur">
           </form>
           </section>
