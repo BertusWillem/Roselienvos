@@ -88,7 +88,7 @@ include ('includes/paginalader.inc.php');
                 include 'includes/mail.php';
 
                 //begin bericht opslaan in de databse
-                $db = new PDO('mysql:host=localhost;dbname=roselienvos', 'root', '');
+                $db = new PDO('mysql:host=localhost;dbname=mydb', 'root', 'root');
 
                 //kijk of een persoon al bestaat
                 $query = "SELECT id FROM contactformulier WHERE naam = ? AND email = ? AND inhoud = ?";
@@ -98,7 +98,7 @@ include ('includes/paginalader.inc.php');
                 if ($stmt->rowCount() > 0){
                   $row = $stmt->fetch(PDO::FETCH_ASSOC);
                   $persoon_id	= $row['id'];
-                } else { //voeg de naam en e-mail toe in de tabel personen
+                } else { //voeg de naam, e-mail, inhoud en de datum toe in de tabel contactformulier
                   $query = "INSERT INTO contactformulier(naam, email, inhoud, datum) VALUES (?, ?, ?, ?)";
                   $stmt = $db->prepare($query);
                   $stmt->execute(array( $naam, $email, $inhoud, date('Y-m-d H:i:s')));
