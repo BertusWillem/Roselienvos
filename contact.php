@@ -80,11 +80,31 @@ include ('includes/paginalader.inc.php');
                 $mailsubject = "ingevuld contactformulier"; /*.$_GET["onderwerp"];*/
                 include 'includes/mail.php';
 
-                //begin script
+                //begin bericht opslaan in de databse
+                $db = new PDO('mysql:host=localhost;dbname=reacties', 'root', '');
 
+                //kijk of een persoon al bestaat
+                $query = "SELECT id FROM personen WHERE naam = ? AND email = ? AND inhoud = ?";
+                $stmt = $db->prepare($query);
+                $stmt->execute(array( $naam, $email, $inhoud));
 
+                if ($stmt->rowCount() > 0){
+                  $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                  $persoon_id	= $row['id'];
+                } else { //voeg de naam en e-mail toe in de tabel personen
+                  $query = "INSERT INTO personen(naam, email, inhoud) VALUES (?, ?, ?)";
+                  $stmt = $db->prepare($query);
+                  $stmt->execute(array( $naam, $email, $inhoud));
 
-                //eind script
+                  //vraag de id van de nieuwe persoon op
+                  $persoon_id = $db->lastInsertId();
+                }
+
+                // voeg de reactie toe in de tabel reacties. Gebruik de id van de zojuist toegevoegde persoon
+                $query = "INSERT INTO reacties(persoon_id, reactie, datum) VALUES (?, ?, ?)";
+                $stmt = $db->prepare($query);
+                $stmt->execute(array( $persoon_id, $reactie, date('Y-m-d H:i:s')));
+                //eind bericht opslaan in de databse
 
 
 
