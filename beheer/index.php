@@ -26,7 +26,8 @@ include 'header.beheer.php';
 			if ($_GET['message'] === "login")
 			print("<p style=color:green;>- U bent succesvol ingelogd en kunt de website beheren");
 		}
-        print ('<p>Welkom ' . $_SESSION["firstname"].' je bent ingelogd als:</p><h1>' . $_SESSION["role"] .'</h1>' );
+
+        print ('<p>Welkom ' . $_SESSION["firstname"].' je bent ingelogd als:</p><h1> admin</h1>' );
         print ('<p>Het is momenteel:</p> <iframe src="http://free.timeanddate.com/clock/i5zsc3ou/n1302/fs20/tct/pct/ftb/th1" frameborder="0" width="82" height="24" allowTransparency="true"></iframe>' );
         print("<p>Je bent ingelogd vanaf:</p><h1>" . $_SERVER['REMOTE_ADDR']. "</h1>");
         ?>
