@@ -28,7 +28,7 @@ include ("dbh.php");
                      header ("Location: behandeling.php");//Zo niet, ga terug naar de vorige pagina
                 }
                 else {//zo wel, voer een sql statement uit die de behandel info van de betreffende bandeling uit de DB haalt aan de hand van een behandel_ID
-                    $sth = $dbh->prepare("select titel, inhoud FROM behandeling WHERE behandeling_id = ?");
+                    $sth = $dbh->prepare("SELECT titel, inhoud FROM behandeling WHERE behandeling_id = ?");
                     $sth -> execute(array($_GET["behandeling"]));
 
                     $result = $sth->fetch(PDO::FETCH_ASSOC);
@@ -43,7 +43,7 @@ include ("dbh.php");
                     echo "Geen inhoud beschikbaar";
                 }
 
-                    $sth = $dbh ->prepare("select prijsnaam, prijs, omschrijving FROM prijs WHERE behandeling_id = ? ");
+                    $sth = $dbh ->prepare("SELECT prijsnaam, prijs, omschrijving FROM prijs WHERE behandeling_id = ? ");
                     $sth -> execute(array($_GET["behandeling"]));
                     echo ("<div class='right' id='box'><h1>Prijzen</h1><table>");
                     while ($result = $sth ->fetch(PDO::FETCH_ASSOC)){

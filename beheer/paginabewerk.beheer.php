@@ -31,7 +31,7 @@ elseif ($tabel == 'nieuws'){
 	$rows = $stmt -> fetch();
 }
 elseif ($tabel == 'pagina'){
-	$stmt = $dbh->prepare("SELECT * FROM pagina JOIN afbeeldingen ON pagina.afbeelding = afbeeldingen.afbeeldingid WHERE pagina_id = :pagina");
+	$stmt = $dbh->prepare("SELECT * FROM pagina JOIN afbeelding ON pagina.afbeelding = afbeelding.afbeeldingid WHERE pagina_id = :pagina");
 	$stmt->execute(array(':pagina' => $pagina));
 	$rows = $stmt -> fetch();
 }
@@ -72,7 +72,7 @@ elseif ($tabel == 'pagina'){
 			print('
 				<div class="input-window" id="box" style="width: 100%!important; max-width: 1280px!important;">
 				<input type="submit" style="background-color: red!important; margin-top: 50px" name="verwijderen" value="Bericht verwijderen">
-				<input type="hidden" name="tabel" value="<?php print($tabel); ?>">
+				<input type="hidden" name="tabel" value="<??><?php print($tabel); ?>">
 				<input type="hidden" name="pagina" value="<?php print($pagina); ?>">
 			</div> ');
 		}
