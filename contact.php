@@ -94,7 +94,7 @@ $adres = ($result["adres"]);
                         $db = new PDO('mysql:host=localhost;dbname=reacties', 'root', '');
 
                         //kijk of een persoon al bestaat
-                        $query = "SELECT id FROM contactformulier WHERE naam = ? AND email = ?";
+                        $query = "SELECT id FROM personen WHERE naam = ? AND email = ? AND inhoud = ?";
                         $stmt = $db->prepare($query);
                         $stmt->execute(array($naam, $email, $inhoud));
 
@@ -102,7 +102,7 @@ $adres = ($result["adres"]);
                             $row = $stmt->fetch(PDO::FETCH_ASSOC);
                             $persoon_id = $row['id'];
                         } else { //voeg de naam en e-mail toe in de tabel personen
-                            $query = "INSERT INTO contactformulier(naam, email) VALUES (?, ?)";
+                            $query = "INSERT INTO personen(naam, email, inhoud) VALUES (?, ?, ?)";
                             $stmt = $db->prepare($query);
                             $stmt->execute(array($naam, $email, $inhoud));
 
@@ -243,3 +243,4 @@ $adres = ($result["adres"]);
 
             <?php
             include ('footer.php');
+            
