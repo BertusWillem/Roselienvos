@@ -17,6 +17,10 @@
   color: #3498db !important;
 }
 
+#empty{
+    color: lightgray;
+}
+
 /*body grote*/
 .body-container{
   min-height: 100vh;
