@@ -7,8 +7,8 @@ $tabel = $_GET['tabel'];
 include '../includes/dbh.php';
 
 // Bekijkt in welk tabel je zit.
-if ($tabel == 'behandel'){
-  $stmt = $dbh->prepare("SELECT * FROM behandel ORDER BY behandel_id DESC");
+if ($tabel == 'behandeling'){
+  $stmt = $dbh->prepare("SELECT * FROM behandeling ORDER BY behandeling_id DESC");
 }elseif ($tabel == 'nieuws'){
   $stmt = $dbh->prepare("SELECT * FROM nieuws ORDER BY nieuws_id DESC");
 }elseif ($tabel == 'pagina'){
@@ -35,7 +35,7 @@ $stmt->execute();
             ');
 
       // laat de datum weg als deze er niet in staat.
-      if($tabel != 'behandel'){
+      if($tabel != 'behandeling'){
       if ($rows['datum'] != NULL){
         print('
         </tr><tr>

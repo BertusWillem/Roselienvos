@@ -41,6 +41,7 @@ function loginRequest($email, $password)
 
     else
     {
+
       $_SESSION['userid'] = $rows['userid'];
       $_SESSION['role'] = $rows['rol'];
       $_SESSION['firstname'] = ucfirst($rows['firstname']);

@@ -16,7 +16,7 @@ $datu = date("Y/m/d");
 $stmt = $dbh->prepare("UPDATE gebruikers SET last_seen = :datu WHERE userid = :userid");
 $stmt->execute(array(':datu' => $datu, ':userid' => $_SESSION['userid']));
 
-if ($_SESSION['role'] === "admin")
+if ($_SESSION['role'] === "1")
 {
   header("Refresh:2; url=beheer/?message=login");
 }

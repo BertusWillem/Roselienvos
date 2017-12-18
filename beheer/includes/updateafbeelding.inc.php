@@ -5,8 +5,8 @@ $pagina = $_GET['pagina'];
 include '../../includes/dbh.php';
 
 // update een afbeelding op basis van de tabel naam
-if ($tabel == 'behandel'){
-  $stmt = $dbh->prepare("UPDATE behandel SET afbeelding = :afbeelding WHERE behandel_id = :pagina;");
+if ($tabel == 'behandeling'){
+  $stmt = $dbh->prepare("UPDATE behandeling SET afbeelding = :afbeelding WHERE behandeling_id = :pagina;");
   $stmt->execute(array(':afbeelding' => $_GET['afbeelding'], ':pagina' => $_GET['pagina']));
 } elseif ($tabel == 'nieuws'){
   $stmt = $dbh->prepare("UPDATE nieuws SET afbeelding = :afbeelding WHERE nieuws_id = :pagina;");

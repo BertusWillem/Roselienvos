@@ -26,7 +26,8 @@ include 'header.beheer.php';
 			if ($_GET['message'] === "login")
 			print("<p style=color:green;>- U bent succesvol ingelogd en kunt de website beheren");
 		}
-        print ('<p>Welkom ' . $_SESSION["firstname"].' je bent ingelogd als:</p><h1>' . $_SESSION["role"] .'</h1>' );
+
+        print ('<p>Welkom ' . $_SESSION["firstname"].' je bent ingelogd als:</p><h1> admin</h1>' );
         print ('<p>Het is momenteel:</p> <iframe src="http://free.timeanddate.com/clock/i5zsc3ou/n1302/fs20/tct/pct/ftb/th1" frameborder="0" width="82" height="24" allowTransparency="true"></iframe>' );
         print("<p>Je bent ingelogd vanaf:</p><h1>" . $_SERVER['REMOTE_ADDR']. "</h1>");
         ?>
@@ -51,7 +52,7 @@ include 'header.beheer.php';
         </div>
       </div></a>
 
-      <a href=pagina.beheer.php?benaming=Behandeling&&tabel=behandel><div class="block">
+      <a href=pagina.beheer.php?benaming=Behandeling&&tabel=behandeling><div class="block">
         <div class="image-view-container">
         <h2>Behandelingen</h2>
           <div class="image-view">
@@ -103,7 +104,7 @@ include 'header.beheer.php';
         </div>
       </div></a>
 
-      <a href="media.beheer.php"><div class="block">
+      <a href="media.beheer.php?uitvoering=beheer"><div class="block">
         <div class="image-view-container">
         <h2>Media</h2>
           <div class="image-view">

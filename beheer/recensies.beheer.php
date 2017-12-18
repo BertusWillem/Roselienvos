@@ -26,23 +26,23 @@ if (isset($_GET['message'])){
   }
 }
 if (isset($_GET['review'])){
-$stmt = $dbh->prepare("SELECT * FROM recensie WHERE accepted = :val");
+$stmt = $dbh->prepare("SELECT * FROM recensie WHERE status = :val");
 $stmt->execute(array(':val' => $_GET['review']));
 
 while ($rows = $stmt->fetch()){
   print ("
   <div class='recensies' id='box'>
-    <h1>".ucfirst(strtolower($rows['title']))."</h1>
+    <h1>".ucfirst(strtolower($rows['titel']))."</h1>
     <table>
       <tr>
         <td>Auteur</td>
-        <td>".ucfirst(strtolower($rows['author']))."</td>
+        <td>".ucfirst(strtolower($rows['autheur']))."</td>
       </tr><tr>
         <td>Beoordeling</td>
         <td>".ucfirst(strtolower($rows['rate']))."</td>
       </tr><tr>
         <td>Toelichting</td>
-        <td>".ucfirst(strtolower($rows['note']))."</td>
+        <td>".ucfirst(strtolower($rows['opmerking']))."</td>
       </tr><tr>
         <td id='goed'><a href='includes/approve.inc.php?approve=".$rows['recensieid']."'>Goedkeuren</a></td>
         <td id='fout'><a href='includes/approve.inc.php?deny=".$rows['recensieid']."'>Afkeuren</a></td>
