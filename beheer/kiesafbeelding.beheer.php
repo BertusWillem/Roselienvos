@@ -17,7 +17,7 @@ $stmt->execute();
     print('
         <div class="block" style="background: white;">
           <a href="includes/updateafbeelding.inc.php?tabel='.$_GET['tabel'].'&&pagina='.$_GET['pagina'].'&&afbeelding='.$rows['afbeeldingid'].'&&page='.$_SERVER['HTTP_REFERER'].'">
-          <img src="data:image/png;base64,'); echo base64_encode($rows['afbeelding']); print('" alt="Plaatje" />
+          <img src="'); echo $rows['afbeelding']; print('" alt="Plaatje" />
           </a>
         </div>
     ');}

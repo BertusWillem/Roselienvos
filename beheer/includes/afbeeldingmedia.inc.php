@@ -7,7 +7,7 @@ if ($uitvoering == 'verwijderen'){
   $afbeelding = $_GET['afbeelding'];
 
   // voert de query uit om het afbeeldingspad te selecteren
-  $del = $dbh->prepare("SELECT afbeelding FROM afbeeldingen WHERE afbeeldingid = :afbeelding");
+  $del = $dbh->prepare("SELECT afbeelding FROM afbeelding WHERE afbeeldingid = :afbeelding");
   $del->execute(array(':afbeelding' => $afbeelding));
   $rows = $del->fetch();
 
@@ -18,7 +18,7 @@ if ($uitvoering == 'verwijderen'){
   unlink($bestand);
 
   // verwijderd het afbeeldingspad uit de database
-  $sth = $dbh->prepare("DELETE FROM afbeeldingen WHERE afbeeldingid = :afbeelding");
+  $sth = $dbh->prepare("DELETE FROM afbeelding WHERE afbeeldingid = :afbeelding");
   $sth->execute(array(':afbeelding' => $afbeelding));
 
   // verwijst je terug naar de media pagina
@@ -34,7 +34,7 @@ else {
   $uploadOk = 1;
   $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
-  $upl = $dbh->prepare("INSERT INTO afbeeldingen (afbeelding) VALUE (:bestand)");
+  $upl = $dbh->prepare("INSERT INTO afbeelding (afbeelding) VALUE (:bestand)");
 
   // Controleerd of het bestand wel echt een afbeelding is
   if(isset($_POST["submit"])) {

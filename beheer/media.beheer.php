@@ -6,7 +6,7 @@ include '../includes/dbh.php';
 $pagina = $_GET['pagina'];
 $uitvoering = $_GET['uitvoering'];
 
-$stmt = $dbh->prepare("SELECT afbeelding FROM afbeeldingen;");
+$stmt = $dbh->prepare("SELECT * FROM afbeelding;");
 $stmt->execute();
 $rows = $stmt->fetch();
 ?>
