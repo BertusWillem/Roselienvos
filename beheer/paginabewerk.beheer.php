@@ -72,12 +72,16 @@ elseif ($tabel == 'pagina'){
 		<!--Geeft een verwijder optie als de tabel naam geen pagina is-->
 		<?php
 		if ($tabel !== 'pagina'){
+                    
 			print('
+                                
 				<div class="input-window" id="box" style="width: 100%!important; max-width: 1280px!important;">
+                                <form>
 				<input type="submit" style="background-color: red!important; margin-top: 50px" name="verwijderen" value="Bericht verwijderen">
-				<input type="hidden" name="tabel" value="<??><?php print($tabel); ?>">
-				<input type="hidden" name="pagina" value="<?php print($pagina); ?>">
-			</div> ');
+				<input type="hidden" name="tabel" value="' . $tabel . '">
+				<input type="hidden" name="pagina" value="'.$pagina.'">
+                                </form>
+			</div>');
 		}
 		?>
 
