@@ -103,7 +103,7 @@ include ("dbh.php");
 
                 $sth -> execute(array($page));
                 while($result = $sth->fetch(PDO::FETCH_ASSOC)){
-                    echo ("<div class='behandeling'><div class='behandeling-text'><h1>" . $result['titel'] ."</h1><img src='" . $result['afbeelding'] . "'alt='" . $result["naam"] . "'><p>".$result['inhoud']."</p><a href='behandeling-overzicht.php?behandeling=" .$result['behandel_id'] ."'>Lees meer</a></div></div>");
+                    echo ("<div class='behandeling'><div class='behandeling-text'><h1>" . $result['titel'] ."</h1><img src='" . $result['afbeelding'] . "'alt='afbeelding'><p>".$result['inhoud']."</p><a href='behandeling-overzicht.php?behandeling=" .$result['behandeling_id'] ."'>Lees meer</a></div></div>");
                 }
             }
 
