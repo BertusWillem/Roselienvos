@@ -3,8 +3,6 @@ include '../../includes/dbh.php';
 $tabel = $_GET['tabel'];
 $page = $_GET['page'];
 $date = date("d-m-Y");
-
-//Kon geen _id achter een var plaatsen in een query. Maar dit werkt ook, vies he?
 $id = $tabel.'_id';
 
 // voegt een nieuw nieuwsbericht toe
