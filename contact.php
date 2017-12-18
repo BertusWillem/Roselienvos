@@ -91,7 +91,7 @@ include ('includes/paginalader.inc.php');
                 $db = new PDO('mysql:host=localhost;dbname=mydb', 'root', 'root');
 
                 //kijk of een persoon al bestaat
-                $query = "SELECT id FROM contactformulier WHERE naam = ? AND email = ?";
+                $query = "SELECT id FROM personen WHERE naam = ? AND email = ? AND inhoud = ?";
                 $stmt = $db->prepare($query);
                 $stmt->execute(array( $naam, $email, $inhoud));
 
@@ -99,7 +99,7 @@ include ('includes/paginalader.inc.php');
                   $row = $stmt->fetch(PDO::FETCH_ASSOC);
                   $persoon_id	= $row['id'];
                 } else { //voeg de naam en e-mail toe in de tabel personen
-                  $query = "INSERT INTO contactformulier(naam, email) VALUES (?, ?)";
+                  $query = "INSERT INTO personen(naam, email, inhoud) VALUES (?, ?, ?)";
                   $stmt = $db->prepare($query);
                   $stmt->execute(array( $naam, $email, $inhoud));
 
@@ -108,7 +108,7 @@ include ('includes/paginalader.inc.php');
                 }
 
                 // voeg de reactie toe in de tabel reacties. Gebruik de id van de zojuist toegevoegde persoon
-                $query = "INSERT INTO reacties(id, inhoud, datum) VALUES (?, ?, ?)";
+                $query = "INSERT INTO reacties(persoon_id, reactie, datum) VALUES (?, ?, ?)";
                 $stmt = $db->prepare($query);
                 $stmt->execute(array( $persoon_id, $inhoud, date('Y-m-d H:i:s')));
                 //eind bericht opslaan in de databse
