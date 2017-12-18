@@ -4,6 +4,10 @@ session_start();
 $page = "Contact";
 include ('header.php');
 include ('includes/paginalader.inc.php');
+$result = contactgegeven($dbh);
+$emailontvanger=($result["email"]);                     
+$telnummer=($result["telnummer"]);
+$adres=($result["adres"]);
 ?>
 
 <body>
