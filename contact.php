@@ -4,6 +4,7 @@ session_start();
 $page = "Contact";
 include ('header.php');
 include ('includes/paginalader.inc.php');
+
 ?>
 
 <body>
@@ -30,7 +31,12 @@ include ('includes/paginalader.inc.php');
           </form>
           </section>
         </div>
-
+        <?php
+            $result = contactgegeven($dbh);
+            $emailontvanger=($result["email"]);                     
+            $telnummer=($result["telnummer"]);
+            $adres=($result["adres"]);
+        ?>
       <div class="right" id="box">
         <h1>Informatie</h1>
           <table>

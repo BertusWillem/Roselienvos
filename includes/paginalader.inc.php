@@ -89,25 +89,7 @@ include ("dbh.php");
                     </tr></table></div>");
             }
             }
-            elseif ($page == "Contact"){
-              $sth = $dbh->prepare("SELECT email FROM contactgegeven");
-                          $sth -> execute();
-
-                          $result = $sth->fetch(PDO::FETCH_ASSOC);
-                          $emailontvanger=(implode($result));
-
-              $sth = $dbh->prepare("SELECT telnummer FROM contactgegeven");
-                          $sth -> execute();
-
-                          $result = $sth->fetch(PDO::FETCH_ASSOC);
-                          $telnummer=(implode($result));
-
-              $sth = $dbh->prepare("SELECT adres FROM contactgegeven");
-                          $sth -> execute();
-
-                          $result = $sth->fetch(PDO::FETCH_ASSOC);
-                          $adres=(implode($result));
-            }
+            
 
 
             elseif ($page == "Behandelingen"){
@@ -186,4 +168,16 @@ include ("dbh.php");
         }
         }
 
+        function contactgegeven($dbh){
+              $sth = $dbh->prepare("SELECT email, telnummer, adres FROM contactgegeven");
+                          $sth -> execute();
+
+                          $result = $sth->fetch(PDO::FETCH_ASSOC);
+                          return($result);
+                          
+
+
+            }
+        
+        
 ?>

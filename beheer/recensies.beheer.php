@@ -42,11 +42,23 @@ while ($rows = $stmt->fetch()){
         <td>".ucfirst(strtolower($rows['rate']))."</td>
       </tr><tr>
         <td>Toelichting</td>
-        <td>".ucfirst(strtolower($rows['opmerking']))."</td>
+        <td>".ucfirst(strtolower($rows['toelichting']))."</td>
       </tr><tr>
-        <td id='goed'><a href='includes/approve.inc.php?approve=".$rows['recensieid']."'>Goedkeuren</a></td>
-        <td id='fout'><a href='includes/approve.inc.php?deny=".$rows['recensieid']."'>Afkeuren</a></td>
-      </tr>
+      ");
+  if ($_GET['review'] == 2){
+      print("<td id='goed'><a href='includes/approve.inc.php?approve=".$rows['recensieid']."'>Goedkeuren</a></td>");
+      print("<td id='fout'><a href='includes/approve.inc.php?delete=".$rows['recensieid']."'>Verwijderen</a></td>");
+  }
+  elseif ($_GET['review'] == 1){
+      print("<td id='fout'><a href='includes/approve.inc.php?deny=".$rows['recensieid']."'>Afkeuren</a></td>");
+      print("<td id='empty'></td>");
+  }
+  else {
+  print("<td id='goed'><a href='includes/approve.inc.php?approve=".$rows['recensieid']."'>Goedkeuren</a></td>");
+  print("<td id='fout'><a href='includes/approve.inc.php?deny=".$rows['recensieid']."'>Afkeuren</a></td>");
+  }       
+      
+      print("</tr>
     </table>
   </div>
   ");

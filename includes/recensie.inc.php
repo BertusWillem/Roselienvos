@@ -12,7 +12,7 @@ if (empty($title) || empty($author) || empty($rate) || empty($note)){
 }
 
 
-$stmt = $dbh->prepare("INSERT INTO recensie (title, author, rate, note, date)
+$stmt = $dbh->prepare("INSERT INTO recensie (titel, autheur, rate, toelichting, date)
                        VALUES (:title, :author, :rate, :note, :date);");
 $stmt->execute(array(':title' => $title, ':author' => $author,
                      ':rate' => $rate, ':note' => $note, ':date' => $date));
