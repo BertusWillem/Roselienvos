@@ -15,7 +15,7 @@ exit();
 }
 //Het veld moet ingevuld zijn, anders wordt er een error message gegenereerd
 include 'dbh.php';
-$stmt = $dbh->prepare("SELECT * FROM gebruikers WHERE email = :email");
+$stmt = $dbh->prepare("SELECT * FROM gebruiker WHERE email = :email");
 $stmt->execute(array(':email' => $email));
 $rows = $stmt ->fetch();
 //Er wordt in de database gezocht naar het ingevulde email adres
