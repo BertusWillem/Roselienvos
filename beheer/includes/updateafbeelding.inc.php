@@ -1,8 +1,7 @@
 <?php
+include '../../includes/dbh.php';
 $tabel = $_GET['tabel'];
 $pagina = $_GET['pagina'];
-
-include '../../includes/dbh.php';
 
 // update een afbeelding op basis van de tabel naam
 if ($tabel == 'behandeling'){

@@ -6,7 +6,7 @@ include '../includes/dbh.php';
 $pagina = $_GET['pagina'];
 $uitvoering = $_GET['uitvoering'];
 
-$stmt = $dbh->prepare("SELECT afbeelding FROM afbeeldingen;");
+$stmt = $dbh->prepare("SELECT * FROM afbeelding;");
 $stmt->execute();
 $rows = $stmt->fetch();
 ?>
@@ -44,18 +44,18 @@ $rows = $stmt->fetch();
 
     // laad de plaatjes
     while ($uitvoering == 'beheer' && $rows = $stmt->fetch()){
-      // Afbeelding verwijderen
-      print('
-        <div class="block" id="imageblock">
-        <div class="image-view-container">
-          <img src="'.$rows['afbeelding'].'" alt="Plaatje" />
-          <a href="includes/afbeeldingmedia.inc.php?uitvoering=verwijderen&&afbeelding='.$rows['afbeeldingid'].'"><div class="image-view">
-            <p id="important">VERWIJDEREN!</p>
-          </div></a>
-          </div>
+    // Afbeelding verwijderen
+    print('
+      <div class="block" id="imageblock">
+      <div class="image-view-container">
+        <img src="'.$rows['afbeelding'].'" alt="Plaatje" />
+        <a href="includes/afbeeldingmedia.inc.php?uitvoering=verwijderen&&afbeelding='.$rows['afbeeldingid'].'"><div class="image-view">
+          <p id="important">VERWIJDEREN!</p>
+        </div></a>
         </div>
-      ');
-      }?>
+      </div>
+    ');
+    }?>
 
     </div>
   </section>

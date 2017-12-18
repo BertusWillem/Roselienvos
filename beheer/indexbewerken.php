@@ -5,7 +5,7 @@ $page = "Overzicht";
 include 'header.beheer.php';
 
 include '../includes/dbh.php';
-$stmt = $dbh->prepare("SELECT * FROM pagina p JOIN afbeeldingen a ON p.afbeelding=a.afbeeldingid");
+$stmt = $dbh->prepare("SELECT * FROM pagina p LEFT JOIN afbeeldingen a ON p.afbeelding=a.afbeeldingid");
 $stmt->execute();
 while ($rows = $stmt->fetch()){
 print('

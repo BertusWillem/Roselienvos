@@ -18,7 +18,7 @@ include ("dbh.php");
                 } else {
                     echo "Geen inhoud beschikbaar";
                 }
-                $sth2 = $dbh->prepare("SELECT a.afbeelding FROM afbeelding a JOIN pagina p ON a.afbeeldingid = p.afbeelding WHERE titel = ?");
+                $sth2 = $dbh->prepare("SELECT a.afbeelding FROM afbeelding a LEFT JOIN pagina p ON a.afbeeldingid = p.afbeelding WHERE titel = ?");
                 $sth2 -> execute(array($page));
                 while ($result2 = $sth2 ->fetch(PDO::FETCH_ASSOC)){
                     echo ('<div class="right"><h1>Foto\'s</h1><section class="gallery"><div><img src="'.$result2['afbeelding'].'"> alt="afbeelding"></div></section></div>');
@@ -73,7 +73,7 @@ include ("dbh.php");
                 $sth = $dbh ->prepare("SELECT titel FROM behandeling where behandeling_id = ?");
                 $sth -> execute(array($result2["behandeling_id"]));
                 $result = $sth ->fetch(PDO::FETCH_ASSOC);
-                echo ("<div class='left' id='box'><h1>" . $result["titel"] . "</h1><table>");
+                echo ("<div id='box'><h1>" . $result["titel"] . "</h1><table>");
 
 
                 $sth = $dbh ->prepare("SELECT prijsnaam, prijs, omschrijving FROM prijs where behandeling_id = ?");
@@ -89,25 +89,7 @@ include ("dbh.php");
                     </tr></table></div>");
             }
             }
-            elseif ($page == "Contact"){
-              $sth = $dbh->prepare("SELECT email FROM contactgegeven");
-                          $sth -> execute();
-
-                          $result = $sth->fetch(PDO::FETCH_ASSOC);
-                          $emailontvanger=(implode($result));
-
-              $sth = $dbh->prepare("SELECT telnummer FROM contactgegeven");
-                          $sth -> execute();
-
-                          $result = $sth->fetch(PDO::FETCH_ASSOC);
-                          $telnummer=(implode($result));
-
-              $sth = $dbh->prepare("SELECT adres FROM contactgegeven");
-                          $sth -> execute();
-
-                          $result = $sth->fetch(PDO::FETCH_ASSOC);
-                          $adres=(implode($result));
-            }
+            
 
 
             elseif ($page == "Behandelingen"){
@@ -117,11 +99,11 @@ include ("dbh.php");
                     echo ("<h1>" . $result["titel"] . "</h1> <p>" . $result["inhoud"] . "</p>");
                 }
 
-                $sth = $dbh->prepare("SELECT titel, inhoud, behandeling_id, a.afbeelding FROM behandeling b JOIN afbeelding a ON a.afbeeldingid = b.afbeelding");
+                $sth = $dbh->prepare("SELECT titel, inhoud, behandeling_id, a.afbeelding FROM behandeling b LEFT JOIN afbeelding a ON a.afbeeldingid = b.afbeelding");
 
                 $sth -> execute(array($page));
                 while($result = $sth->fetch(PDO::FETCH_ASSOC)){
-                    echo ("<div class='behandeling'><div class='behandeling-text'><h1>" . $result['titel'] ."</h1><img src='data:image/jpg;base64, " . base64_encode($result['afbeelding']) . "'alt='" . $result["naam"] . "'><p>".$result['inhoud']."</p><a href='behandeling-overzicht.php?behandeling=" .$result['behandel_id'] ."'>Lees meer</a></div></div>");
+                    echo ("<div class='behandeling'><div class='behandeling-text'><h1>" . $result['titel'] ."</h1><img src='" . $result['afbeelding'] . "'alt='afbeelding'><p>".$result['inhoud']."</p><a href='behandeling-overzicht.php?behandeling=" .$result['behandeling_id'] ."'>Lees meer</a></div></div>");
                 }
             }
 
@@ -129,11 +111,11 @@ include ("dbh.php");
 
 
             elseif ($page == "Behandelingen-beheer"){
-                $sth = $dbh->prepare("SELECT titel, behandel_id, korte_omschrijving, a.afbeelding, a.naam FROM behandel b JOIN afbeelding a ON a.afbeeldingid = b.afbeelding");
+                $sth = $dbh->prepare("SELECT titel, behandel_id, korte_omschrijving, a.afbeelding, a.naam FROM behandel b LEFT JOIN afbeelding a ON a.afbeeldingid = b.afbeelding");
 
                 $sth -> execute(array($page));
                 while($result = $sth->fetch(PDO::FETCH_ASSOC)){
-                    echo ("<div class='behandeling'><div style='background-color: White!important;' class='behandeling-text'><h1>" . $result['titel'] ."</h1><img src='data:image/jpg;base64, " . base64_encode($result['afbeelding']) . "'alt='" . $result["naam"] . "'><p>".$result['korte_omschrijving']."</p><a href='behandeling-aanpassen.php?behandeling=" .$result['behandel_id'] ."'>Aanpassen --></a></div></div>");
+                    echo ("<div class='behandeling'><div style='background-color: White!important;' class='behandeling-text'><h1>" . $result['titel'] ."</h1><img src='" . $result['afbeelding'] . "'alt='" . $result["naam"] . "'><p>".$result['korte_omschrijving']."</p><a href='behandeling-aanpassen.php?behandeling=" .$result['behandel_id'] ."'>Aanpassen --></a></div></div>");
 
                 }
 
@@ -146,7 +128,7 @@ include ("dbh.php");
 
 
                 elseif ($page == "Nieuws-item"){
-                $stmt = $dbh->prepare("SELECT * FROM nieuws n JOIN afbeelding a ON n.afbeelding=a.afbeeldingid WHERE nieuws_id = :nieuwsitem");
+                $stmt = $dbh->prepare("SELECT * FROM nieuws n LEFT JOIN afbeelding a ON n.afbeelding=a.afbeeldingid WHERE nieuws_id = :nieuwsitem");
                 $stmt->execute(array(':nieuwsitem' => $_GET['nieuwsitem']));
                 while ($rows = $stmt->fetch()){
                 print('<div class="left"><h1>'.$rows['titel'].'</h1><p>'.$rows['inhoud'].'</p></div><div class="right"><h1>Afbeelding</h1><section class="gallery"><div><img src="'); echo $rows['afbeelding']; print('" alt="Nieuws bericht" /></div></section>');
@@ -161,10 +143,10 @@ include ("dbh.php");
                 }
 
 
-                $stmt = $dbh->prepare("SELECT * FROM nieuws n JOIN afbeelding a ON n.afbeelding=a.afbeeldingid WHERE n.done = 1");
+                $stmt = $dbh->prepare("SELECT * FROM nieuws n LEFT JOIN afbeelding a ON n.afbeelding=a.afbeeldingid WHERE n.done = 1");
                 $stmt->execute();
                 while ($rows = $stmt->fetch()){
-                print('<div class="behandeling"><div class="behandeling-text"><h1>'.$rows['titel']. '</h1><img src="data:image/jpg;base64, ' . base64_encode($result['afbeelding']) . 'alt="Nieuws item"><p>'.$rows['inhoud'].'</p><p class="datum">'.$rows['datum'].'</p><a href="nieuws-overzicht.php?nieuwsitem='.$rows['nieuws_id'].'">Lees meer ></a></div></div>');
+                print('<div class="behandeling"><div class="behandeling-text"><h1>'.$rows['titel']. '</h1><img src="' . $result['afbeelding'] . 'alt="Nieuws item"><p>'.$rows['inhoud'].'</p><p class="datum">'.$rows['datum'].'</p><a href="nieuws-overzicht.php?nieuwsitem='.$rows['nieuws_id'].'">Lees meer ></a></div></div>');
                 }
             }
 
@@ -186,4 +168,16 @@ include ("dbh.php");
         }
         }
 
+        function contactgegeven($dbh){
+              $sth = $dbh->prepare("SELECT email, telnummer, adres FROM contactgegeven");
+                          $sth -> execute();
+
+                          $result = $sth->fetch(PDO::FETCH_ASSOC);
+                          return($result);
+                          
+
+
+            }
+        
+        
 ?>

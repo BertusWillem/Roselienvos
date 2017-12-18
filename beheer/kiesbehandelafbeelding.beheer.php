@@ -10,7 +10,7 @@ print('
 <p>test</p>
 <a href="includes/updatebehandelafbeelding.inc.php?behandeling='.$_GET['behandeling'].'&&afbeelding='.$rows['afbeeldingid'].'
 &&page='.$_SERVER['HTTP_REFERER'].'">
-<img src="data:image/png;base64,'); echo base64_encode($rows['afbeelding']); print('" alt="Nieuws bericht" />
+<img src="'); echo $rows['afbeelding']; print('" alt="Nieuws bericht" />
 </a>
 ');
 }
