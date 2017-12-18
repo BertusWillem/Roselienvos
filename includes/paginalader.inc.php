@@ -89,7 +89,7 @@ include ("dbh.php");
                     </tr></table></div>");
             }
             }
-            
+
 
 
             elseif ($page == "Behandelingen"){
@@ -103,7 +103,7 @@ include ("dbh.php");
 
                 $sth -> execute(array($page));
                 while($result = $sth->fetch(PDO::FETCH_ASSOC)){
-                    echo ("<div class='behandeling'><div class='behandeling-text'><h1>" . $result['titel'] ."</h1><img src='" . $result['afbeelding'] . "'alt='afbeelding'><p>".$result['inhoud']."</p><a href='behandeling-overzicht.php?behandeling=" .$result['behandeling_id'] ."'>Lees meer</a></div></div>");
+                    echo ("<div class='behandeling'><div class='behandeling-text'><h1>" . $result['titel'] ."</h1><img src='" . substr($result['afbeelding'], 3) . "'alt='afbeelding'><p>".$result['inhoud']."</p><a href='behandeling-overzicht.php?behandeling=" .$result['behandeling_id'] ."'>Lees meer</a></div></div>");
                 }
             }
 
@@ -131,7 +131,7 @@ include ("dbh.php");
                 $stmt = $dbh->prepare("SELECT * FROM nieuws n LEFT JOIN afbeelding a ON n.afbeelding=a.afbeeldingid WHERE nieuws_id = :nieuwsitem");
                 $stmt->execute(array(':nieuwsitem' => $_GET['nieuwsitem']));
                 while ($rows = $stmt->fetch()){
-                print('<div class="left"><h1>'.$rows['titel'].'</h1><p>'.$rows['inhoud'].'</p></div><div class="right"><h1>Afbeelding</h1><section class="gallery"><div><img src="'); echo $rows['afbeelding']; print('" alt="Nieuws bericht" /></div></section>');
+                print('<div class="left"><h1>'.$rows['titel'].'</h1><p>'.$rows['inhoud'].'</p></div><div class="right"><h1>Afbeelding</h1><section class="gallery"><div><img src="'); echo $rows['afbeelding']; print('" alt="Nieuws bericht"></div></section>');
                 }
             }
 
@@ -146,7 +146,7 @@ include ("dbh.php");
                 $stmt = $dbh->prepare("SELECT * FROM nieuws n LEFT JOIN afbeelding a ON n.afbeelding=a.afbeeldingid WHERE n.done = 1");
                 $stmt->execute();
                 while ($rows = $stmt->fetch()){
-                print('<div class="behandeling"><div class="behandeling-text"><h1>'.$rows['titel']. '</h1><img src="' . $result['afbeelding'] . 'alt="Nieuws item"><p>'.$rows['inhoud'].'</p><p class="datum">'.$rows['datum'].'</p><a href="nieuws-overzicht.php?nieuwsitem='.$rows['nieuws_id'].'">Lees meer ></a></div></div>');
+                print('<div class="behandeling"><div class="behandeling-text"><h1>'.$rows['titel']. '</h1><img src="' . substr($rows['afbeelding'], 3) . '" alt="Nieuws item"><p>'.$rows['inhoud'].'</p><p class="datum">'.$rows['datum'].'</p><a href="nieuws-overzicht.php?nieuwsitem='.$rows['nieuws_id'].'">Lees meer ></a></div></div>');
                 }
             }
 
@@ -174,10 +174,10 @@ include ("dbh.php");
 
                           $result = $sth->fetch(PDO::FETCH_ASSOC);
                           return($result);
-                          
+
 
 
             }
-        
-        
+
+
 ?>
