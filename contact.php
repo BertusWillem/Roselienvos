@@ -88,7 +88,7 @@ include ('includes/paginalader.inc.php');
                 include 'includes/mail.php';
 
                 //begin bericht opslaan in de databse
-                $db = new PDO('mysql:host=localhost;dbname=mydb', 'root', 'root');
+                $db = new PDO('mysql:host=localhost;dbname=roselienvos', 'root', '');
 
                 //kijk of een persoon al bestaat
                 $query = "SELECT id FROM contactformulier WHERE naam = ? AND email = ? AND inhoud = ?";
