@@ -751,3 +751,12 @@ footer a{
     padding-right: 10px;
   }
 }
+
+
+#disabled{
+  color: gray;
+  background-color: lightgray;
+}
+#enabled{
+  cursor: pointer;
+}

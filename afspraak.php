@@ -54,7 +54,7 @@ if ($month >= 13){ //wordt het volgende jaar geladen?
 
 
  //de kop van de tabel
- echo "<table>";
+ echo "<table border= solid;>";
  echo "<tr><th colspan=7><a href=afspraak.php?offset=". ($maandofset-1) ."> < </a> $title $year <a href=afspraak.php?offset=". ($maandofset+1) ."> > </a></th></tr>";
  echo "<tr>
  <td>Zo</td>
@@ -84,10 +84,16 @@ if ($month >= 13){ //wordt het volgende jaar geladen?
 
  while ( $day_num <= $days_in_month )
  {
-     echo "<td><button onclick='selectday($day_num, $month, $year)'> $day_num</button> </td>";
+    if($day_count == 1 || $day_count == 7){
+      echo "<td id='disabled'>$day_num</td>";
+      $day_num++;
+      $day_count++;
+    }
+    else{
+     echo "<td id='enabled' onclick='selectday($day_num, $month, $year)'> $day_num</td>";
      $day_num++;
      $day_count++;
-
+   }
      //aan het einde van de week een nieuwe tablerow
      if ($day_count > 7)
      {
@@ -110,20 +116,52 @@ if ($month >= 13){ //wordt het volgende jaar geladen?
 
 
 ?>
-<div id="open" style="display: none;">
+<div id="tijd">
 
-
-
-<script>
-function selectday(dag, maand, jaar){
-  var x = document.getElementById("open");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  }
-  x.innerHTML = [dag, maand, jaar];
-
-}
-</script>
 </div>
+
+<script language = "javascript" type = "text/javascript">
+function selectday(dag, maand, jaar){
+
+            var ajaxRequest;  //Maak een lege variabele aan voor het gebruik van ajax
+
+            try { //check voor een goede werkende code met de browser
+               // Opera 8.0+, Firefox, Safari
+               ajaxRequest = new XMLHttpRequest();
+            } catch (e) {
+
+               // Internet Explorer Browsers
+               try {
+                  ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
+               } catch (e) {
+
+                  try {
+                     ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+                  } catch (e) {
+                     //niet werkende browser
+                     alert("Er is iets fout gegeaan, probeer een andere browser of probeer het later opnieuw.");
+                     return false;
+                  }
+               }
+            }
+
+            ajaxRequest.onreadystatechange = function() {
+
+                         if(ajaxRequest.readyState == 4) {
+                            var ajaxDisplay = document.getElementById('tijd');
+                            ajaxDisplay.innerHTML = ajaxRequest.responseText;
+                         }
+                      }
+
+          ajaxRequest.open("GET", "includes/afspraak.inc.php?dag="+dag+"&&maand="+maand+"&&jaar="+jaar, true);
+          ajaxRequest.send(null);
+                   }
+
+
+
+
+
+  </script>
+
 <?php
 include 'footer.php';
