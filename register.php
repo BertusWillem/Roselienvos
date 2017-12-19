@@ -9,7 +9,7 @@ if (isset($_SESSION['userid'])){
   exit();
 }
 ?>
-
+<script src='https://www.google.com/recaptcha/api.js'></script>
 <section class="body-container">
   <section class="container">
     <div class="input-window">
@@ -33,6 +33,9 @@ if (isset($_SESSION['userid'])){
     if($_GET['error'] === "known"){
     print("<p style='color:red;'>- Dit email adres is al bij ons bekend");
     }
+    if($_GET['error'] === "captchaerror"){
+    print("<p style='color:red;'>- De captcha is niet geldig voltooid, probeer het opnieuw.");
+    }
 }
 ?>
 <form action="includes/register.inc.php" method="POST">
@@ -50,6 +53,8 @@ if (isset($_SESSION['userid'])){
                                                 else{print("value='".$_SESSION['email']."'");}?>>
         <input type="password" name="reg_pw" placeholder="Wachtwoord">
         <input type="password" name="reg_confpw" placeholder="Bevestig wachtwoord">
+        
+        <div class="g-recaptcha" data-sitekey="6LePlD0UAAAAABr32fFpeLtjEWkKfzXkFoUmHXhY"></div>
         <input type="submit" value="Aanmelden">
         <a href="login.php">Al wel een account? Inloggen!</a>
       </form>
@@ -58,11 +63,10 @@ if (isset($_SESSION['userid'])){
 
     </div>
   </section>
-</section>');
-}
+</section>
 
 
-
+<?php
 
 include 'footer.php';
- ?>
+ 

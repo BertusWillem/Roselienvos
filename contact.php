@@ -6,7 +6,7 @@ include ('header.php');
 include ('includes/paginalader.inc.php');
 
 ?>
-
+<script src='https://www.google.com/recaptcha/api.js'></script>
 <body>
   <section class="body-container">
     <section class="container">
@@ -27,7 +27,7 @@ include ('includes/paginalader.inc.php');
               <option value="overige">Overige</option>
             </select> -->
             <textarea rows="4" name="inhoud" placeholder="Uw vraag..."></textarea>
-
+            <div class="g-recaptcha" data-sitekey="6LePlD0UAAAAABr32fFpeLtjEWkKfzXkFoUmHXhY"></div>
             <input id="Verstuur" type="submit" name="Verstuur" value="Verstuur">
           </form>
           </section>
@@ -63,12 +63,26 @@ include ('includes/paginalader.inc.php');
        $naam = validate($_POST["naam"]);
        $email = validate($_POST["email"]);
        $inhoud = validate($_POST["inhoud"]);
-
+        $captcha=$_POST['g-recaptcha-response'];
+        $secretKey = "6LePlD0UAAAAAMH3WciNNhYFiil6S-WpD3A2o0qk";
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $response=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secretKey."&response=".$captcha."&remoteip=".$ip);
+        $responseKeys = json_decode($response,true);
+        if(intval($responseKeys["success"]) !== 1) {
+          print ("<script type='text/javascript'>alert('De captcha is niet geldig voltooid, probeer opnieuw.')</script>"); //Error popup met foutmelding velden leeg
+        } 
+        else {
+         
+        
 
 
        if (empty($_POST["naam"]) || empty($_POST["email"]) || empty($_POST["inhoud"])) { //controleerd of er velding leeg zijn
             print ("<script type='text/javascript'>alert('Niet alle velden zijn ingevuld!')</script>"); //Error popup met foutmelding velden leeg
        }
+       elseif(!isset($_POST['g-recaptcha-response'])){
+           print ("<script type='text/javascript'>alert('De captcha is niet voltooid')</script>"); //Error popup met foutmelding velden leeg
+       }
+       
        else {
 
 
@@ -128,7 +142,7 @@ include ('includes/paginalader.inc.php');
        }
 
        }
-
+       }
 
 
 

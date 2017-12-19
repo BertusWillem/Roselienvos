@@ -9,7 +9,24 @@
   $postcode = $_POST['reg_pcode'];
   $woonplaats = $_POST['reg_woonpl'];
   //De variabelen zijn gedefinieerd, deze zijn doorgestuurd met POST vanuit de login.php?aanm=register
-
+        
+        $captcha=$_POST['g-recaptcha-response'];
+        $secretKey = "6LePlD0UAAAAAMH3WciNNhYFiil6S-WpD3A2o0qk";
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $response=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secretKey."&response=".$captcha."&remoteip=".$ip);
+        $responseKeys = json_decode($response,true);
+        if(intval($responseKeys["success"]) !== 1) {
+          
+          $_SESSION['fn'] = $_POST['reg_fn'];
+          $_SESSION['ln'] = $_POST['reg_ln'];
+          $_SESSION['email'] = $_POST['reg_un'];
+          $_SESSION['addr'] = $_POST['reg_addr'];
+          $_SESSION['pcode'] = $_POST['reg_pcode'];
+          $_SESSION['woonpl'] = $_POST['woonpl'];
+          header("Location:../register.php?error=captchaerror");
+        } 
+        
+        else{
   if (empty($firstname) || empty($lastname) || empty($adres) || empty($postcode) || empty($woonplaats)){
     $_SESSION['fn'] = $_POST['reg_fn'];
     $_SESSION['ln'] = $_POST['reg_ln'];
@@ -92,3 +109,4 @@ else
 include 'loginsystem.func.php';
 registerRequest($firstname, $lastname, $email, $password, $adres, $postcode, $woonplaats);
 }
+        }
