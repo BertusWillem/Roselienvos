@@ -73,7 +73,23 @@
                     </tr></table></div>");                                                                                  // Prijstabel word gesloten + een link naar contact / afspraak maken.
                 }
             }
-            elseif ($page == "Prijzen") {
+              elseif ($page == "Prijzen") {
+                // hier wordt de behandel beschrijving geplaatst.
+                $sth = $dbh->prepare("SELECT titel, inhoud FROM pagina WHERE titel = ?");
+                $sth -> execute(array($page));
+
+                while($result = $sth->fetch(PDO::FETCH_ASSOC)){
+                    echo ("<div class='left'><h1>" . $result["titel"] . "</h1> <p>" . $result["inhoud"] . "</p></div>");
+                }
+
+                // div left eindigen na de while en beginnen met de div right voor afspraken maken.
+                $sth = $dbh->prepare("SELECT titel, inhoud, pagina_id FROM pagina WHERE pagina_id = 5"); // dit moet nog veilig!!
+                $sth -> execute(array($page));
+
+                while($result = $sth->fetch(PDO::FETCH_ASSOC)){
+                  echo ("<div class='right' id='afspraak'><h1>".$result['titel']."</h1> <table><tr><td><p>".$result['inhoud']."</p></td></tr> <tr><td><a href='afspraak.php'>Klik hier om een afspraak te maken</a></td></tr></table></div>");
+                }
+
                 $sth2 = $dbh ->prepare("SELECT behandeling_id FROM behandeling");
                 $sth2 -> execute(array());
                 while($result2 = $sth2 ->fetch(PDO::FETCH_ASSOC)){
@@ -81,17 +97,14 @@
                 $sth = $dbh ->prepare("SELECT titel FROM behandeling where behandeling_id = ?");
                 $sth -> execute(array($result2["behandeling_id"]));
                 $result = $sth ->fetch(PDO::FETCH_ASSOC);
-                echo ("<div id='box'><h1>" . $result["titel"] . "</h1><table>");
+                echo ("<div class='prijs' id='box'><h1>" . $result["titel"] . "</h1><table>");
 
                 $sth = $dbh ->prepare("SELECT prijsnaam, prijs, omschrijving FROM prijs where behandeling_id = ?");
                     $sth -> execute(array($result2["behandeling_id"]));
                     while ($result = $sth ->fetch(PDO::FETCH_ASSOC)){
                         echo ("<tr><td>" . $result['prijsnaam'] . "</br>" .$result['omschrijving'] .  "</td><td> " . $result["prijs"] . "</td></tr>");
                     }
-                    echo ("<tr class='nopadding'>
-                    <td id='button'><a href='contact.php'>Contact</a></td>
-                    <td id='button'><a href='afspraak.php'>Afspraak maken</a></td>
-                    </tr></table></div>");
+                    echo ("<tr class='nopadding'></tr></table></div>");
             }
             }
 						elseif ($page == "Behandelingen"){
@@ -183,14 +196,18 @@
         }
 
         function contactgegeven($dbh){
+              // div left eindigen na de while en beginnen met de div right voor afspraken maken.
+              $sth = $dbh->prepare("SELECT titel, inhoud, pagina_id FROM pagina WHERE pagina_id = 5"); // dit moet nog veilig!!
+              $sth -> execute(array($page));
+
+              while($result = $sth->fetch(PDO::FETCH_ASSOC)){
+                echo ("<div class='right' id='afspraak'><h1>".$result['titel']."</h1> <table><tr><td><p>".$result['inhoud']."</p></td></tr> <tr><td><a href='afspraak.php'>Klik hier om een afspraak te maken</a></td></tr></table></div>");
+              }
+
               $sth = $dbh->prepare("SELECT email, telnummer, adres FROM contactgegeven");
-                          $sth -> execute();
-
-                          $result = $sth->fetch(PDO::FETCH_ASSOC);
-                          return($result);
-
-
-
+              $sth -> execute();
+              $result = $sth->fetch(PDO::FETCH_ASSOC);
+              return($result);
             }
 
 

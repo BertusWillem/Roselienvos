@@ -196,6 +196,17 @@ li a:hover{
   margin-bottom: 50px;
 }
 
+/*prijslijst*/
+.prijs table{
+  max-width: 1280px;
+    margin-bottom: 50px !important;
+}
+.prijs h1{
+  float:left;
+  max-width: 1180px;
+  width: 100%;
+}
+
 /*body container*/
 .body-container{
   max-width: 1280px;
