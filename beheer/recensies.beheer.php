@@ -16,13 +16,20 @@ include '../includes/dbh.php';
           <option value ="2">Afgekeurd</option>
           <option value ="0">Openstaand</option>
         </select>
+        
         <input type="submit" value="Zoeken" style="margin-bottom: 25px;">
       </div>
 
 <?php
 if (isset($_GET['message'])){
-  if ($_GET['message'] === "success"){
-    print("<p style='color:green; width:100%;'>- De recensie is succesvol goedgekeurd/afgekeurd</p>");
+  if ($_GET['message'] === "successdel"){
+    print("<p style='color:green; width:100%;'>- De recensie is succesvol verwijderd</p>");
+  }
+  elseif($_GET['message'] === "successapprove"){
+    print("<p style='color:green; width:100%;'>- De recensie is succesvol goedgekeurd</p>");
+  }
+  elseif($_GET['message'] === "successdeny"){
+    print("<p style='color:green; width:100%;'>- De recensie is succesvol afgekeurd</p>");
   }
 }
 if (isset($_GET['review'])){
@@ -46,16 +53,16 @@ while ($rows = $stmt->fetch()){
       </tr><tr>
       ");
   if ($_GET['review'] == 2){
-      print("<td id='goed'><a href='includes/approve.inc.php?approve=".$rows['recensieid']."'>Goedkeuren</a></td>");
-      print("<td id='fout'><a href='includes/approve.inc.php?delete=".$rows['recensieid']."'>Verwijderen</a></td>");
+      print("<td id='goed'><a href='includes/approve.inc.php?approve=".$rows['recensieid']."&&return=2'>Goedkeuren</a></td>");
+      print("<td id='fout'><a href='includes/approve.inc.php?delete=".$rows['recensieid']."&&return=2'>Verwijderen</a></td>");
   }
   elseif ($_GET['review'] == 1){
-      print("<td id='fout'><a href='includes/approve.inc.php?deny=".$rows['recensieid']."'>Afkeuren</a></td>");
+      print("<td id='fout'><a href='includes/approve.inc.php?deny=".$rows['recensieid']."&&return=1'>Afkeuren</a></td>");
       print("<td id='empty'></td>");
   }
   else {
-  print("<td id='goed'><a href='includes/approve.inc.php?approve=".$rows['recensieid']."'>Goedkeuren</a></td>");
-  print("<td id='fout'><a href='includes/approve.inc.php?deny=".$rows['recensieid']."'>Afkeuren</a></td>");
+  print("<td id='goed'><a href='includes/approve.inc.php?approve=".$rows['recensieid']."&&return=0'>Goedkeuren</a></td>");
+  print("<td id='fout'><a href='includes/approve.inc.php?deny=".$rows['recensieid']."&&return=0'>Afkeuren</a></td>");
   }       
       
       print("</tr>
