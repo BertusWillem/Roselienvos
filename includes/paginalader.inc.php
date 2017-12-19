@@ -114,6 +114,14 @@
                 }
             }
             elseif ($page == "Nieuws-item"){
+								// div left eindigen na de while en beginnen met de div right voor afspraken maken.
+								$sth = $dbh->prepare("SELECT titel, inhoud, pagina_id FROM pagina WHERE pagina_id = 5"); // dit moet nog veilig!!
+								$sth -> execute(array($page));
+
+								while($result = $sth->fetch(PDO::FETCH_ASSOC)){
+									echo ("<div class='right' id='afspraak'><h1>".$result['titel']."</h1> <table><tr><td><p>".$result['inhoud']."</p></td></tr> <tr><td><a href='afspraak.php'>Klik hier om een afspraak te maken</a></td></tr></table></div>");
+								}
+
                 $stmt = $dbh->prepare("SELECT * FROM nieuws n LEFT JOIN afbeelding a ON n.afbeelding=a.afbeeldingid WHERE nieuws_id = :nieuwsitem"); // Gegevens voor nieuwsitems word gevraagd.
                 $stmt->execute(array(':nieuwsitem' => $_GET['nieuwsitem']));
                 while ($rows = $stmt->fetch()){ // er word een gedetaileerd inhoud ge-echoed.
