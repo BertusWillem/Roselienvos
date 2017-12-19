@@ -3,6 +3,14 @@
 
         function inhoudCall(PDO $dbh, $page){
             if ($page == "Over mij"){
+								// div left eindigen na de while en beginnen met de div right voor afspraken maken.
+								$sth = $dbh->prepare("SELECT titel, inhoud, pagina_id FROM pagina WHERE pagina_id = 5"); // dit moet nog veilig!!
+								$sth -> execute(array($page));
+
+								while($result = $sth->fetch(PDO::FETCH_ASSOC)){
+									echo ("<div class='right' id='afspraak'><h1>".$result['titel']."</h1> <table><tr><td><p>".$result['inhoud']."</p></td></tr> <tr><td><a href='afspraak.php'>Klik hier om een afspraak te maken</a></td></tr></table></div>");
+								}
+
                 $sth = $dbh->prepare("SELECT inhoud FROM pagina WHERE titel = ?");      //De tekst voor de Over mij pagina wordt opgevraagd. De tekst staat in tabel pagina met de column inhoud.
                 $sth -> execute(array($page));
 
@@ -44,6 +52,14 @@
                 else {
                     echo "Geen inhoud beschikbaar";                                                         // Als er geen inhoud beschikbaar is komt deze foutmelding.
                 }
+
+										// div left eindigen na de while en beginnen met de div right voor afspraken maken.
+										$sth = $dbh->prepare("SELECT titel, inhoud, pagina_id FROM pagina WHERE pagina_id = 5"); // dit moet nog veilig!!
+										$sth -> execute(array($page));
+
+										while($result = $sth->fetch(PDO::FETCH_ASSOC)){
+											echo ("<div class='right' id='afspraak'><h1>".$result['titel']."</h1> <table><tr><td><p>".$result['inhoud']."</p></td></tr> <tr><td><a href='afspraak.php'>Klik hier om een afspraak te maken</a></td></tr></table></div>");
+										}
 
                     $sth = $dbh ->prepare("SELECT prijsnaam, prijs, omschrijving FROM prijs WHERE behandeling_id = ? ");    // De prijstabel inhoud word opgehaald.
                     $sth -> execute(array($_GET["behandeling"]));
