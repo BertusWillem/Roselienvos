@@ -99,7 +99,7 @@ include 'header.beheer.php';
         <div class="image-view-container">
         <h2>Contact</h2>
           <div class="image-view">
-            <p>Klik hier om uw contact gegevens aan te passen, of de berichten te bekijken.</p>
+            <p>Klik hier om uw contact gegevens aan te passen, of om de ingestuurde berichten te bekijken.</p>
           </div>
         </div>
       </div></a>
