@@ -2,28 +2,17 @@
 session_start();
 $page = "Contact";
 include 'header.beheer.php';
-include '../includes/dbh.php';
+include '../includes/paginalader.inc.php';
 
 
-$sth = $dbh->prepare("SELECT email FROM contactgegevens");
-            $sth -> execute();
-
-            $result = $sth->fetch(PDO::FETCH_ASSOC);
-            $email=(implode($result));
-
-$sth = $dbh->prepare("SELECT telnummer FROM contactgegevens");
-            $sth -> execute();
-
-            $result = $sth->fetch(PDO::FETCH_ASSOC);
-            $telnummer=(implode($result));
-
-$sth = $dbh->prepare("SELECT adres FROM contactgegevens");
-            $sth -> execute();
-
-            $result = $sth->fetch(PDO::FETCH_ASSOC);
-            $adres=(implode($result));
+$result = contactgegeven($dbh);
+$email=($result["email"]);
+$telnummer=($result["telnummer"]);
+$adres=($result["adres"]);
 ?>
 
+<html>
+<body>
  <section class="body-container">
     <section class="container">
         <div class="input-window">
@@ -37,5 +26,7 @@ $sth = $dbh->prepare("SELECT adres FROM contactgegevens");
         </div>
     </section>
 </section>
+</body>
+</html>
 
-<?php include ('../footer.php');
+<?php include ('../footer.php');?>
