@@ -8,19 +8,19 @@
 
                 $result = $sth->fetch(PDO::FETCH_ASSOC);
                 if($result['inhoud'] != NULL){                                          // Als de inhoud niet leeg is en er een tekst opgehaald kan worden
-                    $var = $result['inhoud'];                                           
-                    $alinea = nl2br($var);                                              // wordt de tekst voorzien van <br>'s 
+                    $var = $result['inhoud'];
+                    $alinea = nl2br($var);                                              // wordt de tekst voorzien van <br>'s
                     $alinea = str_replace("<br />", "</p><p>", $alinea);                // de <br>'s worden vervangen door <p>'s zodat er bij enters in de tekst een nieuwe alinea wordt gevormd.
-                    $alinea = "<p>" . $alinea . "</p>";                                 
+                    $alinea = "<p>" . $alinea . "</p>";
                     $alinea = utf8_encode($alinea);                                     // Speciale tekens worden overgezet naar UTF-8.
                     echo ("<div class=\"left\"><h1>Over mij</h1>$alinea</div>");        // Een koptitel + de inhoud word ge-echoed en in een <div> geplaatst.
-                } 
+                }
                 else {
                     echo ("Geen inhoud beschikbaar");                                     // Als er geen inhoud beschikbaar is wordt de foutmelding ge-echoed.
                 }
                 $sth2 = $dbh->prepare("SELECT a.afbeelding FROM afbeelding a LEFT JOIN pagina p ON a.afbeeldingid = p.afbeelding WHERE titel = ?"); //de afbeelding wordt uit de datbase opgevraagd, voor de pagina Over Mij
                 $sth2 -> execute(array($page));
-                while ($result2 = $sth2 ->fetch(PDO::FETCH_ASSOC)){                                                                                                             
+                while ($result2 = $sth2 ->fetch(PDO::FETCH_ASSOC)){
                     echo ('<div class="right"><h1>Foto\'s</h1><section class="gallery"><div><img src="'.$result2['afbeelding'].'"> alt="afbeelding"></div></section></div>');   // Plaatje word in een div geplaatst en ge-echoed op de pagina.
                 }
             }
@@ -29,20 +29,20 @@
                      header ("Location: behandeling.php");//Zo niet, ga terug naar de vorige pagina
                 }
                 else {//zo wel, voer een sql statement uit die de behandel info van de betreffende bandeling uit de DB haalt aan de hand van een behandel_ID
-                    $sth = $dbh->prepare("SELECT titel, inhoud FROM behandeling WHERE behandeling_id = ?"); //De tekst en behandeltitel voor de behandeling pagina wordt opgevraagd. 
+                    $sth = $dbh->prepare("SELECT titel, inhoud FROM behandeling WHERE behandeling_id = ?"); //De tekst en behandeltitel voor de behandeling pagina wordt opgevraagd.
                     $sth -> execute(array($_GET["behandeling"]));
 
                     $result = $sth->fetch(PDO::FETCH_ASSOC);
                     if($result['inhoud'] != NULL){                                                         // Als de inhoud niet leeg is en er een tekst opgehaald kan worden
-                    $var = $result['inhoud'];                                                                                                        
-                    $alinea = nl2br($var);                                                                 // wordt de tekst voorzien van <br>'s 
+                    $var = $result['inhoud'];
+                    $alinea = nl2br($var);                                                                 // wordt de tekst voorzien van <br>'s
                     $alinea = str_replace("<br />", "</p><p>", $alinea);                                   // de <br>'s worden vervangen door <p>'s zodat er bij enters in de tekst een nieuwe alinea wordt gevormd.
                     $alinea = "<p>" . $alinea . "</p>";
                     $alinea = utf8_encode($alinea);                                                        // Speciale tekens worden overgezet naar UTF-8.
                     echo ("<div class=\"left\"><h1>".$result['titel']."</h1>$alinea</div>");
-                } 
+                }
                 else {
-                    echo "Geen inhoud beschikbaar";                                                         // Als er geen inhoud beschikbaar is komt deze foutmelding. 
+                    echo "Geen inhoud beschikbaar";                                                         // Als er geen inhoud beschikbaar is komt deze foutmelding.
                 }
 
                     $sth = $dbh ->prepare("SELECT prijsnaam, prijs, omschrijving FROM prijs WHERE behandeling_id = ? ");    // De prijstabel inhoud word opgehaald.
@@ -59,7 +59,7 @@
             }
             elseif ($page == "Prijzen") {
 
-                $sth2 = $dbh ->prepare("SELECT behandeling_id FROM behandeling");                           
+                $sth2 = $dbh ->prepare("SELECT behandeling_id FROM behandeling");
                 $sth2 -> execute(array());
                 while($result2 = $sth2 ->fetch(PDO::FETCH_ASSOC)){
 
@@ -83,17 +83,31 @@
                     </tr></table></div>");
             }
             }
-            elseif ($page == "Behandelingen"){
-                $sth = $dbh->prepare("SELECT titel, inhoud FROM pagina WHERE titel = ?");   //De titel en inhoud voor de pagina behandelingen wordt opgevraagd.
+						elseif ($page == "Behandelingen"){
+								// div left openen voor de while.
+								echo ("<div class='left'>");
+
+								// hier wordt de behandel beschrijving geplaatst.
+                $sth = $dbh->prepare("SELECT titel, inhoud FROM pagina WHERE titel = ?");
                 $sth -> execute(array($page));
+
                 while($result = $sth->fetch(PDO::FETCH_ASSOC)){
-                    echo ("<h1>" . $result["titel"] . "</h1> <p>" . $result["inhoud"] . "</p>");    // De titel + inhoud wordt geprint om een kleine toelichting van deze pagina te geven.
+                    echo ("<h1>" . $result["titel"] . "</h1> <p>" . $result["inhoud"] . "</p></div>");
                 }
 
-                $sth = $dbh->prepare("SELECT titel, inhoud, behandeling_id, a.afbeelding FROM behandeling b LEFT JOIN afbeelding a ON a.afbeeldingid = b.afbeelding");  // De gegevens voor de behandelingen worden opgravraagd om vervolgens een overzicht te maken.
+								// div left eindigen na de while en beginnen met de div right voor afspraken maken.
+								$sth = $dbh->prepare("SELECT titel, inhoud, pagina_id FROM pagina WHERE pagina_id = 5"); // dit moet nog veilig!!
+								$sth -> execute(array($page));
 
+								while($result = $sth->fetch(PDO::FETCH_ASSOC)){
+									echo ("<div class='right' id='afspraak'><h1>".$result['titel']."</h1> <table><tr><td><p>".$result['inhoud']."</p></td></tr> <tr><td><a href='afspraak.php'>Klik hier om een afspraak te maken</a></td></tr></table></div>");
+								}
+
+								// hier worden de behandelingen geladen.
+                $sth = $dbh->prepare("SELECT titel, inhoud, behandeling_id, a.afbeelding FROM behandeling b LEFT JOIN afbeelding a ON a.afbeeldingid = b.afbeelding");
                 $sth -> execute(array($page));
-                while($result = $sth->fetch(PDO::FETCH_ASSOC)){ //Er word een overzicht gemaakt voor elke behandeling + link naar een gedetaileerde pagina per behandeling.
+
+                while($result = $sth->fetch(PDO::FETCH_ASSOC)){
                     echo ("<div class='behandeling'><div class='behandeling-text'><h1>" . $result['titel'] ."</h1>"); if($result['afbeelding'] != NULL){ print('<img src="'.substr($result['afbeelding'], 3).'" alt="Nieuws item">');} echo("<p>".$result['inhoud']."</p><a href='behandeling-overzicht.php?behandeling=" .$result['behandeling_id'] ."'>Lees meer</a></div></div>");
                 }
             }
@@ -117,7 +131,7 @@
                 while($result = $sth->fetch(PDO::FETCH_ASSOC)){
                     echo ("<h1>" . $result["titel"] . "</h1> <p>" . $result["inhoud"] . "</p>");  // het nieuwsitem word ge-echoed.
                 }
-                $stmt = $dbh->prepare("SELECT * FROM nieuws n LEFT JOIN afbeelding a ON n.afbeelding=a.afbeeldingid WHERE n.done = 1"); // als nieuwsitem gepubliceerd is dan word 
+                $stmt = $dbh->prepare("SELECT * FROM nieuws n LEFT JOIN afbeelding a ON n.afbeelding=a.afbeeldingid WHERE n.done = 1"); // als nieuwsitem gepubliceerd is dan word
                 $stmt->execute();
                 while ($rows = $stmt->fetch()){ //Er word een overzicht gemaakt voor elk nieuwsitem + link naar een gedetaileerde pagina per nieuwsitem.
                 print('<div class="behandeling"><div class="behandeling-text"><h1>'.$rows['titel']. '</h1> '); if($rows['afbeelding'] != NULL){ print('<img src="'.substr($rows['afbeelding'], 3).'" alt="Nieuws item">'); } print(' <p>'.$rows['inhoud'].'</p><p class="datum">'.$rows['datum'].'</p><a href="nieuws-overzicht.php?nieuwsitem='.$rows['nieuws_id'].'">Lees meer ></a></div></div>');
