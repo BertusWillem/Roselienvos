@@ -11,7 +11,7 @@ if ( isset($_GET['id']) && filter_var($_GET['id'], FILTER_VALIDATE_INT )){
 	$id = $_GET['id'];
 
 	// Verbinding maken met de database
-	
+
 	$query = "DELETE FROM contactformulier WHERE id = ? ";
 	$stmt = $dbh->prepare($query);
 	$stmt->execute(array($id));
@@ -21,5 +21,5 @@ if ( isset($_GET['id']) && filter_var($_GET['id'], FILTER_VALIDATE_INT )){
 	echo "Ongeldige aanvraag";
 }
 ?>
-</body>
-</html>
+
+<?php include ('../footer.php');?>

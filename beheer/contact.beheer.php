@@ -11,6 +11,8 @@ $telnummer=($result["telnummer"]);
 $adres=($result["adres"]);
 ?>
 
+<html>
+<body>
  <section class="body-container">
     <section class="container">
         <div class="input-window">
@@ -24,5 +26,7 @@ $adres=($result["adres"]);
         </div>
     </section>
 </section>
+</body>
+</html>
 
-<?php include ('../footer.php');
+<?php include ('../footer.php');?>
