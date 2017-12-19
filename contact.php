@@ -88,9 +88,6 @@ include ('includes/paginalader.inc.php');
                 include 'includes/mail.php';
 
                 //begin bericht opslaan in de databse
-               
-                
-
                 //kijk of een persoon al bestaat
                 $query = "SELECT id FROM contactformulier WHERE naam = ? AND email = ? AND inhoud = ?";
                 $stmt = $dbh->prepare($query);
