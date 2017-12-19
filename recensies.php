@@ -3,84 +3,99 @@ $page = "Recensies";
 session_start();
 include 'header.php';
 ?>
-
+<script src='https://www.google.com/recaptcha/api.js'></script>
 <section class="body-container">
-  <section class="container">
-  <div class="recensie-container">
-  <div class="recensies" id="box" style="width: 100%!important;">
-    <h1 onclick="recensieOpen()">Zelf een recensie schrijven</h1>
-    <div class="input-window" id="open" style="display: none;">
-      <form action="includes/recensie.inc.php" method="POST">
-        <input type="text" name="titel" placeholder="Titel">
-		 	<?php
-			print('
+    <?php
+    if (isset($_GET['message'])) {
+        if ($_GET['message'] === "empty") {
+            print("<p style='color:red;'>- Vul alle velden in!</p>");
+        }
+        if ($_GET['message'] === "captcha") {
+            print("<p style='color:red;'>- De captcha is niet geldig voltooid, probeer het opnieuw.</p>");
+        }
+        if ($_GET['message'] === "succes") {
+            print("<p style='color:green;'>- Recensie wordt nu beoordeeld.");
+        }
+    }
+    ?>
+    <section class="container">
+        <div class="recensie-container">
+            <div class="recensies" id="box" style="width: 100%!important;">
+                <h1 onclick="recensieOpen()">Zelf een recensie schrijven</h1>
+                <div class="input-window" id="open" style="display: none;">
+                    <form action="includes/recensie.inc.php" method="POST">
+                        <input type="text" name="titel" placeholder="Titel">
+                        <?php
+                        print('
 				<input type="text" name="autheur"
 				');
-				if(!isset($_SESSION['userid'])){
-					print('placeholder="Naam">');
-				}
-				else {
-					print('value="'.$_SESSION['firstname'].'">');
-				}
-			?>
-        <input type="number" name="rate" min="1" max="5" placeholder="Cijfer">
-        <textarea rows="4" name="toelichting" placeholder="Uw bericht."></textarea>
-        <div class="submit"><input type="submit" value="Recensie versturen"></div>
-      </form>
-    </div>
-  </div>
+                        if (!isset($_SESSION['userid'])) {
+                            print('placeholder="Naam">');
+                        } else {
+                            print('value="' . $_SESSION['firstname'] . '">');
+                        }
+                        ?>
+                        <input type="number" name="rate" min="1" max="5" placeholder="Cijfer">
+                        <textarea rows="4" name="toelichting" placeholder="Uw bericht."></textarea>
+                        <div class="g-recaptcha" data-sitekey="6LePlD0UAAAAABr32fFpeLtjEWkKfzXkFoUmHXhY"></div>
+                        <div class="submit"><input type="submit" value="Recensie versturen"></div>
+                    </form>
+                </div>
+            </div>
 
-  <?php
-  include 'includes/dbh.php';
-  $stmt = $dbh->prepare("SELECT * FROM recensie WHERE status = 1 ORDER BY recensieid DESC");
-  $stmt->execute();
-  while ($rows = $stmt->fetch()){
+<?php
+include 'includes/dbh.php';
+$stmt = $dbh->prepare("SELECT * FROM recensie WHERE status = 1 ORDER BY recensieid DESC");
+$stmt->execute();
+while ($rows = $stmt->fetch()) {
     print ("
     <div class='recensies' id='box'>
-      <h1>".ucfirst(strtolower($rows['titel']))."</h1>
+      <h1>" . ucfirst(strtolower($rows['titel'])) . "</h1>
       <table>
         <tr>
           <td id='left'>Datum:</td>
-          <td>".$rows['datum']."</td>
+          <td>" . $rows['datum'] . "</td>
         </tr>
         <tr>
           <td>Door:</td>
-          <td>".ucfirst(strtolower($rows['autheur']))."</td>
+          <td>" . ucfirst(strtolower($rows['autheur'])) . "</td>
         </tr>
         <tr>
           <td>Beoordeling:</td>
           <td style='color:#4daebd;'>");
-          for($i=0; $i<$rows['rate']; $i++){
-            print("&#9733");
-          }
-          for ($j=0; $j<5-$rows['rate']; $j++){
-            print("&#9734;");
-          }
-          print("</td>
+    for ($i = 0; $i < $rows['rate']; $i++) {
+        print("&#9733");
+    }
+    for ($j = 0; $j < 5 - $rows['rate']; $j++) {
+        print("&#9734;");
+    }
+    print("</td>
         </tr>
         <tr>
           <td>Toelichting:</td>
-          <td>".ucfirst(strtolower($rows['toelichting']))."</td>
+          <td>" . ucfirst(strtolower($rows['toelichting'])) . "</td>
         </tr>
       </table>
     </div>
     ");
-  }?>
+}
+?>
 
-  </div>
-  </section>
+        </div>
+    </section>
 </section>
 
 <!--Javascript om de recensieknop te openen en te sluiten-->
 <script>
-  function recensieOpen() {
-    var x = document.getElementById("open");
-    if (x.style.display === "none") {
-      x.style.display = "block";
-    } else {
-      x.style.display = "none";
+    function recensieOpen() {
+        var x = document.getElementById("open");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
     }
-  }
 </script>
 
-<?php include ('footer.php');
+<?php
+include ('footer.php');
