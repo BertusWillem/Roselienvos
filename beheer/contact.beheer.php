@@ -26,6 +26,15 @@ $adres=($result["adres"]);
         </div>
     </section>
 </section>
+
+<section class="body-container" style="min-height: auto;">
+  <section class="container" style="padding-bottom: 0;">
+    <a href="contactform.beheer.php"><div class="input-window" id="box" style="width: 100%!important; margin-bottom: 0;">
+      <input type="submit" value="Naar berichten">
+    </div></a>
+  </section>
+</section>
+
 </body>
 </html>
 
