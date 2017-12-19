@@ -2,28 +2,17 @@
 session_start();
 $page = "Contact";
 include 'header.beheer.php';
-include '../includes/dbh.php';
+include '../includes/paginalader.inc.php';
 
 
-$sth = $dbh->prepare("SELECT email FROM contactgegevens");
-            $sth -> execute();
-
-            $result = $sth->fetch(PDO::FETCH_ASSOC);
-            $email=(implode($result));
-
-$sth = $dbh->prepare("SELECT telnummer FROM contactgegevens");
-            $sth -> execute();
-
-            $result = $sth->fetch(PDO::FETCH_ASSOC);
-            $telnummer=(implode($result));
-
-$sth = $dbh->prepare("SELECT adres FROM contactgegevens");
-            $sth -> execute();
-
-            $result = $sth->fetch(PDO::FETCH_ASSOC);
-            $adres=(implode($result));
+$result = contactgegeven($dbh);
+$email=($result["email"]);
+$telnummer=($result["telnummer"]);
+$adres=($result["adres"]);
 ?>
 
+<html>
+<body>
  <section class="body-container">
     <section class="container">
         <div class="input-window">
@@ -32,10 +21,19 @@ $sth = $dbh->prepare("SELECT adres FROM contactgegevens");
                 <input type="text" name="email" <?php print("value='".$email."'");?>>
                 <input type="text" name="telefoonnummer" <?php print("value='".$telnummer."'");?>>
                 <input type="text" name="adres" <?php print("value='".$adres."'");?>>
-                <input id="Verstuur" type="submit" name="Verstuur" value="Wijzigen">
+                <div class="input-window" id="box" style="width: 100%!important; margin-bottom: 0;">
+                  <input id="Verstuur" type="submit" name="Verstuur" value="Wijzigen">
+                </div>
             </form>
+            <h1 style="background: white!important; margin-top: 25px;">Berichten inzien</h1>
+            <a href="contactform.beheer.php">
+              <div class="input-window" id="box" style="width: 100%!important; margin-bottom: 0;">
+                <input type="submit" value="Naar berichten">
+              </div>
         </div>
     </section>
 </section>
+</body>
+</html>
 
-<?php include ('../footer.php');
+<?php include ('../footer.php');?>

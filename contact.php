@@ -6,7 +6,7 @@ include ('header.php');
 include ('includes/paginalader.inc.php');
 
 ?>
-
+<script src='https://www.google.com/recaptcha/api.js'></script>
 <body>
   <section class="body-container">
     <section class="container">
@@ -27,7 +27,7 @@ include ('includes/paginalader.inc.php');
               <option value="overige">Overige</option>
             </select> -->
             <textarea rows="4" name="inhoud" placeholder="Uw vraag..."></textarea>
-
+            <div class="g-recaptcha" data-sitekey="6LePlD0UAAAAABr32fFpeLtjEWkKfzXkFoUmHXhY"></div>
             <input id="Verstuur" type="submit" name="Verstuur" value="Verstuur">
           </form>
           </section>
@@ -63,12 +63,26 @@ include ('includes/paginalader.inc.php');
        $naam = validate($_POST["naam"]);
        $email = validate($_POST["email"]);
        $inhoud = validate($_POST["inhoud"]);
-
+        $captcha=$_POST['g-recaptcha-response'];
+        $secretKey = "6LePlD0UAAAAAMH3WciNNhYFiil6S-WpD3A2o0qk";
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $response=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secretKey."&response=".$captcha."&remoteip=".$ip);
+        $responseKeys = json_decode($response,true);
+        if(intval($responseKeys["success"]) !== 1) {
+          print ("<script type='text/javascript'>alert('De captcha is niet geldig voltooid, probeer opnieuw.')</script>"); //Error popup met foutmelding velden leeg
+        } 
+        else {
+         
+        
 
 
        if (empty($_POST["naam"]) || empty($_POST["email"]) || empty($_POST["inhoud"])) { //controleerd of er velding leeg zijn
             print ("<script type='text/javascript'>alert('Niet alle velden zijn ingevuld!')</script>"); //Error popup met foutmelding velden leeg
        }
+       elseif(!isset($_POST['g-recaptcha-response'])){
+           print ("<script type='text/javascript'>alert('De captcha is niet voltooid')</script>"); //Error popup met foutmelding velden leeg
+       }
+       
        else {
 
 
@@ -88,11 +102,9 @@ include ('includes/paginalader.inc.php');
                 include 'includes/mail.php';
 
                 //begin bericht opslaan in de databse
-                $db = new PDO('mysql:host=localhost;dbname=mydb', 'root', 'root');
-
                 //kijk of een persoon al bestaat
                 $query = "SELECT id FROM contactformulier WHERE naam = ? AND email = ? AND inhoud = ?";
-                $stmt = $db->prepare($query);
+                $stmt = $dbh->prepare($query);
                 $stmt->execute(array( $naam, $email, $inhoud));
 
                 if ($stmt->rowCount() > 0){
@@ -100,20 +112,20 @@ include ('includes/paginalader.inc.php');
                   $persoon_id	= $row['id'];
                 } else { //voeg de naam, e-mail, inhoud en de datum toe in de tabel contactformulier
                   $query = "INSERT INTO contactformulier(naam, email, inhoud, datum) VALUES (?, ?, ?, ?)";
-                  $stmt = $db->prepare($query);
+                  $stmt = $dbh->prepare($query);
                   $stmt->execute(array( $naam, $email, $inhoud, date('Y-m-d H:i:s')));
 
                   //vraag de id van de nieuwe persoon op
-                  $persoon_id = $db->lastInsertId();
+                  $persoon_id = $dbh->lastInsertId();
                 }
 /* SQL NIEUWE TABEL AANMAKEN LOL, gewoon ff laten staan please
 
   CREATE TABLE `contactformulier` (
   `id` int(11) NOT NULL auto_increment,
   `naam` varchar(50) collate latin1_general_ci NOT NULL,
-  `email` varchar(100) collate latin1_general_ci default NULL,
-  `inhoud` longtext collate latin1_general_ci default NULL,
-  `datum` datetime collate latin1_general_ci default NULL,
+  `email` varchar(100) collate latin1_general_ci default NOT NULL,
+  `inhoud` longtext collate latin1_general_ci default NOT NULL,
+  `datum` datetime collate latin1_general_ci default NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
@@ -127,7 +139,7 @@ include ('includes/paginalader.inc.php');
        }
 
        }
-
+       }
 
 
 

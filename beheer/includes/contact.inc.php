@@ -3,7 +3,7 @@
 
 include '../../includes/dbh.php';
 
-$sth = $dbh->prepare("SELECT email FROM contactgegevens");
+$sth = $dbh->prepare("SELECT email FROM contactgegeven");
             $sth -> execute();
 
             $result = $sth->fetch(PDO::FETCH_ASSOC);
@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             }
     else {
-        $sth = $dbh->prepare("UPDATE contactgegevens SET email=:newemail, telnummer=:telnummer, adres=:adres WHERE email=:email");
+        $sth = $dbh->prepare("UPDATE contactgegeven SET email=:newemail, telnummer=:telnummer, adres=:adres WHERE email=:email");
             $sth->execute(array(':newemail' => $newemail, ':telnummer' => $newtelnummer, ':adres' => $newadres, ':email' => $email));
 
 
@@ -30,4 +30,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
  }
 
-header ("Location: ../../contact.php");
+header ("Location: ../contact.beheer.php");
