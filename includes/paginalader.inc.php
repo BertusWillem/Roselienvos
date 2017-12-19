@@ -67,10 +67,7 @@
                     while ($result = $sth ->fetch(PDO::FETCH_ASSOC)){
                         echo ("<tr><td>" . $result['prijsnaam'] . "</br>" .$result['omschrijving'] .  "</td><td> " . $result["prijs"] . "</td></tr>");      // Prijstabel word ingevuld
                     }
-                    echo ("<tr class='nopadding'>
-                    <td id='button'><a href='contact.php'>Contact</a></td>
-                    <td id='button'><a href='afspraak.php'>Afspraak maken</a></td>
-                    </tr></table></div>");                                                                                  // Prijstabel word gesloten + een link naar contact / afspraak maken.
+                    echo ("<tr class='nopadding'></tr></table></div>");                                                                                  // Prijstabel word gesloten + een link naar contact / afspraak maken.
                 }
             }
               elseif ($page == "Prijzen") {
