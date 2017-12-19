@@ -10,13 +10,13 @@ include '../includes/dbh.php';
 <table>
 
 <?php
-	$db = new PDO('mysql:host=localhost;dbname=roselienvos', 'root', '');
+	
 
 	//selecteer alle reacties met id, naam, email, inhoud en datum van de auteur
 	$query = 	"SELECT id, naam, email, inhoud, datum
 				FROM contactformulier
 				ORDER BY datum desc";
-	$result = $db->query($query);
+	$result = $dbh->query($query);
 	while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 		echo "<tr><td>van <a href='mailto:" . $row["email"] . "'>" . $row["naam"] . "</a></td>
 			  <td>op " . $row["datum"]  . "</td></tr>\n";

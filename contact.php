@@ -88,11 +88,12 @@ include ('includes/paginalader.inc.php');
                 include 'includes/mail.php';
 
                 //begin bericht opslaan in de databse
-                $db = new PDO('mysql:host=localhost;dbname=roselienvos', 'root', '');
+               
+                
 
                 //kijk of een persoon al bestaat
                 $query = "SELECT id FROM contactformulier WHERE naam = ? AND email = ? AND inhoud = ?";
-                $stmt = $db->prepare($query);
+                $stmt = $dbh->prepare($query);
                 $stmt->execute(array( $naam, $email, $inhoud));
 
                 if ($stmt->rowCount() > 0){
@@ -100,20 +101,20 @@ include ('includes/paginalader.inc.php');
                   $persoon_id	= $row['id'];
                 } else { //voeg de naam, e-mail, inhoud en de datum toe in de tabel contactformulier
                   $query = "INSERT INTO contactformulier(naam, email, inhoud, datum) VALUES (?, ?, ?, ?)";
-                  $stmt = $db->prepare($query);
+                  $stmt = $dbh->prepare($query);
                   $stmt->execute(array( $naam, $email, $inhoud, date('Y-m-d H:i:s')));
 
                   //vraag de id van de nieuwe persoon op
-                  $persoon_id = $db->lastInsertId();
+                  $persoon_id = $dbh->lastInsertId();
                 }
 /* SQL NIEUWE TABEL AANMAKEN LOL, gewoon ff laten staan please
 
   CREATE TABLE `contactformulier` (
   `id` int(11) NOT NULL auto_increment,
   `naam` varchar(50) collate latin1_general_ci NOT NULL,
-  `email` varchar(100) collate latin1_general_ci default NULL,
-  `inhoud` longtext collate latin1_general_ci default NULL,
-  `datum` datetime collate latin1_general_ci default NULL,
+  `email` varchar(100) collate latin1_general_ci default NOT NULL,
+  `inhoud` longtext collate latin1_general_ci default NOT NULL,
+  `datum` datetime collate latin1_general_ci default NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
