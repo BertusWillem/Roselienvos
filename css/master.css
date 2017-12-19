@@ -180,6 +180,19 @@ li a:hover{
   color: #209990;
 }
 
+/*afspraak container*/
+#afspraak a{
+  margin-top: 25px;
+  background: #4daebd;
+  border: solid;
+  border-width: thin;
+  border-color: #4daebd;
+}
+#afspraak a:hover{
+  background: white;
+  color: #4daebd;
+}
+
 /*body container*/
 .body-container{
   max-width: 1280px;
