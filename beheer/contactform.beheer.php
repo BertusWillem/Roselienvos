@@ -10,8 +10,6 @@ include '../includes/dbh.php';
 <table>
 
 <?php
-	
-
 	//selecteer alle reacties met id, naam, email, inhoud en datum van de auteur
 	$query = 	"SELECT id, naam, email, inhoud, datum
 				FROM contactformulier
@@ -30,4 +28,4 @@ include '../includes/dbh.php';
 </body>
 </html>
 
-<?php include ('../footer.php');
+<?php include ('../footer.php');?>
