@@ -21,20 +21,18 @@ $adres=($result["adres"]);
                 <input type="text" name="email" <?php print("value='".$email."'");?>>
                 <input type="text" name="telefoonnummer" <?php print("value='".$telnummer."'");?>>
                 <input type="text" name="adres" <?php print("value='".$adres."'");?>>
-                <input id="Verstuur" type="submit" name="Verstuur" value="Wijzigen">
+                <div class="input-window" id="box" style="width: 100%!important; margin-bottom: 0;">
+                  <input id="Verstuur" type="submit" name="Verstuur" value="Wijzigen">
+                </div>
             </form>
+            <h1 style="background: white!important; margin-top: 25px;">Berichten inzien</h1>
+            <a href="contactform.beheer.php">
+              <div class="input-window" id="box" style="width: 100%!important; margin-bottom: 0;">
+                <input type="submit" value="Naar berichten">
+              </div>
         </div>
     </section>
 </section>
-
-<section class="body-container" style="min-height: auto;">
-  <section class="container" style="padding-bottom: 0;">
-    <a href="contactform.beheer.php"><div class="input-window" id="box" style="width: 100%!important; margin-bottom: 0;">
-      <input type="submit" value="Naar berichten">
-    </div></a>
-  </section>
-</section>
-
 </body>
 </html>
 
