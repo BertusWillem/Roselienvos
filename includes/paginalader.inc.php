@@ -58,19 +58,14 @@
                 }
             }
             elseif ($page == "Prijzen") {
-
                 $sth2 = $dbh ->prepare("SELECT behandeling_id FROM behandeling");
                 $sth2 -> execute(array());
                 while($result2 = $sth2 ->fetch(PDO::FETCH_ASSOC)){
-
-
-
 
                 $sth = $dbh ->prepare("SELECT titel FROM behandeling where behandeling_id = ?");
                 $sth -> execute(array($result2["behandeling_id"]));
                 $result = $sth ->fetch(PDO::FETCH_ASSOC);
                 echo ("<div id='box'><h1>" . $result["titel"] . "</h1><table>");
-
 
                 $sth = $dbh ->prepare("SELECT prijsnaam, prijs, omschrijving FROM prijs where behandeling_id = ?");
                     $sth -> execute(array($result2["behandeling_id"]));
@@ -129,8 +124,17 @@
                 $sth = $dbh->prepare("SELECT titel, inhoud FROM pagina WHERE titel = ?"); // Gedetailieerde gegevens worden opgrevraagd voor het nieuwsitem waar naar gelinkt is via de overzicht pagina.
                 $sth -> execute(array($page));
                 while($result = $sth->fetch(PDO::FETCH_ASSOC)){
-                    echo ("<h1>" . $result["titel"] . "</h1> <p>" . $result["inhoud"] . "</p>");  // het nieuwsitem word ge-echoed.
+                    echo ("<div class='left'><h1>" . $result["titel"] . "</h1> <p>" . $result["inhoud"] . "</p></div>");  // het nieuwsitem word ge-echoed.
                 }
+
+								// div left eindigen na de while en beginnen met de div right voor afspraken maken.
+								$sth = $dbh->prepare("SELECT titel, inhoud, pagina_id FROM pagina WHERE pagina_id = 5"); // dit moet nog veilig!!
+								$sth -> execute(array($page));
+
+								while($result = $sth->fetch(PDO::FETCH_ASSOC)){
+									echo ("<div class='right' id='afspraak'><h1>".$result['titel']."</h1> <table><tr><td><p>".$result['inhoud']."</p></td></tr> <tr><td><a href='afspraak.php'>Klik hier om een afspraak te maken</a></td></tr></table></div>");
+								}
+
                 $stmt = $dbh->prepare("SELECT * FROM nieuws n LEFT JOIN afbeelding a ON n.afbeelding=a.afbeeldingid WHERE n.done = 1"); // als nieuwsitem gepubliceerd is dan word
                 $stmt->execute();
                 while ($rows = $stmt->fetch()){ //Er word een overzicht gemaakt voor elk nieuwsitem + link naar een gedetaileerde pagina per nieuwsitem.
