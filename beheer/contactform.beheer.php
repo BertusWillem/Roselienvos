@@ -23,6 +23,7 @@ include '../includes/dbh.php';
     					$query = 	"SELECT id, naam, email, inhoud, datum FROM contactformulier ORDER BY datum desc";
     					$result = $dbh->query($query);
     					while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                // De opgevraagde informatie uit de databse wordt uitgeprint in een html tabel
     						echo ("
                   <div class='recensies' id='box' style='color: black!important;'>
                     <table>
