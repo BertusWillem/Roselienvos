@@ -239,7 +239,7 @@ footer,
 /*Alert box*/
 .alert {
     padding: 20px;
-    background:#e9ffd9 url('../image/success.png') no-repeat 10px 50%;
+    background:#3498DB url('../image/success.png') no-repeat 10px 50%;
     color: white;
     margin-left: auto;
     margin-right: auto;
