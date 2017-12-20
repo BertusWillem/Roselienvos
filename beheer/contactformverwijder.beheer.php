@@ -15,7 +15,10 @@ if ( isset($_GET['id']) && filter_var($_GET['id'], FILTER_VALIDATE_INT )){
 	$query = "DELETE FROM contactformulier WHERE id = ? ";
 	$stmt = $dbh->prepare($query);
 	$stmt->execute(array($id));
-	echo '<div class="alert-box success"><span> </span>De reactie is verwijderd!</div><br  />';
+	echo '<div class="alert">
+  <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>
+  <strong>De reactie is verwijderd!
+</div>';
 	echo 'Ga terug naar de <a href="contactform.beheer.php">reacties</a>.<br />';
 } else {
 	echo "Ongeldige aanvraag";
