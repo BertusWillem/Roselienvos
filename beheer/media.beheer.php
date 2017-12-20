@@ -24,11 +24,24 @@ $rows = $stmt->fetch();
           <input type="submit" name="submit" value="Afbeelding uploaden">
         </form>
       </div> ');}
-      ?>
+    ?>
 
     <div class="recensie-container">
 
     <?php
+    // Geen afbeelding selecteren
+    if ($uitvoering == 'kiezen'){
+      print('
+      <div class="block">
+      <div class="image-view-container">
+        <h2>Geen afbeelding</h2>
+        <a href="includes/updateafbeelding.inc.php?uitvoering=kiezen&&tabel='.$_GET['tabel'].'&&pagina='.$_GET['pagina'].'&&afbeelding=0&&page='.$_SERVER['HTTP_REFERER'].'"><div class="image-view">
+          <p>KIEZEN</p>
+        </div></a>
+        </div>
+      </div>');
+    }
+
     // Afbeelding kiezen
     while ($uitvoering == 'kiezen' && $rows = $stmt->fetch()){
     print('
