@@ -13,7 +13,7 @@ if ( isset($_GET['id']) && filter_var($_GET['id'], FILTER_VALIDATE_INT )){
 	$query = "DELETE FROM contactformulier WHERE id = ? ";
 	$stmt = $dbh->prepare($query);
 	$stmt->execute(array($id));
-	// Als het verwijderen van één bericht is gelukt, verschijnt er een alertbox met de melding dat het verwijderen is gelukt
+	// Als het verwijderen van één bericht is gelukt, verschijnt er een Alert box met de melding dat het verwijderen is gelukt
 	echo '<div class="alert">
   <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>
   <strong>&#10004; De reactie is verwijderd!
@@ -21,7 +21,7 @@ if ( isset($_GET['id']) && filter_var($_GET['id'], FILTER_VALIDATE_INT )){
 // Als het verwijderen van één bericht wel of niet is glukt, wordt de gebruiker automatisch weer teruggestuurd naar contactform.beheer.php, ook staat er een link om terug te keren
 	echo '<meta http-equiv="Refresh" content="2;url=contactform.beheer.php"> <BR> <p style="text-align: center;">U wordt automatisch weer teruggestuurd, gebeurt er niks? <a href="contactform.beheer.php">Klik dan hier</a></p>';
 } else {
-		// Als het verwijderen van één bericht niet is gelukt, verschijnt er een alertbox met de melding dat het verwijderen niet is gelukt
+		// Als het verwijderen van één bericht niet is gelukt, verschijnt er een Alert box met de melding dat het verwijderen niet is gelukt
 	echo '<div class="alert">
   <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>
   <strong>&#88; Verwijderen van reactie is niet gelukt.
