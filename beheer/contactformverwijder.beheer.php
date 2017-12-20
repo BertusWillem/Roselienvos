@@ -17,7 +17,7 @@ if ( isset($_GET['id']) && filter_var($_GET['id'], FILTER_VALIDATE_INT )){
 	$stmt->execute(array($id));
 	echo '<div class="alert">
   <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>
-  <strong>De reactie is verwijderd!
+  <strong>&#10004; De reactie is verwijderd!
 </div>';
 	echo 'Ga terug naar de <a href="contactform.beheer.php">reacties</a>.<br />';
 } else {
