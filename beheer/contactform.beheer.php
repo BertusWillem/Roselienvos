@@ -30,7 +30,7 @@ include '../includes/dbh.php';
                     <tr><td>van:</td><td>".$row["naam"]."</td></tr>
                     <tr><td>bericht:</td><td>" . $row["inhoud"]  . "</td></tr>
                     <tr><td>op:</td><td>" . $row["datum"]  . "</td></tr>
-                    <tr><td id='fout'><a href='contactformverwijder.beheer.php?id=" . $row["id"]  . "'>verwijder</a></td><td id='goed'><a href='mailto:" . $row["email"] . "'>beantwoorden</td></tr>
+                    <tr><td id='fout'><a href='contactform.beheer.php?id=" . $row["id"]  . "'>verwijder</a></td><td id='goed'><a href='mailto:" . $row["email"] . "'>beantwoorden</td></tr>
                     </table>
                   </div>
                 ");
@@ -41,5 +41,22 @@ include '../includes/dbh.php';
 </section>
 </body>
 </html>
+
+<?php
+// Controleer of we daadwerkelijk een integer (geheel getal) hebben binnen gekregen
+if ( isset($_GET['id']) && filter_var($_GET['id'], FILTER_VALIDATE_INT )){
+	$id = $_GET['id'];
+
+	// Verbinding maken met de database
+
+	$query = "DELETE FROM contactformulier WHERE id = ? ";
+	$stmt = $dbh->prepare($query);
+	$stmt->execute(array($id));
+	echo '<div class="alert-box success"><span> </span>De reactie is verwijderd!</div><br  />';
+	echo 'Ga terug naar de <a href="contactform.beheer.php">reacties</a>.<br />';
+} else {
+	echo "Ongeldige aanvraag";
+}
+?>
 
 <?php include ('../footer.php');?>
