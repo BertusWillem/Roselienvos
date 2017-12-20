@@ -35,8 +35,7 @@ include '../includes/dbh.php';
                     </table>
                   </div>
                 ");
-    					}
-    				?>
+    					} ?>
       </div>
     </section>
 </section>
