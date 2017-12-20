@@ -30,7 +30,7 @@ include '../includes/dbh.php';
                     <tr><td>van:</td><td>".$row["naam"]."</td></tr>
                     <tr><td>bericht:</td><td>" . $row["inhoud"]  . "</td></tr>
                     <tr><td>op:</td><td>" . $row["datum"]  . "</td></tr>
-                    <tr><td id='fout'><a href='contactform.beheer.php?id=" . $row["id"]  . "'>verwijder</a></td><td id='goed'><a href='mailto:" . $row["email"] . "'>beantwoorden</td></tr>
+                    <tr><td id='fout'><a href='contactformverwijder.beheer.php?id=" . $row["id"]  . "'>verwijder</a></td><td id='goed'><a href='mailto:" . $row["email"] . "'>beantwoorden</td></tr>
                     </table>
                   </div>
                 ");
