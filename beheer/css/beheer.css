@@ -236,3 +236,20 @@ footer,
 .profile table{
   max-width: 100%;
 }
+/*Alert box*/
+.alert-box {
+  color:#555;
+  border-radius:10px;
+  font-family:Tahoma,Geneva,Arial,sans-serif;font-size:11px;
+  padding:10px 36px;
+  margin:10px;
+  width: 300px;
+}
+.alert-box span {
+  font-weight:bold;
+  text-transform:uppercase;
+}
+.success {
+  background:#e9ffd9 url('../image/success.png') no-repeat 10px 50%;
+  border:1px solid #a6ca8a;
+}
