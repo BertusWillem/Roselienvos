@@ -244,6 +244,8 @@ footer,
   padding:10px 36px;
   margin:10px;
   width: 300px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .alert-box span {
   font-weight:bold;
