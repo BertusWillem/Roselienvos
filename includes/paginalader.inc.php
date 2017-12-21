@@ -18,12 +18,25 @@
                 else {
                     echo ("Geen inhoud beschikbaar");                                     // Als er geen inhoud beschikbaar is wordt de foutmelding ge-echoed.
                 }
-                $sth2 = $dbh->prepare("SELECT a.afbeelding FROM afbeelding a LEFT JOIN pagina p ON a.afbeeldingid = p.afbeelding WHERE titel = ?"); //de afbeelding wordt uit de datbase opgevraagd, voor de pagina Over Mij
+
+                $sth2 = $dbh->prepare("SELECT afbeelding FROM pagina WHERE titel = ?"); //de afbeelding wordt uit de datbase opgevraagd, voor de pagina Over Mij
                 $sth2 -> execute(array($page));
                 while ($result2 = $sth2 ->fetch(PDO::FETCH_ASSOC)){
-                    echo ('<div class="right"><section class="gallery"><div><img src="'); if($result2['afbeelding'] != NULL){ echo substr($result2['afbeelding'], 3);} echo('"> alt="afbeelding"></div></section></div>');   // Plaatje word in een div geplaatst en ge-echoed op de pagina.
-                }                                                                      // een if statement of er wel een plaatje is. // substr 3 vanwegen de ../ in de database
+                  echo ('<div class="right"><section class="gallery">');
+                  $plaatjes= ($result2['afbeelding']); // pakt de cijfers uit de database
+                  $afbeeldingen = explode(".", $plaatjes); // zorgt ervoor dat elk cijfer apart in een array kom te staan
+
+                  // voor elk cijfer achter de comma een plaatje tonen.
+                  foreach ($afbeeldingen as $afbeelding) {
+                    $sth = $dbh->prepare("SELECT afbeelding FROM afbeelding WHERE afbeeldingid = $afbeelding"); // selecteerd de afbeeldingen in de afbeelding tabel per cijfer
+                    $sth -> execute(array($page));
+                    $result = $sth ->fetch(PDO::FETCH_ASSOC);
+                    echo ('<div style="margin-bottom: 10px;"><img src="'.substr($result['afbeelding'], 3).'"> alt="afbeelding"></div>'); // laat de afbeelding zien per result
+                  }
+                  echo ('</section></div>'); // sluit de image gallery
+                }
             }
+
             elseif ($page == "Behandeling"){
                 if(!isset($_GET["behandeling"])){ //is er een Behandel_ID meegegeven
                      header ("Location: behandeling.php");//Zo niet, ga terug naar de vorige pagina
@@ -44,6 +57,14 @@
                 else {
                     echo "Geen inhoud beschikbaar";                                                         // Als er geen inhoud beschikbaar is komt deze foutmelding.
                 }
+
+                    // Het standaard principe hoe de afbeeldingen worden geladen
+                    // $plaatjes= ('12. 6. 8. 11');
+                    // $afbeeldingen = explode(".", $plaatjes);
+                    //
+                    // foreach ($afbeeldingen as $afbeelding) {
+                    //   print("<li>$afbeelding</li>");
+                    // }
 
 										// div left eindigen na de while en beginnen met de div right voor afspraken maken.
 										$sth = $dbh->prepare("SELECT titel, inhoud, pagina_id FROM pagina WHERE pagina_id = 5");
@@ -140,11 +161,24 @@
 									echo ("<div class='right' id='afspraak'><h1>".$result['titel']."</h1> <table><tr><td><p>".$result['inhoud']."</p></td></tr> <tr><td><a href='afspraak.php'>Klik hier om een afspraak te maken</a></td></tr></table></div>");
 								}
 
-                $stmt = $dbh->prepare("SELECT * FROM nieuws n LEFT JOIN afbeelding a ON n.afbeelding=a.afbeeldingid WHERE nieuws_id = :nieuwsitem"); // Gegevens voor nieuwsitems word gevraagd.
-                $stmt->execute(array(':nieuwsitem' => $_GET['nieuwsitem']));
-                while ($rows = $stmt->fetch()){ // er word een gedetaileerd inhoud ge-echoed.
-                print('<div class="left"><h1>'.$rows['titel'].'</h1><p>'.$rows['inhoud'].'</p></div><div class="right"><section class="gallery"><div><img src="'); if($rows['afbeelding'] != NULL){echo substr($rows['afbeelding'], 3);} print('" alt="Nieuws bericht"></div></section>');
-                }                                                                                                                                               // een if statement of er wel een plaatje is. // substr 3 vanwegen de ../ in de database
+                $sth2 = $dbh->prepare("SELECT afbeelding, titel, inhoud FROM nieuws WHERE nieuws_id = :nieuwsitem"); //de afbeelding, titel en inhoud wordt uit de datbase opgevraagd, voor het gerelateerde nieuwsitem
+                $sth2 -> execute(array(':nieuwsitem' => $_GET['nieuwsitem']));
+                while ($result2 = $sth2 ->fetch(PDO::FETCH_ASSOC)){
+                  echo ('<div class="left"><h1>'.$result2['titel'].'</h1><p>'.$result2['inhoud'].'</p></div>');
+                  echo ('<div class="right"><section class="gallery">');
+                  $plaatjes= ($result2['afbeelding']); // pakt de cijfers uit de database
+                  $afbeeldingen = explode(".", $plaatjes); // zorgt ervoor dat elk cijfer apart in een array kom te staan
+
+                  // voor elk cijfer achter de comma een plaatje tonen.
+                  foreach ($afbeeldingen as $afbeelding) {
+                    $sth = $dbh->prepare("SELECT afbeelding FROM afbeelding WHERE afbeeldingid = $afbeelding"); // selecteerd de afbeeldingen in de afbeelding tabel per cijfer
+                    $sth -> execute(array($page));
+                    $result = $sth ->fetch(PDO::FETCH_ASSOC);
+                    echo ('<div style="margin-bottom: 10px;"><img src="'.substr($result['afbeelding'], 3).'"> alt="afbeelding"></div>'); // laat de afbeelding zien per result
+                  }
+                  echo ('</section></div>'); // sluit de image gallery
+                }
+                                                                                                                                                      // een if statement of er wel een plaatje is. // substr 3 vanwegen de ../ in de database
             }
             elseif ($page == "Nieuws"){
                 $sth = $dbh->prepare("SELECT titel, inhoud FROM pagina WHERE titel = ?"); // Gedetailieerde gegevens worden opgrevraagd voor het nieuwsitem waar naar gelinkt is via de overzicht pagina.
