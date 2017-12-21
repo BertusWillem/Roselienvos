@@ -19,9 +19,14 @@ var offset = 0;
 
 
 function prevmonth(offset){
+if(offset != 0){
   offset = offset -1;
   return(offset);
-
+}
+else{
+  offset = 0;
+  return(offset);
+}
 }
 function nextmonth(offset){
 
