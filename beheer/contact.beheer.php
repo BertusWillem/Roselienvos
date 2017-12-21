@@ -5,7 +5,7 @@ include 'header.beheer.php';
 include '../includes/paginalader.inc.php';
 
 
-$result = contactgegeven($dbh);
+$result = contactgegeven($dbh, $page);
 $email=($result["email"]);
 $telnummer=($result["telnummer"]);
 $adres=($result["adres"]);
