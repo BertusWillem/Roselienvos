@@ -14,15 +14,14 @@ $rows = $stmt->fetch();
   <section class="container">
 
     <?php
-    // Afbeelding uploaden
-    if ($uitvoering == 'beheer'){
+      // Afbeelding uploaden
       Print('
       <div class="input-window" id="box">
-        <form action="includes/afbeeldingmedia.inc.php" method="post" enctype="multipart/form-data">
+        <form action="includes/afbeeldingmedia.inc.php?uitvoering='.$uitvoering.'" method="post" enctype="multipart/form-data">
           <input type="file" name="fileToUpload" id="fileToUpload" style="color: black; margin-bottom: 0;">
           <input type="submit" name="submit" value="Afbeelding uploaden">
         </form>
-      </div> ');}
+      </div> ');
     ?>
 
     <div class="recensie-container">
