@@ -11,6 +11,15 @@ include '../includes/dbh.php';
     <section class="container">
         <div class="input-window">
             <h1 style="background: white!important;">Terug naar contactbeheer</h1>
+
+            <?php // feedback bericht als het bericht succesvol is verwijderd.
+            if(isset($_GET['error'])){
+              if($_GET['error'] === "1"){
+                print("<p style='color:green;'>- Bericht is succesvol verwijderd.");
+              }
+            }
+            ?>
+
             <a href="contact.beheer.php">
               <div class="input-window" id="box" style="width: 100%!important; margin-bottom: 0;">
                 <input type="submit" value="Naar contactbeheer">
