@@ -12,7 +12,6 @@
                     $alinea = nl2br($var);                                              // wordt de tekst voorzien van <br>'s
                     $alinea = str_replace("<br />", "</p><p>", $alinea);                // de <br>'s worden vervangen door <p>'s zodat er bij enters in de tekst een nieuwe alinea wordt gevormd.
                     $alinea = "<p>" . $alinea . "</p>";
-                    $alinea = utf8_encode($alinea);                                     // Speciale tekens worden overgezet naar UTF-8.
                     echo ("<div class=\"left\"><h1>Over mij</h1>$alinea</div>");        // Een koptitel + de inhoud word ge-echoed en in een <div> geplaatst.
                 }
                 else {

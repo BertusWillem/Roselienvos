@@ -10,7 +10,7 @@ $sth -> execute(array($datum));
 
 while ($result = $sth->fetch(PDO::FETCH_ASSOC)){
 
-print_r($result);
+    print_r($result);
 
 }
 
