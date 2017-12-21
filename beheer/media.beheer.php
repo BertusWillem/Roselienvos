@@ -27,7 +27,7 @@ $rows = $stmt->fetch();
     <div class="recensie-container">
 
     <?php
-    // Geen afbeelding selecteren
+    // Geen afbeelding selecteren, laat een knop zien waarbij je geen afbeelding kunt kiezen.
     if ($uitvoering == 'kiezen'){
       $pagina = $_GET['pagina'];
 
@@ -57,7 +57,7 @@ $rows = $stmt->fetch();
 
     // laad de plaatjes
     while ($uitvoering == 'beheer' && $rows = $stmt->fetch()){
-    // Afbeelding verwijderen
+    // Afbeelding verwijderen, deze optie werkt alleen in de beheer verzie
     print('
       <div class="block" id="imageblock">
       <div class="image-view-container">
