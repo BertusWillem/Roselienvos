@@ -21,8 +21,8 @@
                 $sth2 = $dbh->prepare("SELECT a.afbeelding FROM afbeelding a LEFT JOIN pagina p ON a.afbeeldingid = p.afbeelding WHERE titel = ?"); //de afbeelding wordt uit de datbase opgevraagd, voor de pagina Over Mij
                 $sth2 -> execute(array($page));
                 while ($result2 = $sth2 ->fetch(PDO::FETCH_ASSOC)){
-                    echo ('<div class="right"><section class="gallery"><div><img src="'.substr($result2['afbeelding'], 3).'"> alt="afbeelding"></div></section></div>');   // Plaatje word in een div geplaatst en ge-echoed op de pagina.
-                }
+                    echo ('<div class="right"><section class="gallery"><div><img src="'); if($result2['afbeelding'] != NULL){ echo substr($result2['afbeelding'], 3);} echo('"> alt="afbeelding"></div></section></div>');   // Plaatje word in een div geplaatst en ge-echoed op de pagina.
+                }                                                                      // een if statement of er wel een plaatje is. // substr 3 vanwegen de ../ in de database
             }
             elseif ($page == "Behandeling"){
                 if(!isset($_GET["behandeling"])){ //is er een Behandel_ID meegegeven
@@ -122,7 +122,7 @@
 
                 while($result = $sth->fetch(PDO::FETCH_ASSOC)){
                     echo ("<div class='behandeling'><div class='behandeling-text'><h1>" . $result['titel'] ."</h1>"); if($result['afbeelding'] != NULL){ print('<img src="'.substr($result['afbeelding'], 3).'" alt="Nieuws item">');} echo("<p>".$result['inhoud']."</p><a href='behandeling-overzicht.php?behandeling=" .$result['behandeling_id'] ."'>Lees meer</a></div></div>");
-                }
+                }                                                                                                  // een if statement of er wel een plaatje is. // substr 3 vanwegen de ../ in de database
             }
             elseif ($page == "Behandelingen-beheer"){
                 $sth = $dbh->prepare("SELECT titel, behandel_id, korte_omschrijving, a.afbeelding, a.naam FROM behandel b LEFT JOIN afbeelding a ON a.afbeeldingid = b.afbeelding");
@@ -143,8 +143,8 @@
                 $stmt = $dbh->prepare("SELECT * FROM nieuws n LEFT JOIN afbeelding a ON n.afbeelding=a.afbeeldingid WHERE nieuws_id = :nieuwsitem"); // Gegevens voor nieuwsitems word gevraagd.
                 $stmt->execute(array(':nieuwsitem' => $_GET['nieuwsitem']));
                 while ($rows = $stmt->fetch()){ // er word een gedetaileerd inhoud ge-echoed.
-                print('<div class="left"><h1>'.$rows['titel'].'</h1><p>'.$rows['inhoud'].'</p></div><div class="right"><section class="gallery"><div><img src="'); echo substr($rows['afbeelding'], 3); print('" alt="Nieuws bericht"></div></section>');
-                }
+                print('<div class="left"><h1>'.$rows['titel'].'</h1><p>'.$rows['inhoud'].'</p></div><div class="right"><section class="gallery"><div><img src="'); if($rows['afbeelding'] != NULL){echo substr($rows['afbeelding'], 3);} print('" alt="Nieuws bericht"></div></section>');
+                }                                                                                                                                               // een if statement of er wel een plaatje is. // substr 3 vanwegen de ../ in de database
             }
             elseif ($page == "Nieuws"){
                 $sth = $dbh->prepare("SELECT titel, inhoud FROM pagina WHERE titel = ?"); // Gedetailieerde gegevens worden opgrevraagd voor het nieuwsitem waar naar gelinkt is via de overzicht pagina.
@@ -165,7 +165,7 @@
                 $stmt->execute();
                 while ($rows = $stmt->fetch()){ //Er word een overzicht gemaakt voor elk nieuwsitem + link naar een gedetaileerde pagina per nieuwsitem.
                 print('<div class="behandeling"><div class="behandeling-text"><h1>'.$rows['titel']. '</h1> '); if($rows['afbeelding'] != NULL){ print('<img src="'.substr($rows['afbeelding'], 3).'" alt="Nieuws item">'); } print(' <p>'.$rows['inhoud'].'</p><p class="datum">'.$rows['datum'].'</p><a href="nieuws-overzicht.php?nieuwsitem='.$rows['nieuws_id'].'">Lees meer ></a></div></div>');
-                }
+                }                                                                                           // een if statement of er wel een plaatje is. // substr 3 vanwegen de ../ in de database
             }
 
             elseif ($page == "Recensies"){
