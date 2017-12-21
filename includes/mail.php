@@ -14,7 +14,7 @@ $mail->SMTPAuth = true;
 $mail->Username = 'kbs@kevinthegamer.nl';
 $mail->Password = 'Kbs2017!';
 $mail->SMTPSecure = 'TLS';
-$mail->Port = 587;      
+$mail->Port = 587;
 
 
 $mail->setFrom('noReply@pedicureroselien.nl', 'Roselien Vos'); //stelt de naam van de verstuurder in

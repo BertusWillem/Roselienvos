@@ -7,6 +7,9 @@ include 'includes/dbh.php';
 <body>
 <button onclick="offset = prevmonth(offset);   calendar(offset);">Vorige maand</button>
 <button onclick="offset = nextmonth(offset);   calendar(offset);">Volgende maand</button>
+<div id="calendar">
+
+</div>
 <div id="tijd">
 
 </div>
@@ -24,7 +27,7 @@ function nextmonth(offset){
 
   offset = offset +1;
   return(offset);
- 
+
 }
 
 calendar(offset);
@@ -57,7 +60,7 @@ function calendar(offset){
             ajaxRequest.onreadystatechange = function() {
 
                          if(ajaxRequest.readyState == 4) {
-                            var ajaxDisplay = document.getElementById('tijd');
+                            var ajaxDisplay = document.getElementById('calendar');
                             ajaxDisplay.innerHTML = ajaxRequest.responseText;
                          }
                       }
