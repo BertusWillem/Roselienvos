@@ -15,33 +15,16 @@ else{
  $day = date('d', $date);
  $month = date('m', $date);
 
+print($maandofset);
 
-
-
-
-
-$month = $month + $maandofset;
-
-
-
-if ($month >= 13){ //wordt het volgende jaar geladen?
-  $year = $year + floor($month / 12);
-  
-  $month = ($month % 12);
-  if ($month == 0){
-    $month = 12;
-  }
-
-
-
-}
-
-if ($month <= -13){ //wordt het volgende jaar geladen?
-  $year = $year + floor(($month / 12)) ;
-  $month = ($month % 12);
-}
-
-
+ while($maandofset != 0) {
+   $month = $month + 1;
+   if($month == 13) {
+     $year = $year + 1;
+     $month = 1;
+   }
+   $maandofset = $maandofset - 1;
+ }
 
  //kijkt naar de eerste dag van de maan
  $first_day = mktime(0,0,0,$month, 1, $year) ;
@@ -67,14 +50,13 @@ if ($month <= -13){ //wordt het volgende jaar geladen?
  //kijkt hoeveel dagen er in de maand zitten
 
  $days_in_month = cal_days_in_month(0, $month, $year);
-print($month);
 
 
 
 
  //de kop van de tabel
  echo "<table border= solid;>";
- echo "<tr><th colspan=7><a href=afspraak.php?offset=". ($maandofset-1) ."> < </a> $title $year <a href=afspraak.php?offset=". ($maandofset+1) ."> > </a></th></tr>";
+ echo "<tr><th colspan=7> $title $year</th></tr>";
  echo "<tr>
  <td>Zo</td>
  <td>Ma</td>
