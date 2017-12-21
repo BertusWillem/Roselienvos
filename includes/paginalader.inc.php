@@ -3,14 +3,6 @@
 
         function inhoudCall(PDO $dbh, $page){
             if ($page == "Over mij"){
-								// div left eindigen na de while en beginnen met de div right voor afspraken maken.
-								$sth = $dbh->prepare("SELECT titel, inhoud, pagina_id FROM pagina WHERE pagina_id = 5"); // dit moet nog veilig!!
-								$sth -> execute(array($page));
-
-								while($result = $sth->fetch(PDO::FETCH_ASSOC)){
-									echo ("<div class='right' id='afspraak'><h1>".$result['titel']."</h1> <table><tr><td><p>".$result['inhoud']."</p></td></tr> <tr><td><a href='afspraak.php'>Klik hier om een afspraak te maken</a></td></tr></table></div>");
-								}
-
                 $sth = $dbh->prepare("SELECT inhoud FROM pagina WHERE titel = ?");      //De tekst voor de Over mij pagina wordt opgevraagd. De tekst staat in tabel pagina met de column inhoud.
                 $sth -> execute(array($page));
 
@@ -29,7 +21,7 @@
                 $sth2 = $dbh->prepare("SELECT a.afbeelding FROM afbeelding a LEFT JOIN pagina p ON a.afbeeldingid = p.afbeelding WHERE titel = ?"); //de afbeelding wordt uit de datbase opgevraagd, voor de pagina Over Mij
                 $sth2 -> execute(array($page));
                 while ($result2 = $sth2 ->fetch(PDO::FETCH_ASSOC)){
-                    echo ('<div class="right"><section class="gallery"><div><img src="'.$result2['afbeelding'].'"> alt="afbeelding"></div></section></div>');   // Plaatje word in een div geplaatst en ge-echoed op de pagina.
+                    echo ('<div class="right"><section class="gallery"><div><img src="'.substr($result2['afbeelding'], 3).'"> alt="afbeelding"></div></section></div>');   // Plaatje word in een div geplaatst en ge-echoed op de pagina.
                 }
             }
             elseif ($page == "Behandeling"){
@@ -54,7 +46,7 @@
                 }
 
 										// div left eindigen na de while en beginnen met de div right voor afspraken maken.
-										$sth = $dbh->prepare("SELECT titel, inhoud, pagina_id FROM pagina WHERE pagina_id = 5"); // dit moet nog veilig!!
+										$sth = $dbh->prepare("SELECT titel, inhoud, pagina_id FROM pagina WHERE pagina_id = 5");
 										$sth -> execute(array($page));
 
 										while($result = $sth->fetch(PDO::FETCH_ASSOC)){
@@ -80,7 +72,7 @@
                 }
 
                 // div left eindigen na de while en beginnen met de div right voor afspraken maken.
-                $sth = $dbh->prepare("SELECT titel, inhoud, pagina_id FROM pagina WHERE pagina_id = 5"); // dit moet nog veilig!!
+                $sth = $dbh->prepare("SELECT titel, inhoud, pagina_id FROM pagina WHERE pagina_id = 5");
                 $sth -> execute(array($page));
 
                 while($result = $sth->fetch(PDO::FETCH_ASSOC)){
@@ -117,7 +109,7 @@
                 }
 
 								// div left eindigen na de while en beginnen met de div right voor afspraken maken.
-								$sth = $dbh->prepare("SELECT titel, inhoud, pagina_id FROM pagina WHERE pagina_id = 5"); // dit moet nog veilig!!
+								$sth = $dbh->prepare("SELECT titel, inhoud, pagina_id FROM pagina WHERE pagina_id = 5");
 								$sth -> execute(array($page));
 
 								while($result = $sth->fetch(PDO::FETCH_ASSOC)){
@@ -141,7 +133,7 @@
             }
             elseif ($page == "Nieuws-item"){
 								// div left eindigen na de while en beginnen met de div right voor afspraken maken.
-								$sth = $dbh->prepare("SELECT titel, inhoud, pagina_id FROM pagina WHERE pagina_id = 5"); // dit moet nog veilig!!
+								$sth = $dbh->prepare("SELECT titel, inhoud, pagina_id FROM pagina WHERE pagina_id = 5");
 								$sth -> execute(array($page));
 
 								while($result = $sth->fetch(PDO::FETCH_ASSOC)){
@@ -151,7 +143,7 @@
                 $stmt = $dbh->prepare("SELECT * FROM nieuws n LEFT JOIN afbeelding a ON n.afbeelding=a.afbeeldingid WHERE nieuws_id = :nieuwsitem"); // Gegevens voor nieuwsitems word gevraagd.
                 $stmt->execute(array(':nieuwsitem' => $_GET['nieuwsitem']));
                 while ($rows = $stmt->fetch()){ // er word een gedetaileerd inhoud ge-echoed.
-                print('<div class="left"><h1>'.$rows['titel'].'</h1><p>'.$rows['inhoud'].'</p></div><div class="right"><section class="gallery"><div><img src="'); echo $rows['afbeelding']; print('" alt="Nieuws bericht"></div></section>');
+                print('<div class="left"><h1>'.$rows['titel'].'</h1><p>'.$rows['inhoud'].'</p></div><div class="right"><section class="gallery"><div><img src="'); echo substr($rows['afbeelding'], 3); print('" alt="Nieuws bericht"></div></section>');
                 }
             }
             elseif ($page == "Nieuws"){
@@ -162,7 +154,7 @@
                 }
 
 								// div left eindigen na de while en beginnen met de div right voor afspraken maken.
-								$sth = $dbh->prepare("SELECT titel, inhoud, pagina_id FROM pagina WHERE pagina_id = 5"); // dit moet nog veilig!!
+								$sth = $dbh->prepare("SELECT titel, inhoud, pagina_id FROM pagina WHERE pagina_id = 5");
 								$sth -> execute(array($page));
 
 								while($result = $sth->fetch(PDO::FETCH_ASSOC)){
@@ -194,7 +186,7 @@
 
         function contactgegeven($dbh){
               // div left eindigen na de while en beginnen met de div right voor afspraken maken.
-              $sth = $dbh->prepare("SELECT titel, inhoud, pagina_id FROM pagina WHERE pagina_id = 5"); // dit moet nog veilig!!
+              $sth = $dbh->prepare("SELECT titel, inhoud, pagina_id FROM pagina WHERE pagina_id = 5");
               $sth -> execute(array($page));
 
               while($result = $sth->fetch(PDO::FETCH_ASSOC)){
