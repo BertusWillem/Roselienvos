@@ -44,10 +44,10 @@ $stmt->execute();
       }
       }
       if($tabel == 'nieuws'){
-          print ' <div style="display: inline; float: right; ">test</div></td>';
+          print ' <div style="display: inline; float: right; "><label class="switch"><input type="checkbox" id="'.$rows[$tabel.'_id'].'" onclick=\'publiceren("' .$tabel.'",'. $rows[$tabel.'_id'] .')\'><span class="slider"></span></label></div></td>';
       }
       if($tabel == 'behandeling'){
-          print '<tr><td>Remo wist dit al.</td></tr>';
+          print '<tr><td><div style="display: inline; float: right; ">test</div></td></tr>';
       }
       
       print('
@@ -63,5 +63,36 @@ $stmt->execute();
     </div>
   </section>
 </section>
+<script>
+    function publiceren(tabel, tabelid){
+         console.log(tabel, tabelid);
+        var checkChecked = document.getElementById(tabelid).checked;
+        var ajaxRequest;  //Maak een lege variabele aan voor het gebruik van ajax
+
+            try { //check voor een goede werkende code met de browser
+               // Opera 8.0+, Firefox, Safari
+               ajaxRequest = new XMLHttpRequest();
+            } catch (e) {
+
+               // Internet Explorer Browsers
+               try {
+                  ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
+               } catch (e) {
+
+                  try {
+                     ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+                  } catch (e) {
+                     //niet werkende browser
+                     alert("Er is iets fout gegeaan, probeer een andere browser of probeer het later opnieuw.");
+                     return false;
+                  }
+               }
+            }
+            
+          ajaxRequest.open("GET", "includes/checked.php?checkChecked=" + checkChecked + "&&tabel="+tabel+"&&tabelid="+tabelid, true);
+          ajaxRequest.send(null);
+                   }
+    
+</script>
 
 <?php include ('../footer.php');?>
