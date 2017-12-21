@@ -22,6 +22,33 @@ $rows = $stmt->fetch();
           <input type="submit" name="submit" value="Afbeelding uploaden">
         </form>
       </div> ');
+
+    // feedback berichten
+    if (isset($_GET['error'])){
+      if ($_GET['error'] === "1"){
+        print("<p style='color:red;'>- Bestand is geen afbeelding.</p>");
+      }
+      if ($_GET['error'] === "2"){
+        print("<p style='color:red;'>- Sorry, dit bestand bestaat al.</p>");
+      }
+      if ($_GET['error'] === "3"){
+        print("<p style='color:red;'>- Sorry, dit bestand is te groot.</p>");
+      }
+      if ($_GET['error'] === "4"){
+        print("<p style='color:red;'>- Sorry, het is niet toegestaan andere extensies te gebruiken dan: JPG, JPEG, PNG & GIF</p>");
+      }
+      if ($_GET['error'] === "5"){
+        print("<p style='color:red;'>- Sorry, er ging iets mis.</p>");
+      }
+    }
+    elseif(isset($_GET['bericht'])){
+      if($_GET['bericht'] === "1"){
+        print("<p style='color:green;'>- Afbeelding is succesvol toegevoegd.");
+      }
+      if($_GET['bericht'] === "2"){
+        print("<p style='color:green;'>- Afbeelding is succesvol verwijderd.");
+      }
+    }
     ?>
 
     <div class="recensie-container">
@@ -68,7 +95,8 @@ $rows = $stmt->fetch();
         </div>
       </div>
     ');
-    }?>
+    }
+    ?>
 
     </div>
   </section>
