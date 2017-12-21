@@ -22,7 +22,7 @@ if ($uitvoering == 'verwijderen'){
   $sth->execute(array(':afbeelding' => $afbeelding));
 
   // verwijst je terug naar de media pagina
-  header ("Location: ../media.beheer.php?uitvoering=beheer");
+  header ("Location: ../media.beheer.php?uitvoering=beheer&&bericht=2");
 }
 
 // plaatsen van een afbeelding
@@ -44,6 +44,7 @@ else {
       $uploadOk = 1;
     } else {
       echo "Bestand is geen afbeelding.";
+      header ("Location: ../media.beheer.php?uitvoering=$uitvoering&&error=1");
       $uploadOk = 0;
     }
   }
@@ -51,18 +52,21 @@ else {
   // Controleerd of het bestand al bestaat.
   if (file_exists($target_file)) {
     echo "Sorry, dit bestand bestaat al.";
+    header ("Location: ../media.beheer.php?uitvoering=$uitvoering&&error=2");
     $uploadOk = 0;
   }
 
   // Controleerd de grote van het bestand.
   if ($_FILES["fileToUpload"]["size"] > 500000) {
     echo "Sorry, dit bestand is te groot.";
+    header ("Location: ../media.beheer.php?uitvoering=$uitvoering&&error=3");
     $uploadOk = 0;
   }
 
   // Controleerd het bestandstype.
   if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ){
     echo "Sorry, het is niet toegestaan andere extensies te gebruiken dan: JPG, JPEG, PNG & GIF";
+    header ("Location: ../media.beheer.php?uitvoering=$uitvoering&&error=4");
     $uploadOk = 0;
   }
 
@@ -71,17 +75,18 @@ else {
     echo "Sorry, er ging iets mis.";
 
   // als alles correct is proberen het bestand te uploaden.
-  } else {
+  }
+  else {
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
       echo "Het bestand ". basename( $_FILES["fileToUpload"]["name"]). " is geupload.";
 
       // upload de afbeelding locatie in de database
       $upl -> execute(array(':bestand' => '../uploads/'.basename($_FILES["fileToUpload"]["name"])));
+
+      header ("Location: ../media.beheer.php?uitvoering=$uitvoering&&bericht=1");
     } else {
       echo "Sorry, er ging iets mis.";
+      header ("Location: ../media.beheer.php?uitvoering=$uitvoering&&error=5");
     }
   }
-
-  // verwijst je terug naar de media pagina
-  header ("Location: ../media.beheer.php?uitvoering=$uitvoering");
 }
