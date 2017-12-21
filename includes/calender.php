@@ -1,4 +1,5 @@
 <?php
+
 if (isset($_GET["offset"])){
   $maandofset = $_GET["offset"];
 }
@@ -10,20 +11,38 @@ else{
  //zet de actuele datum in een variabele
  $date =time () ;
  //scheid de variabele in dag, maand en jaar
+ $year = date('Y', $date);
  $day = date('d', $date);
  $month = date('m', $date);
- $year = date('Y', $date);
+
+
+
+
+
 
 $month = $month + $maandofset;
+
+
+
 if ($month >= 13){ //wordt het volgende jaar geladen?
-  $year = $year + floor(($month / 12)) ;
+  $year = $year + floor($month / 12);
+  
   $month = ($month % 12);
+  if ($month == 0){
+    $month = 12;
+  }
+
+
+
 }
 
 if ($month <= -13){ //wordt het volgende jaar geladen?
   $year = $year + floor(($month / 12)) ;
   $month = ($month % 12);
 }
+
+
+
  //kijkt naar de eerste dag van de maan
  $first_day = mktime(0,0,0,$month, 1, $year) ;
 
@@ -46,9 +65,7 @@ if ($month <= -13){ //wordt het volgende jaar geladen?
  }
 
  //kijkt hoeveel dagen er in de maand zitten
- //if ($month == 0){
-  // $month = 12;
- //}
+
  $days_in_month = cal_days_in_month(0, $month, $year);
 print($month);
 
