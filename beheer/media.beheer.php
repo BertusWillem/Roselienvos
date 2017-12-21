@@ -3,7 +3,6 @@ session_start();
 $page = "Media";
 include 'header.beheer.php';
 include '../includes/dbh.php';
-$pagina = $_GET['pagina'];
 $uitvoering = $_GET['uitvoering'];
 
 $stmt = $dbh->prepare("SELECT * FROM afbeelding;");
@@ -31,6 +30,8 @@ $rows = $stmt->fetch();
     <?php
     // Geen afbeelding selecteren
     if ($uitvoering == 'kiezen'){
+      $pagina = $_GET['pagina'];
+
       print('
       <div class="block">
       <div class="image-view-container">
