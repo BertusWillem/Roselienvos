@@ -58,13 +58,21 @@ elseif ($tabel == 'pagina'){
     <div class="right">
       <h1 style="margin-bottom: 25px;">Afbeelding</h1>
       <section class="gallery">
-        <div class="image-view-container" id="image" style="margin-bottom: 0;">
-          <?php print('<img src="'.$rows['afbeelding'].'" alt="Plaatje" />');?>
-        </div>
+				<?php // als er geen afbeeldingen zijn, deze optie verbergen
+				if ($rows['afbeelding'] != NULL){
+				print('
+				<div class="image-view-container" id="image" style="margin-bottom: 0;">
+					<img src="'.$rows['afbeelding'].'" alt="Plaatje">
+				</div>
+				<form class="image-view-container" action="media.beheer.php?uitvoering=kiezen&&tabel='.$tabel.'&&pagina='.$pagina.'" method="post">
+					<div class="input-window" id="box" style="margin-bottom: 25px;"><input type="submit" value="Afbeelding wijzigen"></div>
+				</form>
+				');
+				}?>
 
+				<!--Afbeelding toevoegen-->
 				<form class="image-view-container" action="media.beheer.php?uitvoering=kiezen&&tabel=<?php print($tabel.'&&pagina='.$pagina);?>" method="post">
-					<!--Afbeelding wijzigen-->
-					<div class="input-window" id="box"><input type="submit" value="Afbeelding wijzigen" style="margin-bottom: 25px;"></div>
+					<div class="input-window" id="box"><input type="submit" value="Afbeelding toevoegen"></div>
 				</form>
       </section>
     </div>
@@ -72,16 +80,16 @@ elseif ($tabel == 'pagina'){
 		<!--Geeft een verwijder optie als de tabel naam geen pagina is-->
 		<?php
 		if ($tabel !== 'pagina'){
-                    
+
 			print('
-                                
-				<div class="input-window" id="box" style="width: 100%!important; max-width: 1280px!important;">
-                                <form>
+			<div class="input-window" id="box" style="width: 100%!important; max-width: 1280px!important;">
+        <form>
 				<input type="submit" style="background-color: red!important; margin-top: 50px" name="verwijderen" value="Bericht verwijderen">
 				<input type="hidden" name="tabel" value="' . $tabel . '">
 				<input type="hidden" name="pagina" value="'.$pagina.'">
-                                </form>
-			</div>');
+        </form>
+			</div>
+			');
 		}
 		?>
 
