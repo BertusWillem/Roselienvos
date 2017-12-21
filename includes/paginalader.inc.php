@@ -192,7 +192,7 @@
         }
         }
 
-        function contactgegeven($dbh){
+        function contactgegeven($dbh, $page){
               // div left eindigen na de while en beginnen met de div right voor afspraken maken.
               $sth = $dbh->prepare("SELECT titel, inhoud, pagina_id FROM pagina WHERE pagina_id = 5"); // dit moet nog veilig!!
               $sth -> execute(array($page));

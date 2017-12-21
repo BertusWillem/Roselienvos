@@ -39,17 +39,24 @@ $stmt->execute();
       if ($rows['datum'] != NULL){
         print('
         </tr><tr>
-          <td>'.$rows['datum'].'</td>
+          <td>'.$rows['datum'].'
         ');
       }
       }
+      if($tabel == 'nieuws'){
+          print ' <div style="display: inline; float: right; ">test</div></td>';
+      }
+      if($tabel == 'behandeling'){
+          print '<tr><td>Remo wist dit al.</td></tr>';
+      }
+      
       print('
             </tr><tr class="nopadding">
               <td id="button"><a href="paginabewerk.beheer.php?tabel='.$tabel.'&&pagina='.$rows[$tabel.'_id'].'">Bewerken</td>
             </tr>
           </table>
         </div>
-      ');
+      '); 
       }
       ?>
 

@@ -33,7 +33,7 @@ include ('includes/paginalader.inc.php');
           </section>
         </div>
         <?php
-            $result = contactgegeven($dbh);
+            $result = contactgegeven($dbh, $page);
             $emailontvanger=($result["email"]);
             $telnummer=($result["telnummer"]);
             $adres=($result["adres"]);
