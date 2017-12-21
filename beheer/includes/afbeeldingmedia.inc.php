@@ -82,15 +82,6 @@ else {
     }
   }
 
-  if($uitvoering == 'beheer'){
-    // verwijst je terug naar de media pagina
-    header ("Location: ../media.beheer.php?uitvoering=$uitvoering");
-  }
-
-  if($uitvoering == 'kiezen'){
-    // verwijst je terug naar de media pagina
-    header ("Location: ../media.beheer.php?uitvoering=$uitvoering&&tabel=".$_GET['pagina']."&&pagina=1");
-  }
-
-
+  // verwijst je terug naar de media pagina
+  header ("Location: ../media.beheer.php?uitvoering=$uitvoering");
 }
