@@ -83,7 +83,7 @@
                     $sth -> execute(array($_GET["behandeling"]));
                     echo ("<div class='right' id='box'><h1>Prijzen</h1><table>");                                           // Prijstabel word gevormd.
                     while ($result = $sth ->fetch(PDO::FETCH_ASSOC)){
-                        echo ("<tr><td>" . $result['prijsnaam'] . "</br>" .$result['omschrijving'] .  "</td><td> " . $result["prijs"] . "</td></tr>");      // Prijstabel word ingevuld
+                        echo ("<tr><td>" . utf8_encode($result['prijsnaam']) . "</br>" .utf8_encode($result['omschrijving']) .  "</td><td> " . $result["prijs"] . "</td></tr>");      // Prijstabel word ingevuld
                     }
                     echo ("<tr class='nopadding'></tr></table></div>");                                                                                  // Prijstabel word gesloten + een link naar contact / afspraak maken.
                 }
@@ -117,7 +117,7 @@
                 $sth = $dbh ->prepare("SELECT prijsnaam, prijs, omschrijving FROM prijs where behandeling_id = ?");
                     $sth -> execute(array($result2["behandeling_id"]));
                     while ($result = $sth ->fetch(PDO::FETCH_ASSOC)){
-                        echo ("<tr><td>" . $result['prijsnaam'] . "</br>" .$result['omschrijving'] .  "</td><td> " . $result["prijs"] . "</td></tr>");
+                        echo ("<tr><td>" . utf8_encode($result['prijsnaam']) . "</br>" .utf8_encode($result['omschrijving']) .  "</td><td> " . $result["prijs"] . "</td></tr>");
                     }
                     echo ("<tr class='nopadding'></tr></table></div>");
             }
