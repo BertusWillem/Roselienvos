@@ -18,6 +18,14 @@
                     echo ("Geen inhoud beschikbaar");                                     // Als er geen inhoud beschikbaar is wordt de foutmelding ge-echoed.
                 }
 
+                // Het standaard principe hoe de afbeeldingen worden geladen
+                // $plaatjes= ('12.6.8.11');
+                // $afbeeldingen = explode(".", $plaatjes);
+                //
+                // foreach ($afbeeldingen as $afbeelding) {
+                //   print("<li>$afbeelding</li>");
+                // }
+
                 $sth2 = $dbh->prepare("SELECT afbeelding FROM pagina WHERE titel = ?"); //de afbeelding wordt uit de datbase opgevraagd, voor de pagina Over Mij
                 $sth2 -> execute(array($page));
                 while ($result2 = $sth2 ->fetch(PDO::FETCH_ASSOC)){
@@ -56,15 +64,6 @@
                 else {
                     echo "Geen inhoud beschikbaar";                                                         // Als er geen inhoud beschikbaar is komt deze foutmelding.
                 }
-
-                    // Het standaard principe hoe de afbeeldingen worden geladen
-                    // $plaatjes= ('12. 6. 8. 11');
-                    // $afbeeldingen = explode(".", $plaatjes);
-                    //
-                    // foreach ($afbeeldingen as $afbeelding) {
-                    //   print("<li>$afbeelding</li>");
-                    // }
-
 										// div left eindigen na de while en beginnen met de div right voor afspraken maken.
 										$sth = $dbh->prepare("SELECT titel, inhoud, pagina_id FROM pagina WHERE pagina_id = 5");
 										$sth -> execute(array($page));

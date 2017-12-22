@@ -269,14 +269,9 @@ li a:hover{
   border: solid;
   border-color: #4daebd;
   border-width: thin;
+  box-sizing: border-box;
   -webkit-transition-duration: .2s;
           transition-duration: .2s;
-}
-.gallery div img:hover{
-  -webkit-transition-duration: .2s;
-          transition-duration: .2s;
-  -webkit-transform: scale(1.03);
-          transform: scale(1.03);
 }
 
 /*afbeeldingen*/
