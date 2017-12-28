@@ -51,7 +51,7 @@
                     if($rows['afbeelding'] != NULL){ // toond de afbeelding, bestaat de afbeelding niet meer? Dan wordt dat getoond door een 'deze afbeelding bestaant niet meer' afbeelding.
                       echo ('<div style="margin-bottom: 10px;"><img src="'.substr($result['afbeelding'], 3).'"> alt="afbeelding"></div>'); // laat de afbeelding zien per result
                     } else{
-                      echo ('<div style="margin-bottom: 10px;"><img src="../image/square.jpg" alt="afbeelding">');
+                      echo ('<div style="margin-bottom: 10px;"><img src="../image/square.jpg" alt="afbeelding"></div>');
                     }
                   }
                   echo ('</section></div>'); // sluit de image gallery
@@ -186,7 +186,7 @@
                     if($result['afbeelding'] != NULL){ // toond de afbeelding, bestaat de afbeelding niet meer? Dan wordt dat getoond door een 'deze afbeelding bestaant niet meer' afbeelding.
                       echo ('<div style="margin-bottom: 10px;"><img src="'.substr($result['afbeelding'], 3).'"> alt="afbeelding"></div>'); // laat de afbeelding zien per result
                     } else{
-                      echo ('<div style="margin-bottom: 10px;"><img src="../image/square.jpg" alt="afbeelding">');
+                      echo ('<div style="margin-bottom: 10px;"><img src="../image/square.jpg" alt="afbeelding"></div>');
                     }
                   }
                   echo ('</section></div>'); // sluit de image gallery
