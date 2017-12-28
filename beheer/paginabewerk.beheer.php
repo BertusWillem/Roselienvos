@@ -112,7 +112,7 @@ elseif ($tabel == 'pagina'){
 						$result = $sth ->fetch(PDO::FETCH_ASSOC);
 
 						// toond de afbeelding, bestaat de afbeelding niet meer? Dan wordt dat getoond door een 'deze afbeelding bestaant niet meer' afbeelding.
-						echo ('<div><img src="'); if($rows['afbeelding'] != NULL){echo ($result["afbeelding"]);} else{ echo ('image/square.jpg');} echo ('" alt="afbeelding">');
+						echo ('<div><img src="'); if($rows['afbeelding'] != NULL){echo ($result["afbeelding"]);} else{ echo ('image/error.jpg');} echo ('" alt="afbeelding">');
 
 						print('
 						<form class="image-view-container" action="media.beheer.php?uitvoering=wijzigen&&tabel='.$tabel.'&&pagina='.$pagina.'" method="post">
