@@ -134,6 +134,30 @@ footer,
   font-family: verdana;
 }
 
+/*gallery beheer*/
+.gallery-beheer {
+  margin-top: 25px;
+  font-size: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.gallery-beheer div {
+  width: 50%;
+  height: 100%;
+  box-sizing: border-box;
+}
+.gallery-beheer div img {
+  width: 100%;
+  height: 100%;
+  border: solid;
+  border-color: #4daebd;
+  border-width: thin;
+  box-sizing: border-box;
+  -webkit-transition-duration: .2s;
+          transition-duration: .2s;
+}
+
 /*image view*/
 #info{
   background: white;

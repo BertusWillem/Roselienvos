@@ -87,6 +87,24 @@ $rows = $stmt->fetch();
         </div>
     ');}
 
+    // Afbeelding wijzigen
+    while ($uitvoering == 'wijzigen' && $rows = $stmt->fetch()){
+      // oude afbeeldingen bekijken
+      $sth = $dbh->prepare("SELECT afbeelding FROM pagina WHERE pagina_id = :pagina");
+      $sth -> execute(array(':pagina' => $_GET['pagina']));
+      $result = $sth ->fetch(PDO::FETCH_ASSOC);
+
+      print('
+        <div class="block" id="imageblock">
+        <div class="image-view-container">
+          <img src="'.$rows['afbeelding'].'" alt="Plaatje" />
+          <a href="includes/updateafbeelding.inc.php?uitvoering=kiezen&&tabel='.$_GET['tabel'].'&&pagina='.$_GET['pagina'].'&&old='.$result['afbeelding'].'&&afbeelding='.$rows['afbeeldingid'].'&&page='.$_SERVER['HTTP_REFERER'].'"><div class="image-view">
+            <p>KIEZEN</p>
+          </div></a>
+          </div>
+        </div>
+    ');}
+
     // laad de plaatjes
     while ($uitvoering == 'beheer' && $rows = $stmt->fetch()){
     // Afbeelding verwijderen, deze optie werkt alleen in de beheer verzie
