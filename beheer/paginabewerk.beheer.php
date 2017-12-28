@@ -112,7 +112,7 @@ elseif ($tabel == 'pagina'){
 						$result = $sth ->fetch(PDO::FETCH_ASSOC);
 
 						// toond de afbeelding, bestaat de afbeelding niet meer? Dan wordt dat getoond door een 'deze afbeelding bestaant niet meer' afbeelding.
-						echo ('<div><img src="'); if($rows['afbeelding'] != NULL){echo ($result["afbeelding"]);} else{ echo ('image/error.jpg');} echo ('" alt="afbeelding">');
+						echo ('<div><img src="'); if($result['afbeelding'] != NULL){echo ($result["afbeelding"]);} else{ echo ('../image/error.jpg');} echo ('" alt="afbeelding">');
 
 						print('
 						<form class="image-view-container" action="media.beheer.php?uitvoering=wijzigen&&tabel='.$tabel.'&&pagina='.$pagina.'" method="post">
@@ -132,7 +132,7 @@ elseif ($tabel == 'pagina'){
 			<div class="input-window" id="box" style="width: 100%!important; max-width: 1280px!important;">
         <form>
 				<input type="submit" style="background-color: red!important; margin-top: 50px" name="verwijderen" value="Bericht verwijderen">
-				<input type="hidden" name="tabel" value="' . $tabel . '">
+				<input type="hidden" name="tabel" value="'.$tabel.'">
 				<input type="hidden" name="pagina" value="'.$pagina.'">
         </form>
 			</div>

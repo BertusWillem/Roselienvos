@@ -187,13 +187,14 @@ li a:hover{
   border: solid;
   border-width: thin;
   border-color: #4daebd;
+  box-sizing: border-box;
 }
 #afspraak a:hover{
   background: white;
   color: #4daebd;
 }
 #afspraak{
-  margin-bottom: 50px;
+  margin-bottom: 25px;
 }
 
 /*prijslijst*/
@@ -251,7 +252,6 @@ li a:hover{
 
 /*gallery*/
 .gallery {
-  margin-top: 25px;
   font-size: 0;
   display: -webkit-box;
   display: -ms-flexbox;
