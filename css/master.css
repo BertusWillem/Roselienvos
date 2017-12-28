@@ -227,7 +227,10 @@ li a:hover{
 .container p{
   margin-top: 25px;
   margin-bottom: 0;
-  text-align: justify;
+  text-align: left;
+  letter-spacing: .5px;
+  word-spacing: 1px;
+  line-height: 130%;
 }
 .container a{
   text-decoration: none;
