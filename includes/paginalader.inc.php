@@ -1,13 +1,13 @@
 <?php
         include ("dbh.php");
-        
+
         function alinea($result){
             $var = $result['inhoud'];
             $alinea = nl2br($var);                                              // wordt de tekst voorzien van <br>'s
             $alinea = str_replace("<br />", "</p><p>", $alinea);                // de <br>'s worden vervangen door <p>'s zodat er bij enters in de tekst een nieuwe alinea wordt gevormd.
             $alinea = "<p>" . $alinea . "</p>";
             return $alinea;
-            
+
             }
 
             function inhoudCall(PDO $dbh, $page){
@@ -150,10 +150,10 @@
                 }                                                                                                  // een if statement of er wel een plaatje is. // substr 3 vanwegen de ../ in de database
             }
             elseif ($page == "Behandelingen-beheer"){
-                $sth = $dbh->prepare("SELECT titel, behandel_id, korte_omschrijving, a.afbeelding, a.naam FROM behandel b LEFT JOIN afbeelding a ON a.afbeeldingid = b.afbeelding");
+                $sth = $dbh->prepare("SELECT titel, behandeling_id, korte_omschrijving, a.afbeelding, a.naam FROM behandeling b LEFT JOIN afbeelding a ON a.afbeeldingid = b.afbeelding");
                 $sth -> execute(array($page));
                 while($result = $sth->fetch(PDO::FETCH_ASSOC)){
-                    echo ("<div class='behandeling'><div style='background-color: White!important;' class='behandeling-text'><h1>" . $result['titel'] ."</h1><img src='" . $result['afbeelding'] . "'alt='" . $result["naam"] . "'><p>".$result['korte_omschrijving']."</p><a href='behandeling-aanpassen.php?behandeling=" .$result['behandel_id'] ."'>Aanpassen --></a></div></div>");
+                    echo ("<div class='behandeling'><div style='background-color: White!important;' class='behandeling-text'><h1>" . $result['titel'] ."</h1><img src='" . $result['afbeelding'] . "'alt='" . $result["naam"] . "'><p>".$result['korte_omschrijving']."</p><a href='behandeling-aanpassen.php?behandeling=" .$result['behandeling_id'] ."'>Aanpassen --></a></div></div>");
                 }
             }
             elseif ($page == "Nieuws-item"){
