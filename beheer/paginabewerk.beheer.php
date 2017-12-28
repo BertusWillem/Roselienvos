@@ -110,7 +110,9 @@ elseif ($tabel == 'pagina'){
 						$sth = $dbh->prepare("SELECT afbeelding FROM afbeelding WHERE afbeeldingid = $afbeelding"); // selecteerd de afbeeldingen in de afbeelding tabel per cijfer
 						$sth -> execute(array($page));
 						$result = $sth ->fetch(PDO::FETCH_ASSOC);
-						echo ('<div><img src="'.$result['afbeelding'].'" alt="afbeelding">'); // laat de afbeelding zien per result
+
+						// toond de afbeelding, bestaat de afbeelding niet meer? Dan wordt dat getoond door een 'deze afbeelding bestaant niet meer' afbeelding.
+						echo ('<div><img src="'); if($rows['afbeelding'] != NULL){echo ($result["afbeelding"]);} else{ echo ('image/square.jpg');} echo ('" alt="afbeelding">');
 
 						print('
 						<form class="image-view-container" action="media.beheer.php?uitvoering=wijzigen&&tabel='.$tabel.'&&pagina='.$pagina.'" method="post">

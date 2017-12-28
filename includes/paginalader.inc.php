@@ -48,7 +48,11 @@
                     $sth = $dbh->prepare("SELECT afbeelding FROM afbeelding WHERE afbeeldingid = $afbeelding"); // selecteerd de afbeeldingen in de afbeelding tabel per cijfer
                     $sth -> execute(array($page));
                     $result = $sth ->fetch(PDO::FETCH_ASSOC);
-                    echo ('<div style="margin-bottom: 10px;"><img src="'.substr($result['afbeelding'], 3).'"> alt="afbeelding"></div>'); // laat de afbeelding zien per result
+                    if($rows['afbeelding'] != NULL){ // toond de afbeelding, bestaat de afbeelding niet meer? Dan wordt dat getoond door een 'deze afbeelding bestaant niet meer' afbeelding.
+                      echo ('<div style="margin-bottom: 10px;"><img src="'.substr($result['afbeelding'], 3).'"> alt="afbeelding"></div>'); // laat de afbeelding zien per result
+                    } else{
+                      echo ('<div style="margin-bottom: 10px;"><img src="../image/square.jpg" alt="afbeelding">');
+                    }
                   }
                   echo ('</section></div>'); // sluit de image gallery
                 }
@@ -179,7 +183,11 @@
                     $sth = $dbh->prepare("SELECT afbeelding FROM afbeelding WHERE afbeeldingid = $afbeelding"); // selecteerd de afbeeldingen in de afbeelding tabel per cijfer
                     $sth -> execute(array($page));
                     $result = $sth ->fetch(PDO::FETCH_ASSOC);
-                    echo ('<div style="margin-bottom: 10px;"><img src="'.substr($result['afbeelding'], 3).'"> alt="afbeelding"></div>'); // laat de afbeelding zien per result
+                    if($result['afbeelding'] != NULL){ // toond de afbeelding, bestaat de afbeelding niet meer? Dan wordt dat getoond door een 'deze afbeelding bestaant niet meer' afbeelding.
+                      echo ('<div style="margin-bottom: 10px;"><img src="'.substr($result['afbeelding'], 3).'"> alt="afbeelding"></div>'); // laat de afbeelding zien per result
+                    } else{
+                      echo ('<div style="margin-bottom: 10px;"><img src="../image/square.jpg" alt="afbeelding">');
+                    }
                   }
                   echo ('</section></div>'); // sluit de image gallery
                 }

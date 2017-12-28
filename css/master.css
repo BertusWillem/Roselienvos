@@ -314,6 +314,7 @@ li a:hover{
 }
 .behandeling img{
  width: 250px;
+ height: 250px;
  float: left;
 }
 .behandeling h1{
