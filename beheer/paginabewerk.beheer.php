@@ -129,7 +129,7 @@ elseif ($tabel == 'pagina'){
 							echo ('<div><img src="'); if($result['afbeelding'] != NULL){echo ($result["afbeelding"]);} else{ echo ('../image/error.jpg');} echo ('" alt="afbeelding">');
 
 							print('
-							<form class="image-view-container" href="paginabewerk.beheer.php?tabel='.$tabel.'&&pagina='.$pagina.'&&uitvoering=verwijderen">
+							<form class="image-view-container" action="paginabewerk.beheer.php?tabel='.$tabel.'&&pagina='.$pagina.'&&uitvoering=verwijderen&&plaatje='.$afbeelding.'" method="post">
 								<div class="input-window" id="box" style="margin-bottom: 25px; width: 100%;"><input type="submit" value="Afbeelding verwijderen"></div>
 							</form></div>
 							');
