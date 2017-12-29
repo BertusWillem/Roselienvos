@@ -4,6 +4,7 @@ $page = "Media";
 include 'header.beheer.php';
 include '../includes/dbh.php';
 $uitvoering = $_GET['uitvoering'];
+$tabel = $_GET['tabel'];
 
 $stmt = $dbh->prepare("SELECT * FROM afbeelding;");
 $stmt->execute();
@@ -72,9 +73,24 @@ $rows = $stmt->fetch();
     // Afbeelding kiezen
     while ($uitvoering == 'kiezen' && $rows = $stmt->fetch()){
       // oude afbeeldingen bekijken
-      $sth = $dbh->prepare("SELECT afbeelding FROM pagina WHERE pagina_id = :pagina");
-      $sth -> execute(array(':pagina' => $_GET['pagina']));
-      $result = $sth ->fetch(PDO::FETCH_ASSOC);
+
+      if ($tabel == 'pagina'){
+        $sth = $dbh->prepare("SELECT afbeelding FROM pagina WHERE pagina_id = :pagina");
+        $sth -> execute(array(':pagina' => $_GET['pagina']));
+        $result = $sth ->fetch(PDO::FETCH_ASSOC);
+      }
+
+      elseif ($tabel == 'nieuws'){
+        $sth = $dbh->prepare("SELECT afbeelding FROM nieuws WHERE nieuws_id = :pagina");
+        $sth -> execute(array(':pagina' => $_GET['pagina']));
+        $result = $sth ->fetch(PDO::FETCH_ASSOC);
+      }
+
+      elseif ($tabel == 'behandeling'){
+        $sth = $dbh->prepare("SELECT afbeelding FROM behandeling WHERE behandeling_id = :pagina");
+        $sth -> execute(array(':pagina' => $_GET['pagina']));
+        $result = $sth ->fetch(PDO::FETCH_ASSOC);
+      }
 
       print('
         <div class="block" id="imageblock">
