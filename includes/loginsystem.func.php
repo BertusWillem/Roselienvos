@@ -17,14 +17,16 @@ function loginRequest($email, $password)
   $ip = $_SERVER["REMOTE_ADDR"];
   $stm = $dbh->prepare("INSERT INTO attemts (ip ,time) VALUES ('$ip',CURRENT_TIMESTAMP)");
   $stm->execute();
-
+  //Het IP adres van de gebruiker en de tijd worden met een insert in de database gezet.
   $stm2 = $dbh->prepare("SELECT COUNT(*) as atm FROM attemts WHERE ip LIKE '$ip' AND time > NOW() - INTERVAL 10 MINUTE");
   $stm2->execute();
   $count = $stm2->fetch();
+  //Er wordt gekeken hoevaak het IP adres van de betreffende gebruiker voorkomt in de database.
 
   if($count['atm'] > 3){
   header("Location: ../login.php?error=attemts");
   exit();
+  //Als het IP adres meer dan 3 keer voorkomt, wordt de gebruiker terug gestuurd met een error.
   }
 
   $stmt = $dbh->prepare("SELECT * FROM gebruiker WHERE email = :email");
@@ -65,7 +67,7 @@ function registerRequest($firstname, $lastname, $email, $password, $adres, $post
 include 'dbh.php';
 $stmt = $dbh->prepare("SELECT email FROM gebruiker WHERE email = :email");
 $stmt->execute(array(':email' => $email));
-$rows = $stmt ->fetch(); //Alle gebruikernamen worden uit de database gehaald
+$rows = $stmt ->fetch(); //Alle email adressen worden uit de database gehaald
 
 if (!empty($rows)) //Als er gebruikernamen overeen komen wordt de bezoek teruggestuurd omdat
 {                  //de gebruikernaam al bezet is.
@@ -115,6 +117,8 @@ function requestProfile($userid, $optie)
   if ($optie === "changeInfo"){
   global $firstname,$lastname,$adres,$postcode,$woonplaats;
   }
+  //Voor de verschillende pagina's zijn andere variabelen nodig. Om overbodig sturen van variabelen te voorkomen
+  //Worden hier verschil gebmaakt tussen de aanvragen.
   include 'includes/dbh.php';
   $stmt = $dbh->prepare("SELECT email, firstname, lastname FROM gebruiker WHERE userid = :userid");
   $stmt->execute(array(':userid' => $userid));
@@ -146,13 +150,16 @@ function changeProfile($userid, $firstname,$lastname,$adres,$postcode,$woonplaat
   $stmt = $dbh->prepare("UPDATE gebruiker SET firstname = :firstname, lastname = :lastname
                          WHERE userid = :userid;");
   $stmt->execute(array(':firstname' => $firstname, ':lastname' => $lastname, ':userid' => $userid));
+  //Er wordt een update statement gedaan met alle variabelen. Dit gaat om de gebruiker tabel.
 
 
   $stmt = $dbh->prepare("UPDATE gegevens SET adres = :adres, postcode = :postcode,
                         woonplaats = :woonplaats WHERE added_by = :userid;");
   $stmt->execute(array(':adres' => $adres, ':postcode' => $postcode, ':woonplaats' => $woonplaats, ':userid' => $userid));
+  //Er wordt een update statement gedaan met alle variabelen. Dit gaat om de adres tabel.
 
   header("Location: ../profile.php?message=infoupdated");
+  //De gebruiker wordt terug gestuurd met een melding.
 }
 
 
