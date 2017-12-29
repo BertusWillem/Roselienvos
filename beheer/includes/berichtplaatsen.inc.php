@@ -14,11 +14,11 @@ if ($tabel === 'nieuws'){
 }
 
 // voegt een nieuwe behandeling toe
-if ($tabel === 'behandel'){
-	$sth = $dbh->prepare("INSERT INTO behandel (afbeelding) VALUES (0)");
+if ($tabel === 'behandeling'){
+	$sth = $dbh->prepare("INSERT INTO behandeling (afbeelding) VALUES (0)");
 	$sth->execute();
 
-	$stmt = $dbh->prepare("SELECT MAX($id) FROM behandel");
+	$stmt = $dbh->prepare("SELECT MAX($id) FROM behandeling");
 }
 
 // haalt het max ID op
