@@ -54,8 +54,8 @@ while ($rows = $stmt->fetch()){
       ");
   if ($_GET['review'] == 2){
       print("<td id='goed'><a href='includes/approve.inc.php?approve=".$rows['recensieid']."&&return=2'>Goedkeuren</a></td>");
-      print ("<td><a class='echo_link' href='includes/approve.inc.php?delete=".$rows['recensieid']."&&return=2' onclick='return confirm(\"Weet u zeker dat u recensie "
-        .$rows['recensieid']." wilt verwijderen?\")'> Verwijderen </a></td>");
+      print ("<td><a class='echo_link' href='includes/approve.inc.php?delete=".$rows['recensieid']."&&return=2' onclick='return confirm(\"Weet u zeker dat u recensie: "
+        .$rows['titel'].", wilt verwijderen?\")'> Verwijderen </a></td>");
 
   //    print("<td><a class='echo_link' href='includes/approve.inc.php?delete=".$rows['recensieid']."&&return=2' onclick='return confirm(\"Weet u zeker dat u
     //  deze recensie wilt verwijderen?\")'> Verwijderen </a></td>");
