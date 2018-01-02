@@ -16,7 +16,7 @@ include '../includes/dbh.php';
           <option value ="2">Afgekeurd</option>
           <option value ="0">Openstaand</option>
         </select>
-        
+
         <input type="submit" value="Zoeken" style="margin-bottom: 25px;">
       </div>
 
@@ -54,7 +54,15 @@ while ($rows = $stmt->fetch()){
       ");
   if ($_GET['review'] == 2){
       print("<td id='goed'><a href='includes/approve.inc.php?approve=".$rows['recensieid']."&&return=2'>Goedkeuren</a></td>");
-      print("<td id='fout'><a href='includes/approve.inc.php?delete=".$rows['recensieid']."&&return=2'>Verwijderen</a></td>");
+      print ("<td><a class='echo_link' href='includes/approve.inc.php?delete=".$rows['recensieid']."&&return=2' onclick='return confirm(\"Weet u zeker dat u recensie: "
+        .$rows['titel'].", wilt verwijderen?\")'> Verwijderen </a></td>");
+
+  //    print("<td><a class='echo_link' href='includes/approve.inc.php?delete=".$rows['recensieid']."&&return=2' onclick='return confirm(\"Weet u zeker dat u
+    //  deze recensie wilt verwijderen?\")'> Verwijderen </a></td>");
+
+
+
+  //    print("<td id='fout'><a href='includes/approve.inc.php?delete=".$rows['recensieid']."&&return=2'>Verwijderen</a></td>");
   }
   elseif ($_GET['review'] == 1){
       print("<td id='fout'><a href='includes/approve.inc.php?deny=".$rows['recensieid']."&&return=1'>Afkeuren</a></td>");
@@ -63,8 +71,8 @@ while ($rows = $stmt->fetch()){
   else {
   print("<td id='goed'><a href='includes/approve.inc.php?approve=".$rows['recensieid']."&&return=0'>Goedkeuren</a></td>");
   print("<td id='fout'><a href='includes/approve.inc.php?deny=".$rows['recensieid']."&&return=0'>Afkeuren</a></td>");
-  }       
-      
+  }
+
       print("</tr>
     </table>
   </div>

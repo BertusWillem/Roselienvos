@@ -4,7 +4,7 @@ $page = "Gebruikers";
 include 'header.beheer.php';
 
 include '../includes/dbh.php';
-$stmt = $dbh->prepare("SELECT userid, email, firstname, lastname, last_seen FROM gebruikers WHERE rol = 'klant'");
+$stmt = $dbh->prepare("SELECT userid, email, firstname, lastname, last_seen FROM gebruiker WHERE rol = 0");
 $stmt->execute();
 print('
   <section class="body-container">
@@ -29,6 +29,6 @@ print("<tr>
       <td><a class='echo_link' href='includes/deluser.inc.php?user=".$rows['userid']."' onclick='return confirm(\"Weet u zeker dat u "
       .$rows['firstname']." ".$rows['lastname']." wilt verwijderen?\")'> Verwijderen </a></td>");
 }
-print("</table></section></section></div>");
+print("</tr></table></section></section></div>");
 
 ?>

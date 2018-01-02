@@ -75,7 +75,7 @@ include 'header.beheer.php';
         <h2>Recensies<p>
         <?php
         include '../includes/dbh.php';
-        $stmt = $dbh->prepare("SELECT recensieid FROM recensie WHERE accepted = 0;");
+        $stmt = $dbh->prepare("SELECT recensieid FROM recensie WHERE status = 0;");
         $stmt->execute();
         $aantal = 0;
         while ($rows = $stmt->fetch()){
