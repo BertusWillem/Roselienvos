@@ -4,7 +4,8 @@ session_start();
 $page = 'bewerken';
 $pagina = $_GET['pagina'];
 $tabel = $_GET['tabel'];
-$check = 0;
+$check = 0; // wordt gebruikt voor het nakijken of er uberhaupt een plaatje op de pagina mag komen te staan.
+$nummer = 0; // wordt gebruikt voor de verwijdering van plaatjes
 
 include 'header.beheer.php';
 include '../includes/paginalader.inc.php';
@@ -154,28 +155,31 @@ elseif ($tabel == 'pagina'){
 			');
 		}
 
-		// Verwijderen van een afbeelding op deze pagina, welke afbeelding wordt aangegeven door plaatje=
+		// Verwijderen van een afbeelding op deze pagina, welke afbeelding wordt aangegeven door plaatje= in de url
 		  if(isset($_GET["uitvoering"])=='verwijderen'){
 				$sth = $dbh->prepare("SELECT afbeelding FROM pagina WHERE pagina_id = $pagina"); // selecteerd de afbeeldingen in de afbeelding tabel per cijfer
 				$sth -> execute(array($page));
 				while ($result = $sth ->fetch(PDO::FETCH_ASSOC)){
 					$afbeeldingen = explode(".", $result['afbeelding']); // zorgt ervoor dat elk cijfer apart in een array kom te staan
-					print_r($afbeeldingen);
-					print('<br>');
-					print('nu moet ik '.$_GET["plaatje"].' eruit gooien<br>');
 
-					// voor elk cijfer achter de punt een plaatje tonen.
-					foreach ($afbeeldingen as $afbeelding) {
-						if($afbeelding == $_GET['plaatje']){
-							$afbeelding = '';
+					foreach ($afbeeldingen as $afbeelding) { // voor elk cijfer achter de punt een plaatje tonen.
+						if($afbeelding == $_GET['plaatje']){ // kijken of een afbeelding overeen komt met het plaatje dat wordt aangegeven in de url.
+							$afbeeldingen[$nummer] = ''; // zo ja? zet het plaatje op niks.
 						}
-						else{
-							print($afbeelding.'<br>');
-						}
-
+						$nummer++;
 					}
 
-					//print_r($afbeeldingen);
+					// maakt een afbeelding lijstje voor de nieuwe array in de database.
+					for ($i = 0, $punt = 0; $i < $nummer ; $i++) {
+						if ($afbeeldingen[$i] != ''){
+							if ($punt != 0){ // zorgt ervoor dat het eerste nummer in de rij geen punt ervoor krijgt
+								print('.'.$afbeeldingen[$i]);
+							}else{
+								print($afbeeldingen[$i]);
+								$punt++;
+							}
+						}
+					}
 				}
 
 					// $sth = $dbh->prepare("UPDATE $table SET afbeelding = :nieuw WHERE pagina_id=:pagina"); // selecteerd de afbeeldingen in de afbeelding tabel per cijfer
