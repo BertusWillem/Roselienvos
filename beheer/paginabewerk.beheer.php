@@ -143,7 +143,6 @@ elseif ($tabel == 'pagina'){
 
 		// Geeft een verwijder optie als de tabel naam geen pagina is
 		if ($tabel !== 'pagina'){
-
 			print('
 			<div class="input-window" id="box" style="width: 100%!important; max-width: 1280px!important;">
         <form>
@@ -154,6 +153,36 @@ elseif ($tabel == 'pagina'){
 			</div>
 			');
 		}
+
+		// Verwijderen van een afbeelding op deze pagina, welke afbeelding wordt aangegeven door plaatje=
+		  if(isset($_GET["uitvoering"])=='verwijderen'){
+				$sth = $dbh->prepare("SELECT afbeelding FROM pagina WHERE pagina_id = $pagina"); // selecteerd de afbeeldingen in de afbeelding tabel per cijfer
+				$sth -> execute(array($page));
+				while ($result = $sth ->fetch(PDO::FETCH_ASSOC)){
+					$afbeeldingen = explode(".", $result['afbeelding']); // zorgt ervoor dat elk cijfer apart in een array kom te staan
+					print_r($afbeeldingen);
+					print('<br>');
+					print('nu moet ik '.$_GET["plaatje"].' eruit gooien<br>');
+
+					// voor elk cijfer achter de punt een plaatje tonen.
+					foreach ($afbeeldingen as $afbeelding) {
+						if($afbeelding == $_GET['plaatje']){
+							$afbeelding = '';
+						}
+						else{
+							print($afbeelding.'<br>');
+						}
+
+					}
+
+					//print_r($afbeeldingen);
+				}
+
+					// $sth = $dbh->prepare("UPDATE $table SET afbeelding = :nieuw WHERE pagina_id=:pagina"); // selecteerd de afbeeldingen in de afbeelding tabel per cijfer
+					// $sth -> execute(array($page, ':pagina' => $pagina, ':nieuw' => $nieuws));
+
+					//	header("Location: paginabewerk.beheer.php?tabel=$tabel&&pagina=$pagina"); // verwijst je weer terug naar de oorspronkelijke pagina
+			}
 		?>
 
   </section>
