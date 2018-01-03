@@ -18,9 +18,22 @@ if(isset($_GET["verwijderen"])) {
 		header ('Location: pagina.beheer.php?benaming=nieuws&&tabel=nieuws');
 	}
 	elseif($tabel == 'behandeling'){
+
 		$sth = $dbh->prepare("DELETE FROM behandeling WHERE behandeling_id = :pagina");
 		$sth->execute(array(':pagina' => $pagina));
+
+		$sth = $dbh->prepare("DELETE FROM prijs WHERE behandeling_id = :pagina");
+		$sth->execute(array(':pagina' => $pagina));
+
+
+
 		header ('Location: pagina.beheer.php?benaming=Behandeling&&tabel=behandeling');
+
+
+
+
+
+
 	}
 	if($tabel == 'contact'){
 	// Controleer of er daadwerkelijk een integer (geheel getal) binnen is gekomen
