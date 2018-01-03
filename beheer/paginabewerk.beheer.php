@@ -61,6 +61,12 @@ elseif ($tabel == 'pagina'){
 
 
     <?php
+		// zet de check op 1 als de pagina niet over mij is en de tabel pagina heeft.
+		// de andere paginas in de tabel pagina hebben namelijk geen afbeelding.
+		if ($pagina != 1 && $tabel == 'pagina'){
+			$check = 1;
+		}
+
 		if ($check != 1){ // bekijkt of er wel afbeeldingen op de huidige bewerk pagina mogen komen.
 			print('<div class="left">');
 		} else {
