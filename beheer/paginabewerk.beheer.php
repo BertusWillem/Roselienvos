@@ -5,8 +5,6 @@ $page = 'bewerken';
 $pagina = $_GET['pagina'];
 $tabel = $_GET['tabel'];
 $check = 0; // wordt gebruikt voor het nakijken of er uberhaupt een plaatje op de pagina mag komen te staan.
-$nummer = 0; // wordt gebruikt voor de verwijdering van plaatjes.
-$nieuw = 0; // wordt gebruikt voor de verwijdering van plaatjes.
 
 include 'header.beheer.php';
 include '../includes/paginalader.inc.php';
@@ -99,6 +97,16 @@ elseif ($tabel == 'pagina'){
 					}
 				}
 
+				// succes feedback!
+				if (isset($_GET['succes'])){
+					if ($_GET['succes'] === "1"){
+						print("<p style='color:green;'>- De afbeelding is succesvol verwijderd.</p>");
+					}
+					if ($_GET['succes'] === "2"){
+						print("<p style='color:green;'>- De afbeelding is succesvol toegevoegd aan de pagina.</p>");
+					}
+				}
+
 				print('<section class="gallery-beheer">'); // opend de gallery section
 
 					// laad de plaatjes op basis van tabel naam
@@ -133,7 +141,7 @@ elseif ($tabel == 'pagina'){
 								echo ('<div><img src="'); if($result['afbeelding'] != NULL){echo ($result["afbeelding"]);} else{ echo ('../image/error.jpg');} echo ('" alt="afbeelding">');
 
 								print('
-								<form class="image-view-container" action="paginabewerk.beheer.php?tabel='.$tabel.'&&pagina='.$pagina.'&&uitvoering=verwijderen&&plaatje='.$afbeelding.'" method="post">
+								<form class="image-view-container" action="includes/updateafbeelding.inc.php?tabel='.$tabel.'&&pagina='.$pagina.'&&uitvoering=verwijderen&&plaatje='.$afbeelding.'" method="post">
 									<div class="input-window" id="box" style="margin-bottom: 25px; width: 100%;"><input type="submit" value="Afbeelding verwijderen"></div>
 								</form></div>
 								');
@@ -158,49 +166,6 @@ elseif ($tabel == 'pagina'){
 			</div>
 			');
 		}
-
-		// Verwijderen van een afbeelding op deze pagina, welke afbeelding wordt aangegeven door plaatje= in de url
-		  if(isset($_GET["uitvoering"])=='verwijderen'){
-				$sth = $dbh->prepare("SELECT afbeelding FROM pagina WHERE pagina_id = $pagina"); // selecteerd de afbeeldingen in de afbeelding tabel per cijfer
-				$sth -> execute();
-				while ($result = $sth ->fetch(PDO::FETCH_ASSOC)){
-					$afbeeldingen = explode(".", $result['afbeelding']); // zorgt ervoor dat elk cijfer apart in een array kom te staan
-					foreach ($afbeeldingen as $afbeelding) { // voor elk cijfer achter de punt een plaatje tonen.
-						if($afbeelding == $_GET['plaatje']){ // kijken of een afbeelding overeen komt met het plaatje dat wordt aangegeven in de url.
-							$afbeeldingen[$nummer] = ''; // zo ja? zet het plaatje op niks.
-						}
-						$nummer++;
-					}
-
-					// maakt een afbeelding lijstje voor de nieuwe array in de database.
-					for ($i = 0, $punt = 0, $a='',$b='',$c='',$d=''; $i < $nummer ; $i++) {
-						if ($afbeeldingen[$i] != ''){
-							if ($a == ''){
-								$a = ($afbeeldingen[$i]); // print nummers zonder punt ervoor
-							}
-							elseif ($a != '' && $b == ''){ // zorgt ervoor dat het eerste nummer in de rij geen punt ervoor krijgt
-								$b = ('.'.$afbeeldingen[$i]); // print nummers met een punt ervoor
-							}
-							elseif ($a != '' && $b != '' && $c == ''){ // zorgt ervoor dat het eerste nummer in de rij geen punt ervoor krijgt
-								$c = ('.'.$afbeeldingen[$i]); // print nummers met een punt ervoor
-							}
-							elseif ($a != '' && $b != '' && $c != '' && $d == ''){ // zorgt ervoor dat het eerste nummer in de rij geen punt ervoor krijgt
-								$d = ('.'.$afbeeldingen[$i]); // print nummers met een punt ervoor
-							}
-						}
-						}
-
-						if ($_GET['plaatje'] == NULL or $_GET['plaatje'] == 0){ // check zodat als er geen afbeelding deze op 0 wordt gezet in de database.
-							$a = 0;
-						}
-					} // einde van de while
-
-					$nieuw = ($a.$b.$c.$d); // maakt de nieuwe afbeeldingenlijst aan.
-
-					// update de database met de nieuwe afbeeldingenlijst.
-					$uil = $dbh->prepare("UPDATE pagina SET afbeelding = :nieuw WHERE pagina_id = :pagina");
-					$uil -> execute(array(':pagina' => $pagina, ':nieuw' => $nieuw));
-			} // einde van de if statement
 		?>
 
   </section>
