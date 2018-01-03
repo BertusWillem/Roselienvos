@@ -6,19 +6,28 @@ $uitvoering = $_GET['kiezen'];
 
 $nummer = 0; // wordt gebruikt voor de verwijdering van plaatjes.
 $nieuw = 0; // wordt gebruikt voor de verwijdering van plaatjes.
+$tel = 0; // wordt gebruikt voor het kijken of er niet te veel afbeeldingen op de pagina komen.
 
 $checkdubbel = explode(".", $_GET['old']); // explode de afbeeldingen.
 $check = 0; // zet de check op 0
 
 // bekijkt de geexplode afbeeldingen of er duplicates in zitten.
 foreach ($checkdubbel as $dubbel) {
+  $tel++;
   if ($dubbel == $_GET['afbeelding']){
     $check = 1; // zet check op 1 als er een duplicate is gevonden.
+  }
+  if ($tel > 4){
+    $check = 3; // zet check op 3 als er meer dan 3 plaatjes op de pagina staan.
   }
 }
 
 if ($check == 1) { // verwijst je weer terug naar de oorspronkelijke pagina met een error
   header ("Location: ../paginabewerk.beheer.php?tabel=$tabel&&pagina=$pagina&&error=1");
+}
+
+if ($check == 3) { // verwijst je weer terug naar de oorspronkelijke pagina met een error
+  header ("Location: ../paginabewerk.beheer.php?tabel=$tabel&&pagina=$pagina&&error=2");
 }
 
 if ($tabel == 'pagina'){ // update een afbeelding op basis van de tabel naam

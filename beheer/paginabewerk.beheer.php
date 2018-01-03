@@ -95,6 +95,9 @@ elseif ($tabel == 'pagina'){
 					if ($_GET['error'] === "1"){
 						print("<p style='color:red;'>- Deze afbeelding staat al op de pagina.</p>");
 					}
+					if ($_GET['error'] === "2"){
+						print("<p style='color:red;'>- Er kunnen niet meer afbeeldingen op deze pagina.</p>");
+					}
 				}
 
 				// succes feedback!
