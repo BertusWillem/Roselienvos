@@ -12,7 +12,7 @@ $mail->isSMTP();
 $mail->Host = 'mail.kevinthegamer.nl';
 $mail->SMTPAuth = true;
 $mail->Username = 'kbs@kevinthegamer.nl';
-$mail->Password = 'Kbs2017!';
+$mail->Password = 'kbsvos2017!';
 $mail->SMTPSecure = 'TLS';
 $mail->Port = 587;
 

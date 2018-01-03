@@ -5,7 +5,7 @@ $page = 'bewerken';
 $pagina = $_GET['pagina'];
 $tabel = $_GET['tabel'];
 $check = 0; // wordt gebruikt voor het nakijken of er uberhaupt een plaatje op de pagina mag komen te staan.
-
+print($tabel);
 include 'header.beheer.php';
 include '../includes/paginalader.inc.php';
 include '../includes/dbh.php';
@@ -24,20 +24,14 @@ if(isset($_GET["verwijderen"])) {
 
 		$sth = $dbh->prepare("DELETE FROM prijs WHERE behandeling_id = :pagina");
 		$sth->execute(array(':pagina' => $pagina));
-
-
-
-		header ('Location: pagina.beheer.php?benaming=Behandeling&&tabel=behandeling');
-
-
-
-
-
-
+		header('Location: pagina.beheer.php?benaming=Behandeling&&tabel=behandeling');
 	}
-	if($tabel == 'contact'){
+
+
+
+	if($tabel === 'contact'){
 	// Controleer of er daadwerkelijk een integer (geheel getal) binnen is gekomen
-	if ( isset($_GET['id']) && filter_var($_GET['id'], FILTER_VALIDATE_INT )){
+	//if (isset($_GET['id']) && filter_var($_GET['id'], FILTER_VALIDATE_INT )){
 		$id = $_GET['id'];
 	// Deze query verwijdert het door de gebruiker aangewezen bericht uit de database
 		$query = "DELETE FROM contactformulier WHERE id = ? ";
@@ -47,7 +41,7 @@ if(isset($_GET["verwijderen"])) {
 	// Script dat de gebruiker automatisch weer naar de contactform.beheer.php stuurt
 	header("location: contactform.beheer.php?error=1");
 	} // End script om contactformulier bericht te verwijderen
-	}
+	//}
 }
 
 //laad de texten en afbeeldingen zien op basis van de tabel naam
@@ -137,16 +131,18 @@ elseif ($tabel == 'pagina'){
 						$sth2 -> execute();
 					}
 
-					if($tabel == 'nieuws'){
+					elseif($tabel == 'nieuws'){
 						$sth2 = $dbh->prepare("SELECT afbeelding FROM nieuws WHERE nieuws_id=$pagina");
 						$sth2 -> execute();
 					}
 
-					if($tabel == 'behandeling'){
+					elseif($tabel == 'behandeling'){
 						$sth2 = $dbh->prepare("SELECT afbeelding FROM behandeling WHERE behandeling_id=$pagina");
 						$sth2 -> execute();
 					}
-
+					else {
+						$sth2 = "NULL";
+					}
 					while ($result2 = $sth2 ->fetch(PDO::FETCH_ASSOC)){
 						$plaatjes= ($result2['afbeelding']); // pakt de cijfers uit de database
 						$afbeeldingen = explode(".", $plaatjes); // zorgt ervoor dat elk cijfer apart in een array kom te staan
