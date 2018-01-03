@@ -48,10 +48,15 @@
                     $sth = $dbh->prepare("SELECT afbeelding FROM afbeelding WHERE afbeeldingid = $afbeelding"); // selecteerd de afbeeldingen in de afbeelding tabel per cijfer
                     $sth -> execute(array($page));
                     $result = $sth ->fetch(PDO::FETCH_ASSOC);
-                    if($result['afbeelding'] != NULL){ // toond de afbeelding, bestaat de afbeelding niet meer? Dan wordt dat getoond door een 'deze afbeelding bestaant niet meer' afbeelding.
-                      echo ('<div style="margin-bottom: 10px;"><img src="'.substr($result['afbeelding'], 3).'"> alt="afbeelding"></div>'); // laat de afbeelding zien per result
-                    } else{
-                      echo ('<div style="margin-bottom: 10px;"><img src="../image/error.jpg" alt="afbeelding"></div>');
+
+                    // toond de afbeelding, bestaat de afbeelding niet meer? Dan wordt dat getoond door een 'deze afbeelding bestaant niet meer' afbeelding.
+      							// tenzij er een afbeelding 0 in staat, deze wordt helemaal niet getoond.
+      							if($afbeelding != 0){
+                      if($result['afbeelding'] != NULL){
+                        echo ('<div style="margin-bottom: 10px;"><img src="'.substr($result['afbeelding'], 3).'"> alt="afbeelding"></div>'); // laat de afbeelding zien per result
+                      } else{
+                        echo ('<div style="margin-bottom: 10px;"><img src="../image/error.jpg" alt="afbeelding"></div>');
+                      }
                     }
                   }
                   echo ('</section></div>'); // sluit de image gallery
@@ -183,10 +188,15 @@
                     $sth = $dbh->prepare("SELECT afbeelding FROM afbeelding WHERE afbeeldingid = $afbeelding"); // selecteerd de afbeeldingen in de afbeelding tabel per cijfer
                     $sth -> execute(array($page));
                     $result = $sth ->fetch(PDO::FETCH_ASSOC);
-                    if($result['afbeelding'] != NULL){ // toond de afbeelding, bestaat de afbeelding niet meer? Dan wordt dat getoond door een 'deze afbeelding bestaant niet meer' afbeelding.
-                      echo ('<div style="margin-bottom: 10px;"><img src="'.substr($result['afbeelding'], 3).'"> alt="afbeelding"></div>'); // laat de afbeelding zien per result
-                    } else{
-                      echo ('<div style="margin-bottom: 10px;"><img src="../image/error.jpg" alt="afbeelding"></div>');
+
+                    // toond de afbeelding, bestaat de afbeelding niet meer? Dan wordt dat getoond door een 'deze afbeelding bestaant niet meer' afbeelding.
+                    // tenzij er een afbeelding 0 in staat, deze wordt helemaal niet getoond.
+                    if($afbeelding != 0){
+                      if($result['afbeelding'] != NULL){ // toond de afbeelding, bestaat de afbeelding niet meer? Dan wordt dat getoond door een 'deze afbeelding bestaant niet meer' afbeelding.
+                        echo ('<div style="margin-bottom: 10px;"><img src="'.substr($result['afbeelding'], 3).'"> alt="afbeelding"></div>'); // laat de afbeelding zien per result
+                      } else{
+                        echo ('<div style="margin-bottom: 10px;"><img src="../image/error.jpg" alt="afbeelding"></div>');
+                      }
                     }
                   }
                   echo ('</section></div>'); // sluit de image gallery
