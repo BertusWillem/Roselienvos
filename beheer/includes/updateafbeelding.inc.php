@@ -64,7 +64,10 @@ if ($tabel == 'behandeling'){ // update een afbeelding op basis van de tabel naa
 
 // Verwijderen van een afbeelding op deze pagina, welke afbeelding wordt aangegeven door plaatje= in de url
 if(isset($_GET["uitvoering"])=='verwijderen'){
-  $sth = $dbh->prepare("SELECT afbeelding FROM pagina WHERE pagina_id = $pagina"); // selecteerd de afbeeldingen in de afbeelding tabel per cijfer
+  // selecteerd de afbeeldingen in de afbeelding tabel per cijfer per tabel
+  if($tabel == 'pagina'){ $sth = $dbh->prepare("SELECT afbeelding FROM pagina WHERE pagina_id = $pagina");}
+  if($tabel == 'nieuws'){ $sth = $dbh->prepare("SELECT afbeelding FROM nieuws WHERE nieuws_id = $pagina");}
+  if($tabel == 'behandeling'){ $sth = $dbh->prepare("SELECT afbeelding FROM behandeling WHERE behandeling_id = $pagina");}
   $sth -> execute();
   while ($result = $sth ->fetch(PDO::FETCH_ASSOC)){
     $afbeeldingen = explode(".", $result['afbeelding']); // zorgt ervoor dat elk cijfer apart in een array kom te staan
