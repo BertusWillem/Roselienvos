@@ -5,21 +5,21 @@ include 'header.php';
 ?>
 <script src='https://www.google.com/recaptcha/api.js'></script>
 <section class="body-container">
-    <?php
-    if (isset($_GET['message'])) {
-        if ($_GET['message'] === "empty") {
-            print("<p style='color:red;'>- Vul alle velden in!</p>");
-        }
-        if ($_GET['message'] === "captcha") {
-            print("<p style='color:red;'>- De captcha is niet geldig voltooid, probeer het opnieuw.</p>");
-        }
-        if ($_GET['message'] === "succes") {
-            print("<p style='color:green;'>- Recensie wordt nu beoordeeld.");
-        }
-    }
-    ?>
     <section class="container">
         <div class="recensie-container">
+          <?php
+          if (isset($_GET['message'])) {
+              if ($_GET['message'] === "empty") {
+                  print("<p style='color:red;'>- Vul alle velden in!</p>");
+              }
+              if ($_GET['message'] === "captcha") {
+                  print("<p style='color:red;'>- De captcha is niet geldig voltooid, probeer het opnieuw.</p>");
+              }
+              if ($_GET['message'] === "succes") {
+                  print("<p style='color:green;'>- Recensie wordt nu beoordeeld.");
+              }
+          }
+          ?>
             <div class="recensies" id="box" style="width: 100%!important;">
                 <h1 onclick="recensieOpen()">Zelf een recensie schrijven</h1>
                 <div class="input-window" id="open" style="display: none;">
@@ -27,8 +27,8 @@ include 'header.php';
                         <input type="text" name="titel" placeholder="Titel">
                         <?php
                         print('
-				<input type="text" name="autheur"
-				');
+                				<input type="text" name="autheur"
+                				');
                         if (!isset($_SESSION['userid'])) {
                             print('placeholder="Naam">');
                         } else {
