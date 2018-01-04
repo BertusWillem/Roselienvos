@@ -5,7 +5,7 @@ $page = 'bewerken';
 $pagina = $_GET['pagina'];
 $tabel = $_GET['tabel'];
 $check = 0; // wordt gebruikt voor het nakijken of er uberhaupt een plaatje op de pagina mag komen te staan.
-print($tabel);
+
 include 'header.beheer.php';
 include '../includes/paginalader.inc.php';
 include '../includes/dbh.php';
