@@ -34,6 +34,12 @@ $tijden = tijdprint();
 
 
 foreach ($tijden as $index => $tijd) {
+if (strlen($tijd) == 1 || strlen($tijd) == 2){
+  $tijd = $tijd.":00:00";
+}
+else {
+  $tijd = $tijd.":00";
+}
 
 
 
