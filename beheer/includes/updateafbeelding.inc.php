@@ -2,6 +2,7 @@
 include '../../includes/dbh.php';
 $tabel = $_GET['tabel'];
 $pagina = $_GET['pagina'];
+
 $uitvoering = $_GET['kiezen'];
 
 $nummer = 0; // wordt gebruikt voor de verwijdering van plaatjes.
@@ -123,8 +124,10 @@ if(isset($_GET["uitvoering"])=='verwijderen'){
 
 if ($check == 0){
   header ("Location: ../paginabewerk.beheer.php?tabel=$tabel&&pagina=$pagina&&succes=2"); // verwijst je weer terug naar de oorspronkelijke pagina
+  header("Refresh:0; url=../paginabewerk.beheer.php?tabel=$tabel&&pagina=$pagina&&succes=2");
 }
 if ($check == 2){
   header ("Location: ../paginabewerk.beheer.php?tabel=$tabel&&pagina=$pagina&&succes=1"); // verwijst je weer terug naar de oorspronkelijke pagina
+  header("Refresh:0; url=../paginabewerk.beheer.php?tabel=$tabel&&pagina=$pagina&&succes=1");
 }
 ?>
