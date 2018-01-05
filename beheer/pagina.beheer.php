@@ -77,7 +77,7 @@ $stmt->execute();
 </section>
 <script>
     function publiceren(tabel, tabelid){
-         console.log(tabel, tabelid, document.getElementById(tabelid).checked);
+
         var checkChecked = document.getElementById(tabelid).checked;
         var ajaxRequest;  //Maak een lege variabele aan voor het gebruik van ajax
 

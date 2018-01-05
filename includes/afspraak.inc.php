@@ -14,20 +14,31 @@ while ($result = $sth->fetch(PDO::FETCH_ASSOC)){
 
 }
 
-function halfHourTimes() {
-  $formatter = function ($time) {
+function tijdprint() {
+  $opmaak = function ($time) {
     if ($time % 3600 == 0) {
       return date('G', $time);
     } else {
       return date('G:i', $time);
     }
-    
+
   };
-  $halfHourSteps = range(30*900, 76*900, 900);
-  
-  return array_map($formatter, $halfHourSteps);
-  
+  $timeprint = range(30*900, 76*900, 900);
+
+  return array_map($opmaak, $timeprint);
+
 }
 
-var_dump(halfHourTimes());
+$tijden = tijdprint();
+
+
+
+foreach ($tijden as $index => $tijd) {
+
+
+
+  print($tijd . " ");
+}
+
+
  ?>
