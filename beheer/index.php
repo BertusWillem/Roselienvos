@@ -10,6 +10,7 @@ include 'header.beheer.php';
 <section class="body-container">
   <section class="container">
     <div class="recensie-container">
+      <!--Profiel blok-->
       <a href="../profile.php"><div class="block">
         <div class="image-view-container">
         <h2>Profiel</h2>
@@ -34,6 +35,7 @@ include 'header.beheer.php';
         </div>
       </div>
 
+      <!--Pagina blok-->
       <a href=paginaoverzicht.beheer.php?benaming=Paginabeheer&&tabel=pagina><div class="block">
         <div class="image-view-container">
         <h2>Pagina's</h2>
@@ -43,6 +45,7 @@ include 'header.beheer.php';
         </div>
       </div></a>
 
+      <!--Afspraak blok-->
       <a href="afspraak.beheer.php"><div class="block">
         <div class="image-view-container">
         <h2>Afspraak</h2>
@@ -52,6 +55,7 @@ include 'header.beheer.php';
         </div>
       </div></a>
 
+      <!--Behandeling blok-->
       <a href=pagina.beheer.php?benaming=Behandeling&&tabel=behandeling><div class="block">
         <div class="image-view-container">
         <h2>Behandelingen</h2>
@@ -61,6 +65,7 @@ include 'header.beheer.php';
         </div>
       </div></a>
 
+      <!--Nieuws blok-->
       <a href=pagina.beheer.php?benaming=Nieuws&&tabel=nieuws><div class="block">
         <div class="image-view-container">
         <h2>Nieuws</h2>
@@ -70,6 +75,27 @@ include 'header.beheer.php';
         </div>
       </div></a>
 
+      <!--Prijzen blok-->
+      <a href=prijs.beheer.php><div class="block">
+        <div class="image-view-container">
+        <h2>Prijzen</h2>
+          <div class="image-view">
+            <p>Klik hier om de prijzen te wijzigen per behandeling.</p>
+          </div>
+        </div>
+      </div></a>
+
+      <!--Klanten blok-->
+      <a href=users.beheer.php><div class="block">
+        <div class="image-view-container">
+        <h2>Klanten</h2>
+          <div class="image-view">
+            <p>Klik hier om klanten te beheren.</p>
+          </div>
+        </div>
+      </div></a>
+
+      <!--Recensie blok-->
       <a href="recensies.beheer.php?review=0"><div class="block">
         <div class="image-view-container">
         <h2>Recensies<p>
@@ -90,11 +116,12 @@ include 'header.beheer.php';
         ?>
         </p></h2>
           <div class="image-view">
-            <p>Klik hier om recensies te bekijken en beoordelen.</p>
+            <p>Klik hier om recensies te bekijken, goed te keuren of te verwijderen.</p>
           </div>
         </div>
       </div></a>
 
+      <!--Contact blok-->
       <a href="contact.beheer.php"><div class="block">
         <div class="image-view-container">
         <h2>Contact</h2>
@@ -104,6 +131,7 @@ include 'header.beheer.php';
         </div>
       </div></a>
 
+      <!--Media blok-->
       <a href="media.beheer.php?uitvoering=beheer"><div class="block">
         <div class="image-view-container">
         <h2>Media</h2>
