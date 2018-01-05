@@ -80,7 +80,7 @@ elseif ($tabel == 'pagina'){
 			print('<div>');
 		}
 
-		// tekst veld
+		// tekst veld de values worden uit de database gehaald.
 		print('
       <h1 style="margin-bottom: 25px;">Text</h1>
       <form id="box" action="includes/updatepagina.inc.php?tabel='.$tabel.'&&pagina='.$pagina.')?>" method="POST">
