@@ -24,19 +24,27 @@ include 'header.php';
                 <h1 onclick="recensieOpen()">Zelf een recensie schrijven</h1>
                 <div class="input-window" id="open" style="display: none;">
                     <form action="includes/recensie.inc.php" method="POST">
-                        <input type="text" name="titel" placeholder="Titel">
+                        <input type="text" name="titel" <?php if (!isset($_SESSION['re_title'])){print ("placeholder='Titel'");}
+                                                              else{print("value='".$_SESSION['re_title']."'");}?>>
                         <?php
                         print('
                 				<input type="text" name="autheur"
                 				');
                         if (!isset($_SESSION['userid'])) {
-                            print('placeholder="Naam">');
-                        } else {
-                            print('value="' . $_SESSION['firstname'] . '">');
+                          if (!isset($_SESSION['re_name'])){
+                            print ("placeholder='Naam'");
+                          }
+                          else{
+                            print("value='".$_SESSION['re_name']."'>");
                         }
+                        }
+
                         ?>
-                        <input type="number" name="rate" min="1" max="5" placeholder="Cijfer">
-                        <textarea rows="4" name="toelichting" placeholder="Uw bericht."></textarea>
+
+                        <input type="number" name="rate" min="1" max="5" <?php if (!isset($_SESSION['re_rate'])){print ("placeholder='Cijfer'");}
+                                                                              else{print("value='".$_SESSION['re_rate']."'");}?>>
+                        <textarea rows="4" name="toelichting" <?php if (!isset($_SESSION['re_note'])){print ("placeholder='Uw bericht.'");}
+                                                                              else{print(">".$_SESSION['re_note']);}?></textarea>
                         <div class="g-recaptcha" data-sitekey="6LePlD0UAAAAABr32fFpeLtjEWkKfzXkFoUmHXhY"></div>
                         <div class="submit"><input type="submit" value="Recensie versturen"></div>
                     </form>

@@ -14,13 +14,17 @@ $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?s
 $responseKeys = json_decode($response, true);
 if (intval($responseKeys["success"]) !== 1) {
     Header("Location: ../recensies.php?message=captcha"); //is de captcha niet succesvol? dan wordt de gebruiker teruggestuurd naar de vorige pagina met een error
+    $_SESSION['re_title'] = $_POST['titel'];
+    $_SESSION['re_name'] = $_POST['autheur'];
+    $_SESSION['re_rate'] = $_POST['rate'];
+    $_SESSION['re_note'] = $_POST['toelichting'];
 } else {
     if (empty($title) || empty($author) || empty($rate) || empty($note)) {
         header("Location: ../recensies.php?message=empty");
-        $_SESSION['re_title'] = $_POST['re_title'];
-        $_SESSION['re_name'] = $_POST['re_namne'];
-        $_SESSION['re_rate'] = $_POST['re_rate'];
-        $_SESSION['ln'] = $_POST['reg_ln'];
+        $_SESSION['re_title'] = $_POST['titel'];
+        $_SESSION['re_name'] = $_POST['autheur'];
+        $_SESSION['re_rate'] = $_POST['rate'];
+        $_SESSION['re_note'] = $_POST['toelichting'];
     } else {
 
         $stmt = $dbh->prepare("INSERT INTO recensie (titel, autheur, rate, toelichting, datum)
