@@ -31,4 +31,5 @@ print("<tr>
 }
 print("</tr></table></section></section></div>");
 
+include '../footer.php';
 ?>

@@ -17,6 +17,10 @@ if (intval($responseKeys["success"]) !== 1) {
 } else {
     if (empty($title) || empty($author) || empty($rate) || empty($note)) {
         header("Location: ../recensies.php?message=empty");
+        $_SESSION['re_title'] = $_POST['re_title'];
+        $_SESSION['re_name'] = $_POST['re_namne'];
+        $_SESSION['re_rate'] = $_POST['re_rate'];
+        $_SESSION['ln'] = $_POST['reg_ln'];
     } else {
 
         $stmt = $dbh->prepare("INSERT INTO recensie (titel, autheur, rate, toelichting, datum)
@@ -25,5 +29,5 @@ if (intval($responseKeys["success"]) !== 1) {
             ':rate' => $rate, ':note' => $note, ':date' => $date));
 
         header("Location: ../recensies.php?message=succes");
-    } 
+    }
 }
