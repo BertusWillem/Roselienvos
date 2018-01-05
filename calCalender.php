@@ -75,7 +75,7 @@ $optParams = array(
   'maxResults' => 10,
   'orderBy' => 'startTime',
   'singleEvents' => TRUE,
-  'timeMin' => '2018-01-06T00:00:00+00:00',
+  'timeMin' => '2018-01-06T00:00:00+00:00',             // date ('c') formaat.      
   'timeMax' => '2018-01-06T23:59:59+00:00', 
 );
 $results = $service->events->listEvents($calendarId, $optParams);
