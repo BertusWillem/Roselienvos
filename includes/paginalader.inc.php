@@ -151,7 +151,7 @@
 								}
 
 								// hier worden de behandelingen geladen.
-                $sth = $dbh->prepare("SELECT titel, inhoud, behandeling_id, a.afbeelding FROM behandeling b LEFT JOIN afbeelding a ON a.afbeeldingid = b.afbeelding");
+                $sth = $dbh->prepare("SELECT titel, inhoud, behandeling_id, a.afbeelding FROM behandeling b LEFT JOIN afbeelding a ON a.afbeeldingid = b.afbeelding WHERE done = 1");
                 $sth -> execute(array($page));
 
                 while($result = $sth->fetch(PDO::FETCH_ASSOC)){
