@@ -2,7 +2,6 @@
 include '../../includes/dbh.php';
 $tabel = $_GET['tabel'];
 $pagina = $_GET['pagina'];
-
 $uitvoering = $_GET['kiezen'];
 
 $nummer = 0; // wordt gebruikt voor de verwijdering van plaatjes.
@@ -64,7 +63,7 @@ if ($tabel == 'behandeling'){ // update een afbeelding op basis van de tabel naa
 }
 
 // Verwijderen van een afbeelding op deze pagina, welke afbeelding wordt aangegeven door plaatje= in de url
-if(isset($_GET["uitvoering"])=='verwijderen'){
+if(isset($_GET["uitvoering"]) && $_GET["uitvoering"] =='verwijderen'){
   // selecteerd de afbeeldingen in de afbeelding tabel per cijfer per tabel
   if($tabel == 'pagina'){ $sth = $dbh->prepare("SELECT afbeelding FROM pagina WHERE pagina_id = $pagina");}
   if($tabel == 'nieuws'){ $sth = $dbh->prepare("SELECT afbeelding FROM nieuws WHERE nieuws_id = $pagina");}
@@ -124,10 +123,10 @@ if(isset($_GET["uitvoering"])=='verwijderen'){
 
 if ($check == 0){
   header ("Location: ../paginabewerk.beheer.php?tabel=$tabel&&pagina=$pagina&&succes=2"); // verwijst je weer terug naar de oorspronkelijke pagina
-  header("Refresh:0; url=../paginabewerk.beheer.php?tabel=$tabel&&pagina=$pagina&&succes=2");
+
 }
 if ($check == 2){
   header ("Location: ../paginabewerk.beheer.php?tabel=$tabel&&pagina=$pagina&&succes=1"); // verwijst je weer terug naar de oorspronkelijke pagina
-  header("Refresh:0; url=../paginabewerk.beheer.php?tabel=$tabel&&pagina=$pagina&&succes=1");
+
 }
 ?>
