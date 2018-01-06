@@ -40,7 +40,7 @@ include '../includes/dbh.php';
                     <tr><td>van:</td><td>".$row["naam"]."</td></tr>
                     <tr><td>bericht:</td><td>" . $row["inhoud"]  . "</td></tr>
                     <tr><td>op:</td><td>" . $row["datum"]  . "</td></tr>
-                    <tr><td id='fout'><a href='paginabewerk.beheer.php?verwijderen=true&&tabel=contact&&id=" . $row["id"]  . "'>verwijder</a></td><td id='goed'><a href='mailto:" . $row["email"] . "'>beantwoorden</td></tr>
+                    <tr><td id='goed'><a href='mailto:" . $row["email"] . "'>beantwoorden</td><td id='fout'><a onclick='return verwijderAlert()' href='paginabewerk.beheer.php?verwijderen=true&&tabel=contact&&id=" . $row["id"]  . "'>verwijder</a></td></tr>
                     </table>
                   </div>
                 ");
@@ -49,7 +49,16 @@ include '../includes/dbh.php';
       </div>
     </section>
 </section>
-</body>
-</html>
+
+<!--code om een alertbox te tonen-->
+<script>
+function verwijderAlert(){
+  var del=confirm("Weet u zeker dat u dit wilt verwijderen?");
+  return del;
+}
+</script>
+
+<!--voeg dit aan het object toe waar je een alert wilt hebben staan.
+onclick="return verwijderAlert()" -->
 
 <?php include ('../footer.php');?>
