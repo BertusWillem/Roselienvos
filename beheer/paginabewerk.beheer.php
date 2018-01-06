@@ -159,7 +159,7 @@ elseif ($tabel == 'pagina'){
 								echo ('<div><img src="'); if($result['afbeelding'] != NULL){echo ($result["afbeelding"]);} else{ echo ('../image/error.jpg');} echo ('" alt="afbeelding">');
 
 								print('
-								<form class="image-view-container" action="includes/updateafbeelding.inc.php?tabel='.$tabel.'&&pagina='.$pagina.'&&uitvoering=verwijderen&&plaatje='.$afbeelding.'" method="post">
+								<form class="image-view-container" onclick="return verwijderAlert()" action="includes/updateafbeelding.inc.php?tabel='.$tabel.'&&pagina='.$pagina.'&&uitvoering=verwijderen&&plaatje='.$afbeelding.'" method="post">
 									<div class="input-window" id="box" style="margin-bottom: 25px; width: 100%;"><input type="submit" value="Afbeelding verwijderen"></div>
 								</form></div>
 								');
@@ -188,5 +188,16 @@ elseif ($tabel == 'pagina'){
 
   </section>
 </section>
+
+<!--code om een alertbox te tonen-->
+<script>
+function verwijderAlert(){
+  var del=confirm("Weet u zeker dat u dit wilt verwijderen?");
+  return del;
+}
+</script>
+
+<!--voeg dit aan het object toe waar je een alert wilt hebben staan.
+onclick="return verwijderAlert()" -->
 
 <?php include ('../footer.php');?>

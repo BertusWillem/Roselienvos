@@ -145,9 +145,6 @@ $rows = $stmt->fetch();
 <script>
 function verwijderAlert(){
   var del=confirm("Weet u zeker dat u dit wilt verwijderen?");
-  if (del==true){
-     alert ("Onderdeel is succesvol verwijderd!")
-  }
   return del;
 }
 </script>
