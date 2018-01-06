@@ -1,6 +1,6 @@
 <?php
 session_start();
-$page = "Contact";
+$page = "Contact beheer";
 include 'header.beheer.php';
 include '../includes/paginalader.inc.php';
 

@@ -70,10 +70,10 @@ include ('includes/paginalader.inc.php');
         $responseKeys = json_decode($response,true);
         if(intval($responseKeys["success"]) !== 1) {
           print ("<script type='text/javascript'>alert('De captcha is niet geldig voltooid, probeer opnieuw.')</script>"); //Error popup met foutmelding velden leeg
-        } 
+        }
         else {
-         
-        
+
+
 
 
        if (empty($_POST["naam"]) || empty($_POST["email"]) || empty($_POST["inhoud"])) { //controleerd of er velding leeg zijn
@@ -82,7 +82,7 @@ include ('includes/paginalader.inc.php');
        elseif(!isset($_POST['g-recaptcha-response'])){
            print ("<script type='text/javascript'>alert('De captcha is niet voltooid')</script>"); //Error popup met foutmelding velden leeg
        }
-       
+
        else {
 
 
@@ -90,7 +90,7 @@ include ('includes/paginalader.inc.php');
             {
                 print ("<script type='text/javascript'>alert('Het Emailadres is niet geldig!')</script>"); //Error popup met foutmelding geen geldig emailadres
             }
-            elseif(!preg_match("/^[a-zA-Z ]*$/",$_POST["naam"])) //controleerd of er tekens in de naam voorkomen buiten Letters en spaties om
+            elseif(!preg_match("/^[a-zA-Z .]*$/",$_POST["naam"])) //controleerd of er tekens in de naam voorkomen buiten Letters en spaties om
             {
                 print ("<script type='text/javascript'>alert('De naam mag alleen uit letters en spaties bestaan!')</script>"); //Error popup met foutmelding geen geldige naam
             }
@@ -99,7 +99,7 @@ include ('includes/paginalader.inc.php');
                 $mailcontent = ("Het contactformulier is op " . date("d/m/Y") . " Ingevuld door: " . $naam . " met de volgende vraag/opmerking: <br><br>" . $inhoud . "<br><br>U kunt " . $naam . " Bereiken op: " . $email); //maak opmaak voor email
                 $mailreceiver = $emailontvanger;
                 $mailsubject = "ingevuld contactformulier"; /*.$_GET["onderwerp"];*/
-                include 'includes/mail.php';
+                include 'includes/mail.php'; //run het script voor het verzenden van emails
 
                 //begin bericht opslaan in de databse
                 //kijk of een persoon al bestaat
@@ -118,18 +118,7 @@ include ('includes/paginalader.inc.php');
                   //vraag de id van de nieuwe persoon op
                   $persoon_id = $dbh->lastInsertId();
                 }
-/* SQL NIEUWE TABEL AANMAKEN LOL, gewoon ff laten staan please
 
-  CREATE TABLE `contactformulier` (
-  `id` int(11) NOT NULL auto_increment,
-  `naam` varchar(50) collate latin1_general_ci NOT NULL,
-  `email` varchar(100) collate latin1_general_ci default NOT NULL,
-  `inhoud` longtext collate latin1_general_ci default NOT NULL,
-  `datum` datetime collate latin1_general_ci default NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
-
-*/
                 //eind bericht opslaan in de databse
 
 

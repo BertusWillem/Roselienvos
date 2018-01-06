@@ -243,14 +243,15 @@
         }
 
         function contactgegeven($dbh, $page){
-              // div left eindigen na de while en beginnen met de div right voor afspraken maken.
-              $sth = $dbh->prepare("SELECT titel, inhoud, pagina_id FROM pagina WHERE pagina_id = 5");
-              $sth -> execute(array($page));
+          if ($page == "Contact"){
+          // div left eindigen na de while en beginnen met de div right voor afspraken maken.
+          $sth = $dbh->prepare("SELECT titel, inhoud, pagina_id FROM pagina WHERE pagina_id = 5");
+          $sth -> execute(array($page));
 
-              while($result = $sth->fetch(PDO::FETCH_ASSOC)){
-                echo ("<div class='right' id='afspraak'><h1>".$result['titel']."</h1> <table><tr><td><p>".$result['inhoud']."</p></td></tr> <tr><td><a href='afspraak.php'>Klik hier om een afspraak te maken</a></td></tr></table></div>");
-              }
-
+          while($result = $sth->fetch(PDO::FETCH_ASSOC)){
+            echo ("<div class='right' id='afspraak'><h1>".$result['titel']."</h1> <table><tr><td><p>".$result['inhoud']."</p></td></tr> <tr><td><a href='afspraak.php'>Klik hier om een afspraak te maken</a></td></tr></table></div>");
+          }
+        }
               $sth = $dbh->prepare("SELECT email, telnummer, adres FROM contactgegeven");
               $sth -> execute();
               $result = $sth->fetch(PDO::FETCH_ASSOC);
