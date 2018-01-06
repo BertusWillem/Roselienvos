@@ -128,7 +128,7 @@ $rows = $stmt->fetch();
       <div class="block" id="imageblock">
       <div class="image-view-container">
         <img src="'.$rows['afbeelding'].'" alt="Plaatje" />
-        <a href="includes/afbeeldingmedia.inc.php?uitvoering=verwijderen&&afbeelding='.$rows['afbeeldingid'].'"><div class="image-view">
+        <a onclick="return verwijderAlert()" href="includes/afbeeldingmedia.inc.php?uitvoering=verwijderen&&afbeelding='.$rows['afbeeldingid'].'"><div class="image-view">
           <p id="important">VERWIJDEREN!</p>
         </div></a>
         </div>
@@ -140,5 +140,20 @@ $rows = $stmt->fetch();
     </div>
   </section>
 </section>
+
+<!--code om een alertbox te tonen-->
+<script>
+function verwijderAlert(){
+  var del=confirm("Weet u zeker dat u dit wilt verwijderen?");
+  if (del==true){
+     alert ("Onderdeel is succesvol verwijderd!")
+  }
+  return del;
+}
+</script>
+
+<!--voeg dit aan het object toe waar je een alert wilt hebben staan.
+onclick="return verwijderAlert()" -->
+
 
 <?php include ('../footer.php');
