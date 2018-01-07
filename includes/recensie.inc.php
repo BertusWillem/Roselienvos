@@ -31,7 +31,7 @@ if (intval($responseKeys["success"]) !== 1) {
         $_SESSION['re_note'] = $_POST['toelichting'];
         //Er worden session variablelen aangemaakt zodat de velden op de recensie pagina automatisch weer ingevuld worden
       }
-      if (preg_match("/([%\$#\*\>\<]+)/", $title) || preg_match("/([%\$#\<\>\*]+)/", $author) || preg_match("/([%\$#\*]+)/", $note))
+      if (preg_match("/([%\$#\*\>\<]+)/", $title) || preg_match("/([%\$#\<\>\*]+)/", $author) || preg_match("/([%\$#\<\>\*]+)/", $note))
       {
         header("Location: ../recensies.php?message=character");
         $_SESSION['re_title'] = $_POST['titel'];
