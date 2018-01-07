@@ -16,7 +16,6 @@
         $response=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secretKey."&response=".$captcha."&remoteip=".$ip);
         $responseKeys = json_decode($response,true);
         if(intval($responseKeys["success"]) !== 1) {
-
           $_SESSION['fn'] = $_POST['reg_fn'];
           $_SESSION['ln'] = $_POST['reg_ln'];
           $_SESSION['email'] = $_POST['reg_un'];
@@ -101,6 +100,18 @@
     $_SESSION['woonpl'] = $_POST['reg_woonpl'];
   header("Location:../login.php?error=passwordstr");
   exit();
+  }
+
+  if (preg_match("/([%\$#\*\>\<]+)/", $firstname) || preg_match("/([%\$#\*\>\<]+)/", $lastname) || preg_match("/([%\$#\*\>\<]+)/", $adres) ||
+  preg_match("/([%\$#\*\>\<]+)/", $postcode) || preg_match("/([%\$#\*\>\<]+)/", $woonplaats)){
+    $_SESSION['fn'] = $_POST['reg_fn'];
+    $_SESSION['ln'] = $_POST['reg_ln'];
+    $_SESSION['email'] = $_POST['reg_un'];
+    $_SESSION['addr'] = $_POST['reg_addr'];
+    $_SESSION['pcode'] = $_POST['reg_pcode'];
+    $_SESSION['woonpl'] = $_POST['reg_woonpl'];
+    header("Location:../register.php?error=character");
+    exit();
   }
 
 else

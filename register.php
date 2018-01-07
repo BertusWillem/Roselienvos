@@ -33,6 +33,9 @@ if (isset($_SESSION['userid'])){
     if($_GET['error'] === "known"){
     print("<p style='color:red;'>- Dit email adres is al bij ons bekend");
     }
+    if($_GET['error'] === "character"){
+    print("<p style='color:red;'>- Er zitten ongeldige characters in de gegevens.");
+    }
     if($_GET['error'] === "captchaerror"){
     print("<p style='color:red;'>- De captcha is niet geldig voltooid, probeer het opnieuw.");
     }
@@ -53,7 +56,7 @@ if (isset($_SESSION['userid'])){
                                                 else{print("value='".$_SESSION['email']."'");}?>>
         <input type="password" name="reg_pw" placeholder="Wachtwoord">
         <input type="password" name="reg_confpw" placeholder="Bevestig wachtwoord">
-        
+
         <div class="g-recaptcha" data-sitekey="6LePlD0UAAAAABr32fFpeLtjEWkKfzXkFoUmHXhY"></div>
         <input type="submit" value="Aanmelden">
         <a href="login.php">Al wel een account? Inloggen!</a>
@@ -69,4 +72,3 @@ if (isset($_SESSION['userid'])){
 <?php
 
 include 'footer.php';
- 

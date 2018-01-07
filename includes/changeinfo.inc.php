@@ -9,6 +9,17 @@ $adres = $_POST['adres'];
 $postcode = $_POST['postcode'];
 $woonplaats = $_POST['woonplaats'];
 
+if (preg_match("/([%\$#\*\>\<]+)/", $firstname) || preg_match("/([%\$#\*\>\<]+)/", $lastname) || preg_match("/([%\$#\*\>\<]+)/", $adres) ||
+preg_match("/([%\$#\*\>\<]+)/", $postcode) || preg_match("/([%\$#\*\>\<]+)/", $woonplaats)){
+  $_SESSION['fn'] = $_POST['reg_fn'];
+  $_SESSION['ln'] = $_POST['reg_ln'];
+  $_SESSION['email'] = $_POST['reg_un'];
+  $_SESSION['addr'] = $_POST['reg_addr'];
+  $_SESSION['pcode'] = $_POST['reg_pcode'];
+  $_SESSION['woonpl'] = $_POST['reg_woonpl'];
+  header("Location:../changeinfo.php?error=character");
+  exit();
+}
 
 //De verschillende velden worden geupdate in de databba
 include 'dbh.php';
