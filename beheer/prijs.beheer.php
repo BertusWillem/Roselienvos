@@ -4,11 +4,11 @@ $page = "prijsbeheer";
 include 'header.beheer.php';
 include "../includes/dbh.php";
 
-if (isset($_GET["verstuur"])){
+if (isset($_GET["verstuur"]) || isset($_GET["newline"])){
   $sth = $dbh ->prepare("SELECT prijs_id FROM prijs");
   $sth -> execute(array());
       while ($result = $sth ->fetch(PDO::FETCH_ASSOC)){
-
+        print("save");
 
           $sth2 = $dbh ->prepare("UPDATE prijs SET prijs = :prijs WHERE prijs_id = :prijsid");
           $sth2 -> execute(array(':prijs' => $_GET[$result['prijs_id']], ':prijsid' => $result['prijs_id']));
@@ -18,8 +18,11 @@ if (isset($_GET["verstuur"])){
           $sth2 = $dbh ->prepare("UPDATE prijs SET prijsnaam = :titel WHERE prijs_id = :prijsid");
           $sth2 -> execute(array(':titel' => utf8_decode($_GET['titel-'.$result["prijs_id"]]), ':prijsid' => $result['prijs_id']));
           $sth2 ->fetch(PDO::FETCH_ASSOC);
+          if (isset($_GET["newline"])){
+            header ("Location: prijs.inc.php?newline=true");
+          }else{
           header ("Location: prijs.beheer.php");
-
+}
       }
     }
 
@@ -60,10 +63,11 @@ while($result2 = $sth2 ->fetch(PDO::FETCH_ASSOC)){ //voor elke behandeling moete
       echo("<form>");
       while ($result = $sth ->fetch(PDO::FETCH_ASSOC)){
 
-          echo ("<tr><td><input type=text name='titel-".$result["prijs_id"]."' value='".utf8_encode($result['prijsnaam'])."' </br></td><td><input type=text name='" . $result["prijs_id"] ."' value='" . $result["prijs"] ."'><a style='color: White!important; margin: 5px; padding: 5px;' id='fout' href=includes/prijs.inc.php?id=".$result["prijs_id"]."&type=verwijderen>Verwijderen</a></td></tr>");
+          echo ("<tr><td><input type=text name='titel-".$result["prijs_id"]."' value='".utf8_encode($result['prijsnaam'])."' </br></td><td><input type=text name='" . $result["prijs_id"] ."' value='" . $result["prijs"] ."'><a style='color: White!important; margin: 5px; padding: 5px;' id='fout' href=prijs.inc.php?id=".$result["prijs_id"]."&type=verwijderen>Verwijderen</a></td></tr>");
 
       }
-        echo ("<tr class='nopadding'></tr></table></div></div>");
+
+          echo ("<tr class='nopadding'></tr></table></div></div>");
 
 
 
@@ -74,8 +78,11 @@ while($result2 = $sth2 ->fetch(PDO::FETCH_ASSOC)){ //voor elke behandeling moete
 ?>
 
 </br>
-
-      <div id=box><div class="submit"><input type=submit name=verstuur value=opslaan></div></div>
+          <div id=box>
+        <input type=submit name=newline value="nieuwe regels toevoegen"></div>
+      </br>
+      <div id=box>
+      <input type=submit name=verstuur value=opslaan></div>
     </form>
   </section>
 </section>

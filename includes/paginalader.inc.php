@@ -113,7 +113,7 @@
                   echo ("<div class='right' id='afspraak'><h1>".$result['titel']."</h1> <table><tr><td><p>".$result['inhoud']."</p></td></tr> <tr><td><a href='afspraak.php'>Klik hier om een afspraak te maken</a></td></tr></table></div>");
                 }
 
-                $sth2 = $dbh ->prepare("SELECT behandeling_id FROM behandeling");
+                $sth2 = $dbh ->prepare("SELECT behandeling_id FROM behandeling WHERE done = 1");
                 $sth2 -> execute(array());
                 while($result2 = $sth2 ->fetch(PDO::FETCH_ASSOC)){
 
