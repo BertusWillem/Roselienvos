@@ -84,7 +84,7 @@
 										$sth -> execute(array($page));
 
 										while($result = $sth->fetch(PDO::FETCH_ASSOC)){
-											echo ("<div class='right' id='afspraak'><h1>".$result['titel']."</h1> <table><tr><td><p>".$result['inhoud']."</p></td></tr> <tr><td><a href='afspraak.php'>Klik hier om een afspraak te maken</a></td></tr></table></div>");
+											echo ("<div class='right' id='afspraak'><h1>".$result['titel']."</h1> <table><tr><td><p>".$result['inhoud']."</p></td></tr> <tr><td><a href='contact.php'>Klik hier om een afspraak te maken</a></td></tr></table></div>");
 										}
 
                     $sth = $dbh ->prepare("SELECT prijsnaam, prijs, omschrijving FROM prijs WHERE behandeling_id = ? ");    // De prijstabel inhoud word opgehaald.
@@ -110,7 +110,7 @@
                 $sth -> execute(array($page));
 
                 while($result = $sth->fetch(PDO::FETCH_ASSOC)){
-                  echo ("<div class='right' id='afspraak'><h1>".$result['titel']."</h1> <table><tr><td><p>".$result['inhoud']."</p></td></tr> <tr><td><a href='afspraak.php'>Klik hier om een afspraak te maken</a></td></tr></table></div>");
+                  echo ("<div class='right' id='afspraak'><h1>".$result['titel']."</h1> <table><tr><td><p>".$result['inhoud']."</p></td></tr> <tr><td><a href='contact.php'>Klik hier om een afspraak te maken</a></td></tr></table></div>");
                 }
 
                 $sth2 = $dbh ->prepare("SELECT behandeling_id FROM behandeling WHERE done = 1");
@@ -147,7 +147,7 @@
 								$sth -> execute(array($page));
 
 								while($result = $sth->fetch(PDO::FETCH_ASSOC)){
-									echo ("<div class='right' id='afspraak'><h1>".$result['titel']."</h1> <table><tr><td><p>".$result['inhoud']."</p></td></tr> <tr><td><a href='afspraak.php'>Klik hier om een afspraak te maken</a></td></tr></table></div>");
+									echo ("<div class='right' id='afspraak'><h1>".$result['titel']."</h1> <table><tr><td><p>".$result['inhoud']."</p></td></tr> <tr><td><a href='contact.php'>Klik hier om een afspraak te maken</a></td></tr></table></div>");
 								}
 
 								// hier worden de behandelingen geladen.
@@ -171,7 +171,7 @@
 								$sth -> execute(array($page));
 
 								while($result = $sth->fetch(PDO::FETCH_ASSOC)){
-									echo ("<div class='right' id='afspraak'><h1>".$result['titel']."</h1> <table><tr><td><p>".$result['inhoud']."</p></td></tr> <tr><td><a href='afspraak.php'>Klik hier om een afspraak te maken</a></td></tr></table></div>");
+									echo ("<div class='right' id='afspraak'><h1>".$result['titel']."</h1> <table><tr><td><p>".$result['inhoud']."</p></td></tr> <tr><td><a href='contact.php'>Klik hier om een afspraak te maken</a></td></tr></table></div>");
 								}
 
                 $sth = $dbh->prepare("SELECT afbeelding, titel, inhoud FROM nieuws WHERE nieuws_id = :nieuwsitem"); //de afbeelding, titel en inhoud wordt uit de datbase opgevraagd, voor het gerelateerde nieuwsitem
@@ -216,7 +216,7 @@
 								$sth -> execute(array($page));
 
 								while($result = $sth->fetch(PDO::FETCH_ASSOC)){
-									echo ("<div class='right' id='afspraak'><h1>".$result['titel']."</h1> <table><tr><td><p>".$result['inhoud']."</p></td></tr> <tr><td><a href='afspraak.php'>Klik hier om een afspraak te maken</a></td></tr></table></div>");
+									echo ("<div class='right' id='afspraak'><h1>".$result['titel']."</h1> <table><tr><td><p>".$result['inhoud']."</p></td></tr> <tr><td><a href='contact.php'>Klik hier om een afspraak te maken</a></td></tr></table></div>");
 								}
 
                 $stmt = $dbh->prepare("SELECT * FROM nieuws n LEFT JOIN afbeelding a ON n.afbeelding=a.afbeeldingid WHERE n.done = 1"); // als nieuwsitem gepubliceerd is dan word
@@ -248,9 +248,9 @@
           $sth = $dbh->prepare("SELECT titel, inhoud, pagina_id FROM pagina WHERE pagina_id = 5");
           $sth -> execute(array($page));
 
-          while($result = $sth->fetch(PDO::FETCH_ASSOC)){
-            echo ("<div class='right' id='afspraak'><h1>".$result['titel']."</h1> <table><tr><td><p>".$result['inhoud']."</p></td></tr> <tr><td><a href='afspraak.php'>Klik hier om een afspraak te maken</a></td></tr></table></div>");
-          }
+          //while($result = $sth->fetch(PDO::FETCH_ASSOC)){
+            //echo ("<div class='right' id='afspraak'><h1>".$result['titel']."</h1> <table><tr><td><p>".$result['inhoud']."</p></td></tr> <tr><td><a href='contact.php'>Klik hier om een afspraak te maken</a></td></tr></table></div>");
+          //}
         }
               $sth = $dbh->prepare("SELECT email, telnummer, adres FROM contactgegeven");
               $sth -> execute();

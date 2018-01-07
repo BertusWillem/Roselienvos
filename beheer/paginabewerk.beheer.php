@@ -83,7 +83,7 @@ elseif ($tabel == 'pagina'){
 		// tekst veld de values worden uit de database gehaald.
 		print('
       <h1 style="margin-bottom: 25px;">Text</h1>
-      <form id="box" action="includes/updatepagina.inc.php?tabel='.$tabel.'&&pagina='.$pagina.')?>" method="POST">
+      <form id="box" action="includes/updatepagina.inc.php?tabel='.$tabel.'&&pagina='.$pagina.'" method="POST">
         <input type="text" name="titel" value="'.$rows['titel'].'">
         <textarea style="margin-bottom: 0;" rows="20" cols="50" name="inhoud">'.$rows['inhoud'].'</textarea>
         <div class="input-window" id="box"><input type="submit" value="Wijzigen"></div>

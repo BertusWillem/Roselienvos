@@ -28,7 +28,7 @@
               }?>
               <li><a href="index.php">Over mij</a></li>
               <li><a href="prijzen.php">Prijslijst</a></li>
-              <li><a href="afspraak.php">Afspraak maken</a></li>
+              <!-- <li><a href="afspraak.php">Afspraak maken</a></li> -->
               <li><a href="behandeling.php">Behandelingen</a></li>
               <li><a href="nieuws.php">Nieuws</a></li>
               <li><a href="recensies.php">Recensies</a></li>
@@ -70,7 +70,7 @@
       <li><?php if ($page == "Prijzen") {print("<img src=\"image/selection.png\">");} ?><a href="prijzen.php">Prijslijst</a></li>
       <li><?php if ($page == "Behandelingen") {print("<img src=\"image/selection.png\">");} ?><a href="behandeling.php">Behandelingen</a></li>
       <li><?php if ($page == "Nieuws") {print("<img src=\"image/selection.png\">");} ?><a href="nieuws.php">Nieuws</a></li>
-      <li><?php if ($page == "Afspraak maken") {print("<img src=\"image/selection.png\">");} ?><a href="afspraak.php">Afspraak maken</a></li>
+      <!-- <li> <?php/* if ($page == "Afspraak maken") {print("<img src=\"image/selection.png\">");} */?><a href="afspraak.php">Afspraak maken</a></li> -->
       <li><?php if ($page == "Contact") {print("<img src=\"image/selection.png\">");} ?><a href="contact.php">Contact</a></li>
       <li class="last"><?php if ($page == "Recensies") {print("<img src=\"image/selection.png\">");} ?><a href="recensies.php">Recensies</a></li>
     </ul>
