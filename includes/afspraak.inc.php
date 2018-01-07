@@ -8,11 +8,11 @@ $datum = $jaar . "-" . $maand . "-" . $dag;
 $sth = $dbh->prepare("SELECT tijd FROM afspraak WHERE datum = ?"); //De tekst en behandeltitel voor de behandeling pagina wordt opgevraagd.
 $sth -> execute(array($datum));
 
-while ($result = $sth->fetch(PDO::FETCH_ASSOC)){
+$result = $sth->fetch(PDO::FETCH_ASSOC);
 
-    print_r($result);
+    
 
-}
+
 
 function tijdprint() {
   $opmaak = function ($time) {
@@ -30,7 +30,7 @@ function tijdprint() {
 }
 
 $tijden = tijdprint();
-
+$count = 0;
 
 
 foreach ($tijden as $index => $tijd) {
@@ -42,9 +42,15 @@ else {
 }
 
 
-
-  print($tijd . " ");
+if(is_array($result) && (in_array($tijd, $result) || $count != 0)){
+  $count++;
+  if ($count == 3){
+    $count = 0;
+  }
 }
-
+  else{
+    print($tijd . "</br>");
+  }
+}
 
  ?>

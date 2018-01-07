@@ -31,7 +31,7 @@ $mail->Body    = $mailcontent;
 
 if(!$mail->send()) { //is de mail NIET verzonden?
     print ("<script type='text/javascript'>alert('Er is een fout opgetreden. probeer het later opnieuw')</script>");
-    echo 'Mailer Error: ' . $mail->ErrorInfo; //Debug bij een fout
+    
 } else {
     print ("<script type='text/javascript'>alert('Bericht succesvol verstuurd!')</script>");
 }

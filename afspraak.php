@@ -3,10 +3,10 @@ session_start();
 $page = "Afspraak maken";
 include 'header.php';
 include 'includes/dbh.php';
-include 'calCalender.php';
+//include 'calCalender.php';
 ?>
 <body>
-    <p> <?php  ?> </p
+    <p> <?php  ?> </p>
 <button onclick="offset = prevmonth(offset);   calendar(offset);">Vorige maand</button>
 <button onclick="offset = nextmonth(offset);   calendar(offset);">Volgende maand</button>
 <div id="calendar">
