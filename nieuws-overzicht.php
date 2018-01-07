@@ -7,8 +7,8 @@ include ('includes/paginalader.inc.php');
     <!--body-->
     <section class="body-container">
       <section class="container">
-        
-          <?php inhoudCall($dbh, $page); ?>
+
+          <?php inhoudCall($dbh, $page);  ?> 
 
       </section>
     </section>

@@ -7,7 +7,7 @@ include 'includes/dbh.php';
 ?>
 <body>
     <p> <?php  ?> </p>
-<button onclick="offset = prevmonth(offset);   calendar(offset);">Vorige maand</button>
+<button onclick="offset = prevmonth(offset);   calendar(offset);">Vorige maand</button> <!-- maak 2 knoppen om maanden te veranderen en de kalender opnieuw te printen in deze maand-->
 <button onclick="offset = nextmonth(offset);   calendar(offset);">Volgende maand</button>
 <div id="calendar">
 
@@ -20,8 +20,8 @@ include 'includes/dbh.php';
 var offset = 0;
 
 
-function prevmonth(offset){
-if(offset != 0){
+function prevmonth(offset){ //verander de offset met 1 als er op de knop wordt geklikt
+if(offset != 0){ //zorg ervoor dat je niet naar het verleden kan
   offset = offset -1;
   return(offset);
 }
@@ -30,7 +30,7 @@ else{
   return(offset);
 }
 }
-function nextmonth(offset){
+function nextmonth(offset){ //verander de offset met 1 als er op de knop wordt geklikt
 
   offset = offset +1;
   return(offset);
@@ -67,12 +67,12 @@ function calendar(offset){
             ajaxRequest.onreadystatechange = function() {
 
                          if(ajaxRequest.readyState == 4) {
-                            var ajaxDisplay = document.getElementById('calendar');
+                            var ajaxDisplay = document.getElementById('calendar'); //print de nieuwe kalender op de pagina
                             ajaxDisplay.innerHTML = ajaxRequest.responseText;
                          }
                       }
 
-          ajaxRequest.open("GET", "includes/calender.php?offset="+offset, true);
+          ajaxRequest.open("GET", "includes/calender.php?offset="+offset, true); //roep het php script aan wat de kalender print, geef een eventuele maand offset mee
           ajaxRequest.send(null);
                    }
 
@@ -96,7 +96,7 @@ function calendar(offset){
 
 
 
-
+/*
 function selectday(dag, maand, jaar){
 
             var ajaxRequest;  //Maak een lege variabele aan voor het gebruik van ajax
@@ -135,7 +135,7 @@ function selectday(dag, maand, jaar){
 
 
 
-
+*/
 
   </script>
 </body>

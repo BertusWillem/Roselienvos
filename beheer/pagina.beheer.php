@@ -107,8 +107,8 @@ $stmt->execute();
                             ajaxDisplay.innerHTML = ajaxRequest.responseText;
                          }
                       }
-          console.log("GET", "includes/checked.php?checkChecked=" + checkChecked + "&&tabel="+tabel+"&&tabelid="+tabelid)
-          ajaxRequest.open("GET", "includes/checked.php?checkChecked=" + checkChecked + "&&tabel="+tabel+"&&tabelid="+tabelid);
+
+          ajaxRequest.open("GET", "includes/checked.php?checkChecked=" + checkChecked + "&&tabel="+tabel+"&&tabelid="+tabelid); //open het script checked.php via javascript op de achtergrond en stuur de waardes mee.
           ajaxRequest.send(null);
                    }
 
