@@ -7,6 +7,8 @@ $rate = $_POST['rate'];
 $note = $_POST['toelichting'];
 $date = date("Y/m/d");
 include 'dbh.php';
+
+//De code hieronder heeft te maken met de Google captcha.
 $captcha = $_POST['g-recaptcha-response'];
 $secretKey = "6LePlD0UAAAAAMH3WciNNhYFiil6S-WpD3A2o0qk";
 $ip = $_SERVER['REMOTE_ADDR'];
@@ -18,20 +20,37 @@ if (intval($responseKeys["success"]) !== 1) {
     $_SESSION['re_name'] = $_POST['autheur'];
     $_SESSION['re_rate'] = $_POST['rate'];
     $_SESSION['re_note'] = $_POST['toelichting'];
-} else {
-    if (empty($title) || empty($author) || empty($rate) || empty($note)) {
+    //Er worden session variablelen aangemaakt zodat de velden op de recensie pagina automatisch weer ingevuld worden
+}else{
+  if (empty($title) || empty($author) || empty($rate) || empty($note))
+      {
         header("Location: ../recensies.php?message=empty");
         $_SESSION['re_title'] = $_POST['titel'];
         $_SESSION['re_name'] = $_POST['autheur'];
         $_SESSION['re_rate'] = $_POST['rate'];
         $_SESSION['re_note'] = $_POST['toelichting'];
-    } else {
+        //Er worden session variablelen aangemaakt zodat de velden op de recensie pagina automatisch weer ingevuld worden
+      }
+      if (preg_match("/([%\$#\*\>\<]+)/", $title) || preg_match("/([%\$#\<\>\*]+)/", $author) || preg_match("/([%\$#\*]+)/", $note))
+      {
+        header("Location: ../recensies.php?message=character");
+        $_SESSION['re_title'] = $_POST['titel'];
+        $_SESSION['re_name'] = $_POST['autheur'];
+        $_SESSION['re_rate'] = $_POST['rate'];
+        $_SESSION['re_note'] = $_POST['toelichting'];
+        //Er worden session variablelen aangemaakt zodat de velden op de recensie pagina automatisch weer ingevuld worden
 
-        $stmt = $dbh->prepare("INSERT INTO recensie (titel, autheur, rate, toelichting, datum)
-                       VALUES (:title, :author, :rate, :note, :date);");
-        $stmt->execute(array(':title' => $title, ':author' => $author,
-            ':rate' => $rate, ':note' => $note, ':date' => $date));
+      } else {
 
-        header("Location: ../recensies.php?message=succes");
+    $stmt = $dbh->prepare("INSERT INTO recensie (titel, autheur, rate, toelichting, datum)
+                           VALUES (:title, :author, :rate, :note, :date);");
+    $stmt->execute(array(':title' => $title, ':author' => $author,
+                          ':rate' => $rate, ':note' => $note, ':date' => $date));
+    unset($_SESSION['re_title']);
+    unset($_SESSION['re_name']);
+    unset($_SESSION['re_rate']);
+    unset($_SESSION['re_note']);
+    //Alle session variabelen worden geunset zodat de form weer leeg is.
+    header("Location: ../recensies.php?message=succes");
     }
 }

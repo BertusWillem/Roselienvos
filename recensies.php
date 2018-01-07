@@ -38,6 +38,9 @@ include 'header.php';
                         print("value='".$_SESSION['re_name']."'>");
                     }
                     }
+                    else {
+                      print("value='".$_SESSION['firstname']."'>");
+                    }
 
                     ?>
 
