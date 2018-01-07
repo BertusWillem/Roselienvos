@@ -63,7 +63,7 @@ while($result2 = $sth2 ->fetch(PDO::FETCH_ASSOC)){ //voor elke behandeling moete
       echo("<form>");
       while ($result = $sth ->fetch(PDO::FETCH_ASSOC)){
 
-          echo ("<tr><td><input type=text name='titel-".$result["prijs_id"]."' value='".utf8_encode($result['prijsnaam'])."' </br></td><td><input type=text name='" . $result["prijs_id"] ."' value='" . $result["prijs"] ."'><a style='color: White!important; margin: 5px; padding: 5px;' id='fout' href=prijs.inc.php?id=".$result["prijs_id"]."&type=verwijderen>Verwijderen</a></td></tr>");
+          echo ("<tr><td><input type=text name='titel-".$result["prijs_id"]."' value='".utf8_encode($result['prijsnaam'])."' </br></td><td><input style='width: 75%!important;' type=text name='" . $result["prijs_id"] ."' value='" . $result["prijs"] ."'><a style='color: White!important; margin: 5px; padding: 5px;' id='fout' href=prijs.inc.php?id=".$result["prijs_id"]."&type=verwijderen>Verwijderen</a></td></tr>");
 
       }
 
