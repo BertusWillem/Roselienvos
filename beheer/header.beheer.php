@@ -33,7 +33,7 @@ if ($_SESSION['role'] !== "1"){
                 }
               }?>
               <li><a href="index.php">over mij</a></li>
-              <li><a href="afspraak.php">Afspraak maken</a></li>
+              
               <li><a href="behandeling.php">Behandelingen</a></li>
               <li><a href="nieuws.php">Nieuws</a></li>
               <li><a href="recensies.php">Recensies</a></li>

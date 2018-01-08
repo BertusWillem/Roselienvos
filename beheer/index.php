@@ -45,15 +45,7 @@ include 'header.beheer.php';
         </div>
       </div></a>
 
-      <!--Afspraak blok-->
-      <a href="afspraak.beheer.php"><div class="block">
-        <div class="image-view-container">
-        <h2>Afspraak</h2>
-          <div class="image-view">
-            <p>Klik hier om uw agenda te bekijken, of om de beschikbare uren te wijzigen.</p>
-          </div>
-        </div>
-      </div></a>
+      
 
       <!--Behandeling blok-->
       <a href=pagina.beheer.php?benaming=Behandeling&&tabel=behandeling><div class="block">
