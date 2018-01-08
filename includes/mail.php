@@ -11,8 +11,8 @@ $mail = new PHPMailer;
 $mail->isSMTP();
 $mail->Host = 'mail.kevinthegamer.nl';
 $mail->SMTPAuth = true;
-$mail->Username = 'kbs@kevinthegamer.nl';
-$mail->Password = 'kbsvos2017!';
+$mail->Username = 'kbs2@kevinthegamer.nl';
+$mail->Password = 'kbsvos2018!';
 $mail->SMTPSecure = 'TLS';
 $mail->Port = 587;
 
@@ -25,13 +25,13 @@ $mail->isHTML(true);
 
 $mail->Subject = $mailsubject;
 $mail->Body    = $mailcontent;
-//$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
 
 
 
 if(!$mail->send()) { //is de mail NIET verzonden?
     print ("<script type='text/javascript'>alert('Er is een fout opgetreden. probeer het later opnieuw')</script>");
-    
+
 } else {
     print ("<script type='text/javascript'>alert('Bericht succesvol verstuurd!')</script>");
 }
