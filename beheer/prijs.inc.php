@@ -38,7 +38,7 @@ if(isset($_GET["newline"])){ //moeten er nieuwe regels in de database worden ges
       $number++;
     }
 
-    echo('<input type=hidden name=newline value='.($_GET["newline"]).'
+    echo('<input type=hidden name=newline value='.($_GET["newline"]).'>
     <input type=submit value=opslaan name=versturen></form>'); //stuur een verborgen waarde mee als er op opslaan wordt geklikt
 }}else{
 
