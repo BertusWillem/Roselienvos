@@ -29,7 +29,7 @@ include '../includes/dbh.php';
         <div class="recensie-container">
     				<?php
     					//selecteer alle reacties met id, naam, email, inhoud en datum van de auteur
-    					$query = 	"SELECT id, naam, email, inhoud, datum FROM contactformulier ORDER BY datum desc";
+    					$query = 	"SELECT * FROM contactformulier ORDER BY datum desc";
     					$result = $dbh->query($query);
     					while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                 // De opgevraagde informatie uit de databse wordt uitgeprint in een html tabel
