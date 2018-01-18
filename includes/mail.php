@@ -9,15 +9,15 @@ $mail = new PHPMailer;
 
 //Maakt verbinden met de smtp server
 $mail->isSMTP();
-$mail->Host = 'mail.kevinthegamer.nl';
+$mail->Host = 'smtp.strato.com';
 $mail->SMTPAuth = true;
-$mail->Username = 'kbs2@kevinthegamer.nl';
-$mail->Password = 'kbsvos2018!';
-$mail->SMTPSecure = 'TLS';
-$mail->Port = 587;
+$mail->Username = 'kbs@xmusic.live';
+$mail->Password = 'Roselienvoskbs22';
+$mail->SMTPSecure = 'SSL';
+$mail->Port = 465;
 
 
-$mail->setFrom('noReply@pedicureroselien.nl', 'Roselien Vos'); //stelt de naam van de verstuurder in
+$mail->setFrom('noReply@pedicureroselien.nl', 'Roselixmusic.liveen Vos'); //stelt de naam van de verstuurder in
 $mail->addAddress($mailreceiver);     // voegt een ontvanger toe
 
 
